@@ -132,7 +132,7 @@ onUnmounted(() => {
   left: 0;
   right: 0;
   z-index: 50;
-  height: 72px;
+  height: 88px;
   background: rgba(10, 14, 26, 0.6);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -173,7 +173,7 @@ onUnmounted(() => {
 }
 
 .logo-image {
-  height: 40px;
+  height: 52px;
   width: auto;
   transition: transform 0.3s ease;
 }
@@ -184,10 +184,10 @@ onUnmounted(() => {
 
 .logo-text {
   font-family: var(--font-display-jp);
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 600;
   color: var(--color-star-white);
-  letter-spacing: 2px;
+  letter-spacing: 3px;
 }
 
 /* Desktop Navigation */
@@ -255,7 +255,7 @@ onUnmounted(() => {
 /* Mobile Menu Overlay */
 .mobile-menu-overlay {
   position: fixed;
-  inset: 72px 0 0 0;
+  inset: 88px 0 0 0;
   background: rgba(10, 14, 26, 0.95);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -325,11 +325,11 @@ onUnmounted(() => {
   }
 
   .logo-text {
-    font-size: 16px;
+    font-size: 20px;
   }
 
   .logo-image {
-    height: 32px;
+    height: 42px;
   }
 }
 </style>

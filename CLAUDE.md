@@ -73,6 +73,13 @@ ESLint uses flat config (`eslint.config.ts`) with:
 使用 sequential-thinking 來規劃。
 使用 context7 來查詢相關或所需套件的最薪資訊。
 
+### Git Commit 規則（必須）
+
+- **每完成一個功能/任務，必須立即 commit**
+- Commit message 格式：`<type>: <description>`
+- Type 類型：`feat`, `fix`, `refactor`, `style`, `docs`, `test`, `chore`
+- 不要累積多個功能才 commit，保持 commit 粒度細且有意義
+
 前端使用的是：Vue 3 + Tailwind CSS 4
 請務必先理解 Vue 3 跟 Tailwind CSS 4 的規格與新的內容。
 

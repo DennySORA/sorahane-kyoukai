@@ -32,8 +32,10 @@ interface Particle {
 
 const canvasRef = ref<HTMLCanvasElement | null>(null)
 
+const defaultColor: RgbColor = { r: 248, g: 250, b: 252 }
+
 const palette: RgbColor[] = [
-  { r: 248, g: 250, b: 252 },
+  defaultColor,
   { r: 226, g: 232, b: 240 },
   { r: 129, g: 140, b: 248 },
   { r: 245, g: 197, b: 66 }
@@ -69,7 +71,7 @@ function buildParticle(): Particle {
     twinkle: Math.random() * Math.PI * 2,
     parallax: 0.2 + Math.random() * 0.8,
     streak: Math.random() < 0.18,
-    color: palette[Math.floor(Math.random() * palette.length)]
+    color: palette[Math.floor(Math.random() * palette.length)] ?? defaultColor
   }
 }
 

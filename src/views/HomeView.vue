@@ -13,7 +13,7 @@ const { progress } = useScrollProgress()
 let rafId: number | null = null
 
 function updateScrollState(): void {
-  scrollStore.setScrollProgress(progress.value)
+  scrollStore.setScrollProgress(progress.value ?? 0)
   rafId = requestAnimationFrame(updateScrollState)
 }
 

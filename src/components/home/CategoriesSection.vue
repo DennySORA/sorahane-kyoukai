@@ -66,7 +66,7 @@ function handleMouseLeave(): void {
       class="magic-circle"
       :class="{ 'is-energized': isHovering, 'is-focused': activeIndex !== null }"
       :style="{
-        '--active-angle': activeIndex !== null ? `${orbPositions[activeIndex].angle}deg` : '0deg',
+        '--active-angle': activeIndex !== null ? `${orbPositions[activeIndex]?.angle ?? 0}deg` : '0deg',
         '--focus-accent': activeAccent
       }"
       @mouseenter="handleMouseEnter"
@@ -102,8 +102,8 @@ function handleMouseLeave(): void {
           :to="category.href"
           class="category-orb"
           :style="{
-            '--orbit-angle': `${orbPositions[index].angle}deg`,
-            '--animation-delay': `${orbPositions[index].delay}ms`,
+            '--orbit-angle': `${orbPositions[index]?.angle ?? 0}deg`,
+            '--animation-delay': `${orbPositions[index]?.delay ?? 0}ms`,
             '--orb-accent': category.accent
           }"
           @mouseenter="activeIndex = index"

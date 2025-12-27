@@ -62,8 +62,15 @@ const categorySlug = computed(() => {
   return path || 'galgame'
 })
 
-const category = computed(() => {
-  return categoryMap[categorySlug.value] || categoryMap.galgame
+const defaultCategory: CategoryInfo = {
+  title: 'Galgame',
+  subtitle: 'Visual Novel Adventures',
+  description: '探索視覺小說的世界，分享遊戲心得與推薦',
+  icon: 'G'
+}
+
+const category = computed((): CategoryInfo => {
+  return categoryMap[categorySlug.value] ?? defaultCategory
 })
 </script>
 

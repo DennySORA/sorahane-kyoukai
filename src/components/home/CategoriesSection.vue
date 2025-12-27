@@ -39,6 +39,13 @@ const orbPositions = computed(() => {
   }))
 })
 
+const activeAccent = computed(() => {
+  if (activeIndex.value === null) {
+    return '245, 197, 66'
+  }
+  return categories[activeIndex.value]?.accent ?? '245, 197, 66'
+})
+
 function handleMouseEnter(): void {
   isHovering.value = true
 }
@@ -59,7 +66,8 @@ function handleMouseLeave(): void {
       class="magic-circle"
       :class="{ 'is-energized': isHovering, 'is-focused': activeIndex !== null }"
       :style="{
-        '--active-angle': activeIndex !== null ? `${orbPositions[activeIndex].angle}deg` : '0deg'
+        '--active-angle': activeIndex !== null ? `${orbPositions[activeIndex].angle}deg` : '0deg',
+        '--focus-accent': activeAccent
       }"
       @mouseenter="handleMouseEnter"
       @mouseleave="handleMouseLeave"
@@ -83,7 +91,11 @@ function handleMouseLeave(): void {
 
       <div class="sigil-marker" aria-hidden="true"></div>
 
-      <div v-if="showContent" class="orbs-track">
+      <div
+        v-if="showContent"
+        class="orbs-track"
+        :class="{ 'is-paused': isHovering || activeIndex !== null }"
+      >
         <router-link
           v-for="(category, index) in categories"
           :key="category.href"
@@ -138,6 +150,7 @@ function handleMouseLeave(): void {
   justify-content: center;
   --ring-warm: 245, 197, 66;
   --ring-cool: 129, 140, 248;
+  --focus-accent: var(--ring-warm);
   --orbit-speed: 46s;
   --outer-spin: 140s;
   --middle-spin: 90s;
@@ -182,6 +195,13 @@ function handleMouseLeave(): void {
   opacity: 1;
 }
 
+.magic-circle.is-focused .sigil-core {
+  box-shadow:
+    0 0 45px rgba(var(--focus-accent), 0.35),
+    0 0 90px rgba(var(--focus-accent), 0.2);
+  border-color: rgba(var(--focus-accent), 0.45);
+}
+
 /* Ambient Glow */
 .magic-glow {
   position: absolute;
@@ -213,6 +233,13 @@ function handleMouseLeave(): void {
     0 0 30px rgba(var(--ring-warm), 0.15),
     inset 0 0 30px rgba(var(--ring-cool), 0.1);
   animation: ring-spin var(--outer-spin) linear infinite;
+}
+
+.magic-circle.is-focused .ring-outer {
+  border-color: rgba(var(--focus-accent), 0.4);
+  box-shadow:
+    0 0 35px rgba(var(--focus-accent), 0.25),
+    inset 0 0 35px rgba(var(--focus-accent), 0.15);
 }
 
 .ring-outer::after {
@@ -355,11 +382,11 @@ function handleMouseLeave(): void {
   transform-origin: center;
   background: radial-gradient(
     circle,
-    rgba(var(--ring-warm), 0.9) 0%,
-    rgba(var(--ring-warm), 0.2) 60%,
+    rgba(var(--focus-accent), 0.95) 0%,
+    rgba(var(--focus-accent), 0.35) 60%,
     transparent 70%
   );
-  box-shadow: 0 0 14px rgba(var(--ring-warm), 0.6);
+  box-shadow: 0 0 18px rgba(var(--focus-accent), 0.6);
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -370,6 +397,10 @@ function handleMouseLeave(): void {
   width: 100%;
   height: 100%;
   animation: orbit-spin var(--orbit-speed) linear infinite;
+}
+
+.orbs-track.is-paused {
+  animation-play-state: paused;
 }
 
 @keyframes orbit-spin {
@@ -395,9 +426,20 @@ function handleMouseLeave(): void {
   text-decoration: none;
 }
 
+.category-orb::before {
+  content: '';
+  position: absolute;
+  inset: -14px;
+  border-radius: 50%;
+}
+
 /* Counter-rotate orb content to keep text upright */
 .orbs-track .category-orb .orb-inner {
   animation: counter-rotate var(--orbit-speed) linear infinite;
+}
+
+.orbs-track.is-paused .category-orb .orb-inner {
+  animation-play-state: paused;
 }
 
 @keyframes counter-rotate {

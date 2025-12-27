@@ -41,6 +41,7 @@ const socialLinks = [
     <div class="profile-content">
       <Transition name="scale">
         <div v-if="showLogo" class="logo-wrapper">
+          <div class="logo-halo"></div>
           <img
             src="/images/personal_logo.png"
             alt="DennySORA"
@@ -96,13 +97,55 @@ const socialLinks = [
 }
 
 .logo-wrapper {
-  width: 200px;
+  position: relative;
+  width: clamp(200px, 30vw, 260px);
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-items: center;
+  transition: transform 0.3s var(--ease-out-back);
+}
+
+.logo-halo {
+  position: absolute;
+  inset: -18px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(245, 197, 66, 0.35) 0%,
+    rgba(67, 56, 202, 0.2) 45%,
+    transparent 70%
+  );
+  filter: blur(6px);
+  opacity: 0.8;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .personal-logo {
   width: 100%;
-  height: auto;
-  filter: drop-shadow(0 0 20px rgba(245, 197, 66, 0.3));
+  height: 100%;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 0 16px rgba(245, 197, 66, 0.25))
+    drop-shadow(0 0 30px rgba(67, 56, 202, 0.2));
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+@media (hover: hover) {
+  .logo-wrapper:hover {
+    transform: translateY(-4px);
+  }
+
+  .logo-wrapper:hover .logo-halo {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+
+  .logo-wrapper:hover .personal-logo {
+    transform: scale(1.04);
+    filter:
+      drop-shadow(0 0 22px rgba(245, 197, 66, 0.4))
+      drop-shadow(0 0 40px rgba(67, 56, 202, 0.3));
+  }
 }
 
 .name {

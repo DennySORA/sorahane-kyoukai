@@ -215,53 +215,74 @@ onUnmounted(() => {
 
 .logo-orb {
   position: relative;
-  width: 76px;
-  height: 76px;
-  border-radius: 999px;
+  width: 88px;
+  height: 88px;
+  border-radius: 16px;
   display: grid;
   place-items: center;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  transition: transform 0.3s var(--ease-out-back);
+}
+
+.logo-orb::before {
+  content: '';
+  position: absolute;
+  inset: -18px;
+  border-radius: 999px;
   background: radial-gradient(
-    circle at 30% 30%,
+    circle,
     rgba(245, 197, 66, 0.35) 0%,
-    rgba(67, 56, 202, 0.2) 45%,
-    rgba(15, 23, 42, 0.6) 100%
+    rgba(67, 56, 202, 0.18) 45%,
+    transparent 70%
   );
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow:
-    0 0 30px rgba(245, 197, 66, 0.25),
-    0 0 60px rgba(67, 56, 202, 0.2);
-  transition: transform 0.3s var(--ease-out-back), box-shadow 0.3s ease;
+  filter: blur(8px);
+  opacity: 0.75;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .logo-orb::after {
   content: '';
   position: absolute;
-  inset: -6px;
+  inset: 8px;
   border-radius: 999px;
-  border: 1px solid rgba(245, 197, 66, 0.25);
+  background: radial-gradient(
+    circle,
+    rgba(248, 250, 252, 0.35) 0%,
+    transparent 65%
+  );
   opacity: 0;
   transition: opacity 0.3s ease;
 }
 
 .header-logo:hover .logo-orb {
-  transform: scale(1.05);
-  box-shadow:
-    0 0 40px rgba(245, 197, 66, 0.35),
-    0 0 80px rgba(67, 56, 202, 0.3);
+  transform: translateY(-1px) scale(1.02);
+}
+
+.header-logo:hover .logo-orb::before {
+  opacity: 1;
+  transform: scale(1.08);
 }
 
 .header-logo:hover .logo-orb::after {
-  opacity: 1;
+  opacity: 0.6;
 }
 
 .logo-image {
-  height: 60px;
+  height: 72px;
   width: auto;
-  transition: transform 0.3s ease;
+  filter:
+    drop-shadow(0 0 16px rgba(245, 197, 66, 0.35))
+    drop-shadow(0 0 32px rgba(67, 56, 202, 0.25));
+  transition: transform 0.3s ease, filter 0.3s ease;
 }
 
 .header-logo:hover .logo-image {
   transform: scale(1.05);
+  filter:
+    drop-shadow(0 0 20px rgba(245, 197, 66, 0.45))
+    drop-shadow(0 0 40px rgba(67, 56, 202, 0.35));
 }
 
 .logo-wordmark {
@@ -272,7 +293,7 @@ onUnmounted(() => {
 
 .logo-text {
   font-family: var(--font-display-jp);
-  font-size: 30px;
+  font-size: 32px;
   font-weight: 600;
   color: var(--color-star-white);
   letter-spacing: 0.25em;
@@ -283,7 +304,7 @@ onUnmounted(() => {
 
 .logo-tagline {
   font-family: var(--font-display-en);
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.35em;
   text-transform: uppercase;
   color: rgba(226, 232, 240, 0.7);
@@ -436,16 +457,16 @@ onUnmounted(() => {
   }
 
   .logo-orb {
-    width: 60px;
-    height: 60px;
+    width: 66px;
+    height: 66px;
   }
 
   .logo-image {
-    height: 48px;
+    height: 54px;
   }
 
   .logo-text {
-    font-size: 24px;
+    font-size: 26px;
     letter-spacing: 0.2em;
   }
 

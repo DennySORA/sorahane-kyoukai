@@ -117,31 +117,56 @@ const socialLinks = [
 /* Cosmic Logo */
 .cosmic-logo-wrapper {
   position: relative;
-  width: clamp(200px, 40vw, 320px);
+  width: clamp(220px, 38vw, 340px);
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-items: center;
+  transition: transform 0.3s var(--ease-out-back);
 }
 
 .cosmic-logo {
   width: 100%;
-  height: auto;
-  filter: drop-shadow(0 0 30px rgba(245, 197, 66, 0.3));
+  height: 100%;
+  object-fit: contain;
+  filter:
+    drop-shadow(0 0 18px rgba(245, 197, 66, 0.3))
+    drop-shadow(0 0 36px rgba(67, 56, 202, 0.2));
   animation: float 6s ease-in-out infinite;
+  transition: transform 0.3s ease, filter 0.3s ease;
 }
 
 .cosmic-logo-glow {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 150%;
-  height: 150%;
+  inset: -20px;
   background: radial-gradient(
     circle,
-    rgba(245, 197, 66, 0.2) 0%,
-    rgba(245, 197, 66, 0.1) 30%,
+    rgba(245, 197, 66, 0.28) 0%,
+    rgba(67, 56, 202, 0.16) 35%,
     transparent 70%
   );
+  border-radius: 50%;
+  filter: blur(6px);
   animation: pulse-glow 3s ease-in-out infinite;
   pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+@media (hover: hover) {
+  .cosmic-logo-wrapper:hover {
+    transform: translateY(-6px);
+  }
+
+  .cosmic-logo-wrapper:hover .cosmic-logo-glow {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+
+  .cosmic-logo-wrapper:hover .cosmic-logo {
+    transform: scale(1.05);
+    filter:
+      drop-shadow(0 0 24px rgba(245, 197, 66, 0.45))
+      drop-shadow(0 0 44px rgba(67, 56, 202, 0.3));
+  }
 }
 
 /* Name Styles */
@@ -252,8 +277,8 @@ const socialLinks = [
 }
 
 @keyframes pulse-glow {
-  0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
-  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.08); }
 }
 
 @keyframes fade-in {

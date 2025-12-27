@@ -94,7 +94,7 @@ function handleMouseLeave(): void {
       <div
         v-if="showContent"
         class="orbs-track"
-        :class="{ 'is-paused': isHovering || activeIndex !== null }"
+        :class="{ 'is-paused': activeIndex !== null }"
       >
         <router-link
           v-for="(category, index) in categories"
@@ -183,12 +183,8 @@ function handleMouseLeave(): void {
   opacity: 0.4;
 }
 
- .magic-circle.is-energized {
-  transform: translateY(-2px);
-  --orbit-speed: 32s;
-  --outer-spin: 110s;
-  --middle-spin: 70s;
-  --inner-spin: 55s;
+.magic-circle.is-energized .magic-glow {
+  opacity: 1;
 }
 
 .magic-circle.is-focused .sigil-marker {

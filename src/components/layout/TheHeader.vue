@@ -215,9 +215,9 @@ onUnmounted(() => {
 
 .logo-orb {
   position: relative;
-  width: 88px;
-  height: 88px;
-  border-radius: 16px;
+  width: 80px;
+  height: 80px;
+  border-radius: 14px;
   display: grid;
   place-items: center;
   background: transparent;
@@ -229,7 +229,7 @@ onUnmounted(() => {
 .logo-orb::before {
   content: '';
   position: absolute;
-  inset: -18px;
+  inset: -12px;
   border-radius: 999px;
   background: radial-gradient(
     circle,
@@ -237,7 +237,7 @@ onUnmounted(() => {
     rgba(67, 56, 202, 0.18) 45%,
     transparent 70%
   );
-  filter: blur(8px);
+  filter: blur(10px);
   opacity: 0.75;
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
@@ -245,7 +245,7 @@ onUnmounted(() => {
 .logo-orb::after {
   content: '';
   position: absolute;
-  inset: 8px;
+  inset: 6px;
   border-radius: 999px;
   background: radial-gradient(
     circle,
@@ -270,7 +270,7 @@ onUnmounted(() => {
 }
 
 .logo-image {
-  height: 72px;
+  height: 66px;
   width: auto;
   filter:
     drop-shadow(0 0 16px rgba(245, 197, 66, 0.35))
@@ -293,7 +293,7 @@ onUnmounted(() => {
 
 .logo-text {
   font-family: var(--font-display-jp);
-  font-size: 32px;
+  font-size: 30px;
   font-weight: 600;
   color: var(--color-star-white);
   letter-spacing: 0.25em;
@@ -304,7 +304,7 @@ onUnmounted(() => {
 
 .logo-tagline {
   font-family: var(--font-display-en);
-  font-size: 13px;
+  font-size: 12px;
   letter-spacing: 0.35em;
   text-transform: uppercase;
   color: rgba(226, 232, 240, 0.7);
@@ -457,16 +457,16 @@ onUnmounted(() => {
   }
 
   .logo-orb {
-    width: 66px;
-    height: 66px;
+    width: 60px;
+    height: 60px;
   }
 
   .logo-image {
-    height: 54px;
+    height: 48px;
   }
 
   .logo-text {
-    font-size: 26px;
+    font-size: 24px;
     letter-spacing: 0.2em;
   }
 

@@ -107,26 +107,41 @@ const socialLinks = [
 
 .logo-halo {
   position: absolute;
-  inset: -18px;
+  inset: -20px;
   border-radius: 50%;
   background: radial-gradient(
     circle,
-    rgba(245, 197, 66, 0.35) 0%,
-    rgba(67, 56, 202, 0.2) 45%,
+    rgba(245, 197, 66, 0.4) 0%,
+    rgba(67, 56, 202, 0.22) 45%,
     transparent 70%
   );
   filter: blur(6px);
-  opacity: 0.8;
+  opacity: 0.85;
   transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.logo-halo::after {
+  content: '';
+  position: absolute;
+  inset: -26px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    rgba(245, 197, 66, 0.35),
+    rgba(129, 140, 248, 0.2),
+    rgba(245, 197, 66, 0.35)
+  );
+  -webkit-mask: radial-gradient(transparent 58%, #000 62%, transparent 68%);
+  mask: radial-gradient(transparent 58%, #000 62%, transparent 68%);
+  opacity: 0.35;
+  animation: halo-spin 18s linear infinite;
 }
 
 .personal-logo {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter:
-    drop-shadow(0 0 16px rgba(245, 197, 66, 0.25))
-    drop-shadow(0 0 30px rgba(67, 56, 202, 0.2));
+  filter: saturate(1.05);
   transition: transform 0.3s ease, filter 0.3s ease;
 }
 
@@ -142,10 +157,13 @@ const socialLinks = [
 
   .logo-wrapper:hover .personal-logo {
     transform: scale(1.04);
-    filter:
-      drop-shadow(0 0 22px rgba(245, 197, 66, 0.4))
-      drop-shadow(0 0 40px rgba(67, 56, 202, 0.3));
+    filter: saturate(1.1);
   }
+}
+
+@keyframes halo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 .name {

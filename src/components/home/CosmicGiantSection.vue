@@ -128,9 +128,7 @@ const socialLinks = [
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter:
-    drop-shadow(0 0 18px rgba(245, 197, 66, 0.3))
-    drop-shadow(0 0 36px rgba(67, 56, 202, 0.2));
+  filter: saturate(1.05);
   animation: float 6s ease-in-out infinite;
   transition: transform 0.3s ease, filter 0.3s ease;
 }
@@ -140,8 +138,8 @@ const socialLinks = [
   inset: -20px;
   background: radial-gradient(
     circle,
-    rgba(245, 197, 66, 0.28) 0%,
-    rgba(67, 56, 202, 0.16) 35%,
+    rgba(245, 197, 66, 0.32) 0%,
+    rgba(67, 56, 202, 0.18) 35%,
     transparent 70%
   );
   border-radius: 50%;
@@ -149,6 +147,23 @@ const socialLinks = [
   animation: pulse-glow 3s ease-in-out infinite;
   pointer-events: none;
   transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.cosmic-logo-glow::after {
+  content: '';
+  position: absolute;
+  inset: -28px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    rgba(245, 197, 66, 0.35),
+    rgba(129, 140, 248, 0.2),
+    rgba(245, 197, 66, 0.35)
+  );
+  -webkit-mask: radial-gradient(transparent 58%, #000 62%, transparent 68%);
+  mask: radial-gradient(transparent 58%, #000 62%, transparent 68%);
+  opacity: 0.3;
+  animation: halo-spin 20s linear infinite;
 }
 
 @media (hover: hover) {
@@ -163,9 +178,7 @@ const socialLinks = [
 
   .cosmic-logo-wrapper:hover .cosmic-logo {
     transform: scale(1.05);
-    filter:
-      drop-shadow(0 0 24px rgba(245, 197, 66, 0.45))
-      drop-shadow(0 0 44px rgba(67, 56, 202, 0.3));
+    filter: saturate(1.1);
   }
 }
 
@@ -279,6 +292,11 @@ const socialLinks = [
 @keyframes pulse-glow {
   0%, 100% { opacity: 0.6; transform: scale(1); }
   50% { opacity: 1; transform: scale(1.08); }
+}
+
+@keyframes halo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 @keyframes fade-in {

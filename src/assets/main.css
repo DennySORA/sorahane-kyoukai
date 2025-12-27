@@ -158,12 +158,12 @@
 
 /* Global layout tokens */
 :root {
-  --header-height: 124px;
+  --header-height: 118px;
 }
 
 @media (max-width: 640px) {
   :root {
-    --header-height: 104px;
+    --header-height: 98px;
   }
 }
 

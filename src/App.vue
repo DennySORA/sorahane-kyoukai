@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import CosmicParticles from '@/components/ui/CosmicParticles.vue'
 import TheHeader from '@/components/layout/TheHeader.vue'
 </script>
 
 <template>
   <div class="app-container">
+    <CosmicParticles />
     <TheHeader />
     <RouterView v-slot="{ Component }">
       <Transition name="page" mode="out-in">
@@ -15,6 +17,7 @@ import TheHeader from '@/components/layout/TheHeader.vue'
 
 <style scoped>
 .app-container {
+  position: relative;
   min-height: 100vh;
   background-color: var(--color-night-deep);
 }

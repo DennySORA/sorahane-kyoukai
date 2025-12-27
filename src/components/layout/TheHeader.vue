@@ -66,12 +66,17 @@ onUnmounted(() => {
     <div class="header-container">
       <!-- Logo -->
       <router-link to="/" class="header-logo" @click="closeMobileMenu">
-        <img
-          src="/images/logo.png"
-          alt="空羽ノ境"
-          class="logo-image"
-        />
-        <span class="logo-text">空羽ノ境</span>
+        <span class="logo-orb">
+          <img
+            src="/images/logo.png"
+            alt="空羽ノ境"
+            class="logo-image"
+          />
+        </span>
+        <span class="logo-wordmark">
+          <span class="logo-text">空羽ノ境</span>
+          <span class="logo-tagline">Celestial Chronicle</span>
+        </span>
       </router-link>
 
       <!-- Desktop Navigation -->
@@ -132,17 +137,49 @@ onUnmounted(() => {
   left: 0;
   right: 0;
   z-index: 50;
-  height: 88px;
-  background: rgba(10, 14, 26, 0.6);
+  height: var(--header-height);
+  background: linear-gradient(
+    180deg,
+    rgba(8, 12, 24, 0.92) 0%,
+    rgba(12, 18, 32, 0.7) 100%
+  );
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 18px 40px rgba(6, 10, 20, 0.35);
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.site-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 40%, rgba(67, 56, 202, 0.2) 0%, transparent 55%),
+    radial-gradient(circle at 80% 20%, rgba(245, 197, 66, 0.18) 0%, transparent 60%);
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.site-header::after {
+  content: '';
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(245, 197, 66, 0.6) 50%,
+    transparent 100%
+  );
+  opacity: 0.8;
+}
+
 .header-scrolled {
-  background: rgba(10, 14, 26, 0.9);
-  border-bottom-color: rgba(255, 255, 255, 0.12);
+  background: rgba(8, 12, 24, 0.95);
+  border-bottom-color: rgba(255, 255, 255, 0.16);
 }
 
 .header-hidden {
@@ -157,23 +194,68 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 32px;
+  position: relative;
+  z-index: 1;
 }
 
 /* Logo */
 .header-logo {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
   text-decoration: none;
-  transition: opacity 0.3s ease;
+  transition: transform 0.3s var(--ease-out-back), opacity 0.3s ease;
 }
 
 .header-logo:hover {
-  opacity: 0.9;
+  opacity: 0.95;
+  transform: translateY(-1px);
+}
+
+.logo-orb {
+  position: relative;
+  width: 76px;
+  height: 76px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(245, 197, 66, 0.35) 0%,
+    rgba(67, 56, 202, 0.2) 45%,
+    rgba(15, 23, 42, 0.6) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow:
+    0 0 30px rgba(245, 197, 66, 0.25),
+    0 0 60px rgba(67, 56, 202, 0.2);
+  transition: transform 0.3s var(--ease-out-back), box-shadow 0.3s ease;
+}
+
+.logo-orb::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 999px;
+  border: 1px solid rgba(245, 197, 66, 0.25);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.header-logo:hover .logo-orb {
+  transform: scale(1.05);
+  box-shadow:
+    0 0 40px rgba(245, 197, 66, 0.35),
+    0 0 80px rgba(67, 56, 202, 0.3);
+}
+
+.header-logo:hover .logo-orb::after {
+  opacity: 1;
 }
 
 .logo-image {
-  height: 52px;
+  height: 60px;
   width: auto;
   transition: transform 0.3s ease;
 }
@@ -182,12 +264,29 @@ onUnmounted(() => {
   transform: scale(1.05);
 }
 
+.logo-wordmark {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
 .logo-text {
   font-family: var(--font-display-jp);
-  font-size: 24px;
+  font-size: 30px;
   font-weight: 600;
   color: var(--color-star-white);
-  letter-spacing: 3px;
+  letter-spacing: 0.25em;
+  text-shadow:
+    0 0 18px rgba(248, 250, 252, 0.35),
+    0 0 35px rgba(245, 197, 66, 0.25);
+}
+
+.logo-tagline {
+  font-family: var(--font-display-en);
+  font-size: 12px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(226, 232, 240, 0.7);
 }
 
 /* Desktop Navigation */
@@ -199,17 +298,25 @@ onUnmounted(() => {
 
 .nav-link {
   font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 400;
+  font-size: 15px;
+  font-weight: 500;
   color: var(--color-moon-silver);
   text-decoration: none;
-  padding: 8px 0;
-  transition: color 0.3s ease;
+  padding: 10px 0;
+  letter-spacing: 0.08em;
+  transition: color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease;
 }
 
 .nav-link:hover,
 .nav-link.router-link-active {
   color: var(--color-star-white);
+  text-shadow:
+    0 0 12px rgba(248, 250, 252, 0.4),
+    0 0 24px rgba(245, 197, 66, 0.3);
+}
+
+.nav-link:hover {
+  transform: translateY(-1px);
 }
 
 .nav-link.router-link-active::after {
@@ -255,7 +362,7 @@ onUnmounted(() => {
 /* Mobile Menu Overlay */
 .mobile-menu-overlay {
   position: fixed;
-  inset: 88px 0 0 0;
+  inset: var(--header-height) 0 0 0;
   background: rgba(10, 14, 26, 0.95);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -277,17 +384,21 @@ onUnmounted(() => {
   font-weight: 500;
   color: var(--color-moon-silver);
   text-decoration: none;
-  padding: 12px 24px;
+  padding: 12px 28px;
+  border-radius: 999px;
+  border: 1px solid transparent;
   opacity: 0;
   transform: translateY(20px);
   animation: mobile-link-in 0.4s ease forwards;
   animation-delay: var(--delay);
-  transition: color 0.3s ease, transform 0.3s ease;
+  transition: color 0.3s ease, transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .mobile-nav-link:hover {
-  color: var(--color-sun-gold);
-  transform: scale(1.05);
+  color: var(--color-star-white);
+  border-color: rgba(245, 197, 66, 0.4);
+  box-shadow: 0 0 18px rgba(245, 197, 66, 0.3);
+  transform: translateY(-2px);
 }
 
 @keyframes mobile-link-in {
@@ -324,12 +435,22 @@ onUnmounted(() => {
     padding: 0 16px;
   }
 
-  .logo-text {
-    font-size: 20px;
+  .logo-orb {
+    width: 60px;
+    height: 60px;
   }
 
   .logo-image {
-    height: 42px;
+    height: 48px;
+  }
+
+  .logo-text {
+    font-size: 24px;
+    letter-spacing: 0.2em;
+  }
+
+  .logo-tagline {
+    display: none;
   }
 }
 </style>

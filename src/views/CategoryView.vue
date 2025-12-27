@@ -104,7 +104,7 @@ const category = computed(() => {
 .category-page {
   position: relative;
   min-height: 100vh;
-  padding-top: 72px;
+  padding-top: calc(var(--header-height) + 16px);
 }
 
 /* Background */

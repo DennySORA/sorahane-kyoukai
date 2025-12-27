@@ -156,6 +156,17 @@
   --ease-in-out-smooth: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Global layout tokens */
+:root {
+  --header-height: 112px;
+}
+
+@media (max-width: 640px) {
+  :root {
+    --header-height: 96px;
+  }
+}
+
 /* Base Styles */
 html {
   scroll-behavior: smooth;

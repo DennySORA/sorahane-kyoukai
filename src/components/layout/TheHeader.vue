@@ -215,8 +215,8 @@ onUnmounted(() => {
 
 .logo-orb {
   position: relative;
-  width: 80px;
-  height: 80px;
+  width: calc(var(--header-height) - 18px);
+  height: calc(var(--header-height) - 18px);
   border-radius: 14px;
   display: grid;
   place-items: center;
@@ -270,8 +270,9 @@ onUnmounted(() => {
 }
 
 .logo-image {
-  height: 66px;
+  height: 85%;
   width: auto;
+  max-height: calc(var(--header-height) - 24px);
   filter:
     drop-shadow(0 0 16px rgba(245, 197, 66, 0.35))
     drop-shadow(0 0 32px rgba(67, 56, 202, 0.25));
@@ -454,15 +455,6 @@ onUnmounted(() => {
 @media (max-width: 640px) {
   .header-container {
     padding: 0 16px;
-  }
-
-  .logo-orb {
-    width: 60px;
-    height: 60px;
-  }
-
-  .logo-image {
-    height: 48px;
   }
 
   .logo-text {

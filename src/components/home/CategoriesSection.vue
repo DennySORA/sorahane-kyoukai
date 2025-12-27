@@ -393,9 +393,13 @@ function handleMouseLeave(): void {
   width: 100%;
   height: 100%;
   animation: orbit-spin var(--orbit-speed) linear infinite;
+  transition: animation-duration 0.8s ease;
+  z-index: 20;
+  pointer-events: none;
 }
 
-.orbs-track.is-paused {
+/* Pause rotation when hovering the magic circle area for easy targeting */
+.magic-circle.is-energized .orbs-track {
   animation-play-state: paused;
 }
 
@@ -420,21 +424,25 @@ function handleMouseLeave(): void {
   animation: orb-appear 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
   animation-delay: var(--animation-delay);
   text-decoration: none;
+  pointer-events: auto;
 }
 
 .category-orb::before {
   content: '';
   position: absolute;
-  inset: -14px;
+  inset: -20px;
   border-radius: 50%;
+  cursor: pointer;
 }
 
 /* Counter-rotate orb content to keep text upright */
 .orbs-track .category-orb .orb-inner {
   animation: counter-rotate var(--orbit-speed) linear infinite;
+  transition: animation-duration 0.8s ease;
 }
 
-.orbs-track.is-paused .category-orb .orb-inner {
+/* Pause counter-rotate when hovering the magic circle area */
+.magic-circle.is-energized .orbs-track .category-orb .orb-inner {
   animation-play-state: paused;
 }
 
@@ -485,6 +493,13 @@ function handleMouseLeave(): void {
   transition: opacity 0.3s ease;
 }
 
+/* Show subtle glow on all orbs when container is hovered */
+.magic-circle.is-energized .category-orb .orb-glow {
+  opacity: 0.3;
+}
+
+/* Higher specificity to override is-energized state on hover */
+.magic-circle.is-energized .category-orb:hover .orb-glow,
 .category-orb:hover .orb-glow {
   opacity: 1;
 }

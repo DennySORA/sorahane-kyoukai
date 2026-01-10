@@ -9,8 +9,12 @@ const { currentTheme } = useCategoryTheme()
 const themeStyles = computed(() => ({
   '--theme-primary': currentTheme.value.colors.primary,
   '--theme-accent': currentTheme.value.colors.accent,
-  '--theme-bg-gradient': currentTheme.value.colors.bgGradient
+  '--theme-text': currentTheme.value.colors.text,
+  '--theme-bg-overlay': currentTheme.value.colors.bgOverlay,
+  '--theme-font-family': currentTheme.value.fontFamily || 'inherit'
 }))
+
+const bgImage = computed(() => currentTheme.value.backgroundImage || '')
 
 const dummyArticles = [
   {
@@ -41,14 +45,18 @@ const dummyArticles = [
 </script>
 
 <template>
-  <main class="category-page" :style="themeStyles">
+  <main class="category-page" :class="[`layout-${currentTheme.layoutMode}`]" :style="themeStyles">
     <!-- Background -->
     <div class="category-bg">
       <img
-        src="/images/universe_bg.jpeg"
+        v-if="bgImage"
+        :src="bgImage"
         alt=""
         class="bg-image"
       />
+      <!-- Fallback color if no image -->
+      <div v-else class="bg-solid"></div>
+      
       <ThemeBackground :effect="currentTheme.bgEffect" />
       <div class="bg-overlay"></div>
     </div>
@@ -57,8 +65,10 @@ const dummyArticles = [
     <div class="category-content">
       <div class="category-header">
         <div class="category-icon">{{ currentTheme.icon }}</div>
-        <h1 class="category-title">{{ currentTheme.title }}</h1>
-        <p class="category-subtitle">{{ currentTheme.subtitle }}</p>
+        <div class="header-text">
+          <h1 class="category-title">{{ currentTheme.title }}</h1>
+          <p class="category-subtitle">{{ currentTheme.subtitle }}</p>
+        </div>
         <p class="category-description">{{ currentTheme.description }}</p>
       </div>
 
@@ -80,6 +90,8 @@ const dummyArticles = [
   position: relative;
   min-height: 100vh;
   padding-top: calc(var(--header-height) + 16px);
+  color: var(--theme-text);
+  font-family: var(--theme-font-family);
 }
 
 /* Background */
@@ -93,20 +105,23 @@ const dummyArticles = [
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: opacity 0.5s ease;
+}
+
+.bg-solid {
+  width: 100%;
+  height: 100%;
+  background-color: #0f172a; /* Fallback dark */
 }
 
 .bg-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(10, 14, 26, 0.7) 0%,
-    rgba(10, 14, 26, 0.5) 50%,
-    rgba(10, 14, 26, 0.8) 100%
-  );
+  background: var(--theme-bg-overlay);
+  transition: background 0.5s ease;
 }
 
-/* Content */
+/* Content Layout Generic */
 .category-content {
   position: relative;
   z-index: 10;
@@ -115,10 +130,9 @@ const dummyArticles = [
   padding: 80px 24px;
 }
 
-/* Header */
 .category-header {
-  text-align: center;
   margin-bottom: 60px;
+  transition: all 0.5s ease;
 }
 
 .category-icon {
@@ -127,31 +141,22 @@ const dummyArticles = [
   justify-content: center;
   width: 80px;
   height: 80px;
-  background: var(--theme-bg-gradient);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--theme-primary);
   border-radius: 50%;
-  font-family: var(--font-display-jp);
   font-size: 32px;
-  font-weight: 600;
   color: var(--theme-primary);
   margin-bottom: 24px;
-  box-shadow:
-    0 0 30px rgba(255, 255, 255, 0.05),
-    0 8px 32px rgba(0, 0, 0, 0.3);
-  transition: all 0.5s ease;
+  backdrop-filter: blur(4px);
 }
 
 .category-title {
-  font-family: var(--font-display-jp);
+  font-family: var(--theme-font-family);
   font-size: clamp(32px, 6vw, 48px);
   font-weight: 600;
-  color: var(--color-star-white);
-  letter-spacing: 0.1em;
+  color: var(--theme-text);
   margin-bottom: 8px;
-  text-shadow:
-    0 0 20px var(--theme-primary),
-    0 0 40px rgba(0, 0, 0, 0.5);
-  transition: text-shadow 0.5s ease;
+  text-shadow: 0 0 20px var(--theme-primary);
 }
 
 .category-subtitle {
@@ -163,16 +168,82 @@ const dummyArticles = [
   text-transform: uppercase;
   margin-bottom: 16px;
   opacity: 0.9;
-  transition: color 0.5s ease;
 }
 
 .category-description {
-  font-family: var(--font-body);
   font-size: 15px;
-  color: var(--color-moon-silver);
+  color: var(--theme-text);
+  opacity: 0.8;
   max-width: 500px;
-  margin: 0 auto;
   line-height: 1.8;
+}
+
+/* --- Layout Modes --- */
+
+/* Center (Default/Anime/Music) */
+.layout-center .category-header {
+  text-align: center;
+}
+.layout-center .category-description {
+  margin: 0 auto;
+}
+
+/* Left (Galgame) */
+.layout-left .category-header {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 20px;
+  border-left: 4px solid var(--theme-primary);
+}
+.layout-left .category-icon {
+  width: 60px;
+  height: 60px;
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+.layout-left .category-title {
+  font-size: clamp(40px, 7vw, 64px); /* Larger title */
+}
+
+/* Console (Programming) */
+.layout-console .category-header {
+  text-align: left;
+  font-family: monospace;
+}
+.layout-console .category-icon {
+  border-radius: 4px; /* Square icon */
+  border: 1px dashed var(--theme-primary);
+  background: transparent;
+}
+.layout-console .category-title::before {
+  content: '> ';
+  color: var(--theme-accent);
+}
+.layout-console .category-subtitle::before {
+  content: '// ';
+}
+
+/* Zen (Writing/Thoughts) */
+.layout-zen .category-header {
+  text-align: center;
+  margin-bottom: 100px;
+}
+.layout-zen .category-icon {
+  background: transparent;
+  border: none;
+  font-size: 40px;
+  color: var(--theme-text);
+}
+.layout-zen .category-title {
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-shadow: none; /* Clean look */
+}
+.layout-zen .bg-image {
+  filter: grayscale(100%) contrast(1.2); /* Black and white feel */
+  opacity: 0.2;
 }
 
 /* Articles Grid */

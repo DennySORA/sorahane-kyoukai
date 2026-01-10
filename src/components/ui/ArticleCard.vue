@@ -129,21 +129,37 @@ const variantClass = computed(() => `card-${props.variant}`)
 
 /* 1. Galgame (Dialog Box) */
 .card-dialog {
-  border-radius: 12px;
-  background: linear-gradient(180deg, rgba(40, 10, 30, 0.8) 0%, rgba(20, 5, 15, 0.9) 100%);
-  border: 2px solid var(--theme-primary);
-  box-shadow: 0 4px 20px rgba(236, 72, 153, 0.15);
+  border-radius: 4px; /* More like a text box */
+  background: rgba(20, 5, 15, 0.7);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 3px solid var(--theme-primary);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 .card-dialog .card-content {
-  padding: 20px;
+  padding: 24px;
 }
 .card-dialog .card-title {
   color: var(--theme-primary);
   text-shadow: 0 0 10px rgba(236, 72, 153, 0.4);
+  font-size: 1.4rem;
+  margin-bottom: 16px;
+  position: relative;
+  display: inline-block;
+}
+/* Decoration line for title */
+.card-dialog .card-title::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, var(--theme-primary), transparent);
+  margin-top: 4px;
 }
 .card-dialog:hover {
-  transform: translateY(-4px) scale(1.01);
-  box-shadow: 0 10px 30px rgba(236, 72, 153, 0.3);
+  transform: translateY(-2px);
+  background: rgba(30, 10, 20, 0.8);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
 }
 
 /* 2. Programming (Terminal) */

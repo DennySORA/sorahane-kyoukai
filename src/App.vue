@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import CosmicParticles from '@/components/ui/CosmicParticles.vue'
 import TheHeader from '@/components/layout/TheHeader.vue'
 </script>
 
 <template>
   <div class="app-container">
-    <CosmicParticles />
     <TheHeader />
     <RouterView v-slot="{ Component }">
       <Transition name="page" mode="out-in">

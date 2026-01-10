@@ -2,7 +2,7 @@
 import { onMounted, onUnmounted } from 'vue'
 import { useScrollStore } from '@/stores/scroll'
 import { useScrollProgress } from '@/composables/useScrollProgress'
-import StarBackground from '@/components/ui/StarBackground.vue'
+import CosmicParticles from '@/components/ui/CosmicParticles.vue'
 import HeroSection from '@/components/home/HeroSection.vue'
 import CosmicGiantSection from '@/components/home/CosmicGiantSection.vue'
 import CategoriesSection from '@/components/home/CategoriesSection.vue'
@@ -71,14 +71,8 @@ onUnmounted(() => {
         />
       </div>
 
-      <!-- Star Overlay -->
-      <StarBackground
-        :star-count="80"
-        class="star-overlay"
-        :style="{
-          opacity: scrollStore.timeOfDay === 'night' ? 0.8 : 0.4
-        }"
-      />
+      <!-- Enhanced Space Effect (Meteors, Stars, Nebula) -->
+      <CosmicParticles />
 
       <!-- Gradient Overlay -->
       <div class="gradient-overlay"></div>

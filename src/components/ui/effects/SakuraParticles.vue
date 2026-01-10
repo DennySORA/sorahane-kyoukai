@@ -27,7 +27,7 @@ function resizeCanvas() {
 }
 
 function createParticles() {
-  const count = Math.min(window.innerWidth * 0.08, 80) // More petals
+  const count = Math.min(window.innerWidth * 0.15, 150) // More delicate, so more particles needed
   particles = []
   
   for (let i = 0; i < count; i++) {
@@ -40,15 +40,15 @@ function createPetal(yOverride?: number): Petal {
     '255, 192, 203', // Pink
     '255, 182, 193', // LightPink
     '255, 105, 180', // HotPink
-    '255, 240, 245'  // LavenderBlush (Very pale)
+    '255, 240, 245'  // LavenderBlush
   ]
   
   return {
     x: Math.random() * window.innerWidth,
     y: yOverride ?? Math.random() * window.innerHeight,
-    size: Math.random() * 8 + 5, // Larger size for detail
-    speedX: Math.random() * 2 - 1,
-    speedY: Math.random() * 1.5 + 1,
+    size: Math.random() * 4 + 3, // Smaller size (3px - 7px)
+    speedX: Math.random() * 1 - 0.5,
+    speedY: Math.random() * 1.0 + 0.5, // Slower fall
     rotation: Math.random() * 360,
     rotationSpeed: (Math.random() * 2 - 1) * 0.5,
     flip: Math.random() * Math.PI,

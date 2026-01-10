@@ -2,11 +2,11 @@ import { test, expect } from '@playwright/test';
 
 const pages = [
   { path: '/galgame', effectSelector: '.sakura-canvas', name: 'Galgame (Sakura)' },
-  { path: '/anime', effectSelector: '.feather-canvas', name: 'Anime (Feathers)' },
+  { path: '/anime', effectSelector: '.bubble-canvas', name: 'Anime (Bubbles)' },
   { path: '/programming', effectSelector: '.matrix-canvas', name: 'Programming (Matrix)' },
   { path: '/thoughts', effectSelector: '.ripple-container', name: 'Thoughts (Ripple)' },
-  { path: '/writing', effectSelector: '.ink-container', name: 'Writing (Ink)' },
-  { path: '/health', effectSelector: '.aurora-container', name: 'Health (Aurora)' },
+  { path: '/writing', effectSelector: '.dust-canvas', name: 'Writing (Dust)' },
+  { path: '/health', effectSelector: '.snow-canvas', name: 'Health (Snow)' },
   { path: '/music', effectSelector: '.visualizer-container', name: 'Music (Visualizer)' },
 ];
 

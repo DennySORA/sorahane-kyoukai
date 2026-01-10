@@ -23,11 +23,12 @@ export interface ThemeConfig {
     text: string // Specific text color override
     bgOverlay: string // Specific overlay color/opacity
   }
-  bgEffect: 'sakura' | 'speed-lines' | 'matrix' | 'ripple' | 'ink' | 'aurora' | 'visualizer' | 'stars'
+  bgEffect: 'sakura' | 'speed-lines' | 'matrix' | 'ripple' | 'ink' | 'aurora' | 'visualizer' | 'stars' | 'god-rays'
   cardStyle: 'dialog' | 'tech' | 'terminal' | 'minimal' | 'scroll' | 'soft' | 'vinyl'
   backgroundImage?: string
   layoutMode: 'center' | 'left' | 'console' | 'zen'
   fontFamily?: string
+  textShadow?: string
 }
 
 const themes: Record<ThemeType, ThemeConfig> = {

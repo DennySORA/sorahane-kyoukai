@@ -38,16 +38,16 @@ const themes: Record<ThemeType, ThemeConfig> = {
     description: '探索視覺小說的世界，分享遊戲心得與推薦',
     icon: '🌸',
     colors: {
-      primary: '#f9a8d4', // pink-300
+      primary: '#fbcfe8', // pink-200
       accent: '#f472b6', // pink-400
-      text: '#fdf2f8', // pink-50
-      bgOverlay: 'linear-gradient(180deg, rgba(80, 24, 60, 0.8) 0%, rgba(40, 10, 30, 0.9) 100%)'
+      text: '#ffffff', // White text for clarity
+      bgOverlay: 'linear-gradient(to right, rgba(0,0,0,0.5) 0%, transparent 50%)' // Subtle left shadow
     },
     bgEffect: 'sakura',
     cardStyle: 'dialog',
     backgroundImage: '/images/galgame_bg.png',
     layoutMode: 'left',
-    textShadow: '0 4px 12px rgba(0, 0, 0, 0.6)' // Strong shadow for legibility on sunset
+    textShadow: '0 2px 8px rgba(236, 72, 153, 0.8), 0 2px 4px rgba(0,0,0,0.5)' // Pink glow + Drop shadow
   },
   anime: {
     key: 'anime',
@@ -56,16 +56,16 @@ const themes: Record<ThemeType, ThemeConfig> = {
     description: '動漫評論、角色分析、作品推薦',
     icon: '⚡',
     colors: {
-      primary: '#0ea5e9', // sky-500 (Darker for contrast)
+      primary: '#0ea5e9', // sky-500
       accent: '#facc15', // yellow-400
       text: '#ffffff',
       bgOverlay: 'linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, transparent 40%)'
     },
-    bgEffect: 'speed-lines',
+    bgEffect: 'god-rays', // New gentle effect
     cardStyle: 'tech',
     backgroundImage: '/images/anime_bg.png',
     layoutMode: 'center',
-    textShadow: '0 4px 8px rgba(0, 50, 100, 0.5), 0 0 20px rgba(56, 189, 248, 0.6)' // Blue glow
+    textShadow: '0 4px 8px rgba(0, 50, 100, 0.4), 0 0 15px rgba(56, 189, 248, 0.5)' // Blue glow
   },
   programming: {
     key: 'programming',

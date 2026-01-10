@@ -48,7 +48,7 @@ function createPetal(yOverride?: number): Petal {
     speedY: Math.random() * 1 + 0.5,
     rotation: Math.random() * 360,
     rotationSpeed: Math.random() * 2 - 1,
-    color: colors[Math.floor(Math.random() * colors.length)],
+    color: colors[Math.floor(Math.random() * colors.length)] ?? '255, 255, 255',
     opacity: Math.random() * 0.5 + 0.3
   }
 }

@@ -19,7 +19,8 @@ const components = {
   feathers: defineAsyncComponent(() => import('./effects/FeatherParticles.vue')),
   bubbles: defineAsyncComponent(() => import('./effects/Bubbles.vue')),
   dust: defineAsyncComponent(() => import('./effects/DustParticles.vue')),
-  snow: defineAsyncComponent(() => import('./effects/SnowParticles.vue'))
+  snow: defineAsyncComponent(() => import('./effects/SnowParticles.vue')),
+  pixel: defineAsyncComponent(() => import('./effects/PixelParticles.vue'))
 }
 
 const currentEffectComponent = computed(() => {

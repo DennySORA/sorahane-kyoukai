@@ -8,8 +8,12 @@ const props = defineProps<{
 
 // Lazy load heavy background components
 const SakuraParticles = defineAsyncComponent(() => import('./effects/SakuraParticles.vue'))
-// const MatrixRain = defineAsyncComponent(() => import('./effects/MatrixRain.vue'))
-// const SpeedLines = defineAsyncComponent(() => import('./effects/SpeedLines.vue'))
+const MatrixRain = defineAsyncComponent(() => import('./effects/MatrixRain.vue'))
+const SpeedLines = defineAsyncComponent(() => import('./effects/SpeedLines.vue'))
+const RippleEffect = defineAsyncComponent(() => import('./effects/RippleEffect.vue'))
+const InkSpread = defineAsyncComponent(() => import('./effects/InkSpread.vue'))
+const AuroraBorealis = defineAsyncComponent(() => import('./effects/AuroraBorealis.vue'))
+const AudioVisualizer = defineAsyncComponent(() => import('./effects/AudioVisualizer.vue'))
 
 </script>
 
@@ -26,11 +30,47 @@ const SakuraParticles = defineAsyncComponent(() => import('./effects/SakuraParti
       />
     </Transition>
 
-    <!-- 
     <Transition name="fade">
-      <component :is="MatrixRain" v-if="props.effect === 'matrix'" />
-    </Transition> 
-    -->
+      <component
+        :is="MatrixRain"
+        v-if="props.effect === 'matrix'"
+      />
+    </Transition>
+
+    <Transition name="fade">
+      <component
+        :is="SpeedLines"
+        v-if="props.effect === 'speed-lines'"
+      />
+    </Transition>
+
+    <Transition name="fade">
+      <component
+        :is="RippleEffect"
+        v-if="props.effect === 'ripple'"
+      />
+    </Transition>
+
+    <Transition name="fade">
+      <component
+        :is="InkSpread"
+        v-if="props.effect === 'ink'"
+      />
+    </Transition>
+
+    <Transition name="fade">
+      <component
+        :is="AuroraBorealis"
+        v-if="props.effect === 'aurora'"
+      />
+    </Transition>
+
+    <Transition name="fade">
+      <component
+        :is="AudioVisualizer"
+        v-if="props.effect === 'visualizer'"
+      />
+    </Transition>
   </div>
 </template>
 

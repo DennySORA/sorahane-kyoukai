@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineAsyncComponent } from 'vue'
+import { defineAsyncComponent, computed } from 'vue'
 import StarBackground from './StarBackground.vue'
 
 const props = defineProps<{
@@ -7,13 +7,20 @@ const props = defineProps<{
 }>()
 
 // Lazy load heavy background components
-const SakuraParticles = defineAsyncComponent(() => import('./effects/SakuraParticles.vue'))
-const MatrixRain = defineAsyncComponent(() => import('./effects/MatrixRain.vue'))
-const SpeedLines = defineAsyncComponent(() => import('./effects/SpeedLines.vue'))
-const RippleEffect = defineAsyncComponent(() => import('./effects/RippleEffect.vue'))
-const InkSpread = defineAsyncComponent(() => import('./effects/InkSpread.vue'))
-const AuroraBorealis = defineAsyncComponent(() => import('./effects/AuroraBorealis.vue'))
-const AudioVisualizer = defineAsyncComponent(() => import('./effects/AudioVisualizer.vue'))
+const components = {
+  sakura: defineAsyncComponent(() => import('./effects/SakuraParticles.vue')),
+  matrix: defineAsyncComponent(() => import('./effects/MatrixRain.vue')),
+  'speed-lines': defineAsyncComponent(() => import('./effects/SpeedLines.vue')),
+  ripple: defineAsyncComponent(() => import('./effects/RippleEffect.vue')),
+  ink: defineAsyncComponent(() => import('./effects/InkSpread.vue')),
+  aurora: defineAsyncComponent(() => import('./effects/AuroraBorealis.vue')),
+  visualizer: defineAsyncComponent(() => import('./effects/AudioVisualizer.vue')),
+  'god-rays': defineAsyncComponent(() => import('./effects/GodRays.vue'))
+}
+
+const currentEffectComponent = computed(() => {
+  return components[props.effect as keyof typeof components] || null
+})
 
 </script>
 
@@ -22,57 +29,34 @@ const AudioVisualizer = defineAsyncComponent(() => import('./effects/AudioVisual
     <!-- Base Layer: Stars are always present but maybe fainter -->
     <StarBackground :star-count="props.effect === 'stars' ? 100 : 40" />
 
-    <!-- Specific Effects -->
-    <Transition name="fade">
+    <!-- Specific Effects with out-in mode to prevent overlap/residue -->
+    <Transition name="effect-fade" mode="out-in">
       <component
-        :is="SakuraParticles"
-        v-if="props.effect === 'sakura'"
-      />
-    </Transition>
-
-    <Transition name="fade">
-      <component
-        :is="MatrixRain"
-        v-if="props.effect === 'matrix'"
-      />
-    </Transition>
-
-    <Transition name="fade">
-      <component
-        :is="SpeedLines"
-        v-if="props.effect === 'speed-lines'"
-      />
-    </Transition>
-
-    <Transition name="fade">
-      <component
-        :is="RippleEffect"
-        v-if="props.effect === 'ripple'"
-      />
-    </Transition>
-
-    <Transition name="fade">
-      <component
-        :is="InkSpread"
-        v-if="props.effect === 'ink'"
-      />
-    </Transition>
-
-    <Transition name="fade">
-      <component
-        :is="AuroraBorealis"
-        v-if="props.effect === 'aurora'"
-      />
-    </Transition>
-
-    <Transition name="fade">
-      <component
-        :is="AudioVisualizer"
-        v-if="props.effect === 'visualizer'"
+        :is="currentEffectComponent"
+        :key="props.effect"
       />
     </Transition>
   </div>
 </template>
+
+<style scoped>
+.theme-background {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.effect-fade-enter-active,
+.effect-fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.effect-fade-enter-from,
+.effect-fade-leave-to {
+  opacity: 0;
+}
+</style>
 
 <style scoped>
 .theme-background {

@@ -172,101 +172,214 @@ const variantClass = computed(() => `card-${props.variant}`)
 }
 
 /* 3. Anime (Tech Interface) */
+
 .card-tech {
-  background: rgba(10, 20, 40, 0.85);
+
+  background: rgba(10, 20, 40, 0.9); /* Slightly more opaque */
+
   clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+
   border-left: 2px solid var(--theme-primary);
+
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+
 }
+
 .card-tech::before {
+
   content: '';
+
   position: absolute;
+
   top: 0;
+
   right: 0;
+
   width: 20px;
+
   height: 20px;
+
   border-top: 2px solid var(--theme-accent);
+
   border-right: 2px solid var(--theme-accent);
+
 }
+
 .card-tech:hover {
+
   transform: translateX(5px);
-  background: rgba(15, 30, 60, 0.9);
+
+  background: rgba(15, 30, 60, 0.95);
+
 }
+
+
 
 /* 4. Minimal (Thoughts/Zen) */
+
 .card-minimal {
+
   background: transparent;
+
   border: none;
+
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
   border-radius: 0;
+
+  /* Local gradient to ensure text pops against image */
+
+  background: linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 80%);
+
 }
+
+.card-minimal .card-content {
+
+  padding: 24px 12px;
+
+}
+
 .card-minimal .card-thumbnail {
+
   aspect-ratio: 21 / 9; /* Wider, cinematic */
-  opacity: 0.8;
-  filter: grayscale(80%);
+
+  opacity: 0.9; /* More visible */
+
+  filter: grayscale(40%); /* Less gray */
+
   transition: all 0.5s ease;
+
 }
+
 .card-minimal:hover .card-thumbnail {
+
   opacity: 1;
+
   filter: grayscale(0%);
+
 }
+
 .card-minimal .card-title {
+
   font-size: 1.5rem;
+
   letter-spacing: 0.1em;
+
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8); /* Ensure readability */
+
 }
+
+
 
 /* 5. Writing (Scroll/Paper) */
+
 .card-scroll {
-  background: #e2e8f0; /* Light paper-ish */
+
+  background: #f1f5f9; /* Slightly brighter paper */
+
   color: #18181b !important;
+
   border: none;
-  box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.2);
+
+  box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.3); /* Stronger shadow */
+
   margin-bottom: 10px;
+
   margin-right: 10px;
+
 }
+
 .card-scroll .card-title,
+
 .card-scroll .card-excerpt,
+
 .card-scroll .card-meta {
+
   color: #18181b !important;
+
   font-family: "Shippori Mincho", serif;
+
 }
+
 .card-scroll .thumbnail-overlay {
+
   display: none;
+
 }
+
 .card-scroll:hover {
+
   transform: translate(-4px, -4px);
-  box-shadow: 14px 14px 0 rgba(0, 0, 0, 0.1);
+
+  box-shadow: 12px 12px 20px rgba(0, 0, 0, 0.2);
+
 }
+
+
 
 /* 6. Health (Soft/Organic) */
+
 .card-soft {
+
   border-radius: 24px;
-  background: rgba(255, 255, 255, 0.05);
+
+  background: rgba(255, 255, 255, 0.1); /* Brighter glass */
+
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-.card-soft:hover {
-  transform: scale(1.02);
-  background: rgba(255, 255, 255, 0.08);
+
+  border: 1px solid rgba(255, 255, 255, 0.3);
+
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+
 }
 
+.card-soft:hover {
+
+  transform: scale(1.02);
+
+  background: rgba(255, 255, 255, 0.15);
+
+}
+
+
+
 /* 7. Music (Vinyl - Light Mode Adapted) */
+
 .card-vinyl {
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.4);
+
+  background: rgba(255, 255, 255, 0.7); /* More opaque */
+
+  backdrop-filter: blur(16px);
+
+  border: 1px solid rgba(255, 255, 255, 0.6);
+
   border-radius: 8px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Stronger shadow */
+
 }
+
 .card-vinyl .card-thumbnail img {
+
   border-radius: 4px;
+
 }
+
 .card-vinyl:hover {
+
   border-color: var(--theme-accent);
-  box-shadow: 0 8px 25px rgba(139, 92, 246, 0.15); /* violet shadow */
-  background: rgba(255, 255, 255, 0.8);
+
+  box-shadow: 0 12px 30px rgba(139, 92, 246, 0.25); /* violet shadow */
+
+  background: rgba(255, 255, 255, 0.85);
+
 }
+
 .card-vinyl .card-title {
+
   /* Ensure title respects the dark theme text color */
+
   color: var(--theme-text); 
+
 }
 </style>

@@ -397,27 +397,65 @@ const variantClass = computed(() => `card-${props.variant}`)
 
 
 
-/* 6. Health (Soft/Organic) */
+/* 6. Health (Soft/Organic - Warm) */
+
+
 
 .card-soft {
 
+
+
   border-radius: 24px;
 
-  background: rgba(255, 255, 255, 0.1); /* Brighter glass */
 
-  backdrop-filter: blur(20px);
 
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.6);
 
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+
+
+  backdrop-filter: blur(12px);
+
+
+
+  border: 1px solid rgba(245, 158, 11, 0.3);
+
+
+
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.1);
+
+
 
 }
 
+
+
+.card-soft .card-title {
+
+
+
+  color: var(--theme-text);
+
+
+
+}
+
+
+
 .card-soft:hover {
+
+
 
   transform: scale(1.02);
 
-  background: rgba(255, 255, 255, 0.15);
+
+
+  background: rgba(255, 255, 255, 0.8);
+
+
+
+  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.25);
+
+
 
 }
 

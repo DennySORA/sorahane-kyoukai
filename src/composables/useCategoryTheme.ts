@@ -25,7 +25,8 @@ export interface ThemeConfig {
     bgOverlay: string // Specific overlay color/opacity
   }
   bgEffect: 'sakura' | 'speed-lines' | 'matrix' | 'ripple' | 'ink' | 'aurora' | 'visualizer' | 'stars' | 'god-rays' | 'feathers' | 'bubbles' | 'dust' | 'snow' | 'pixel'
-  cardStyle: 'dialog' | 'tech' | 'terminal' | 'minimal' | 'scroll' | 'soft' | 'vinyl'
+  cardStyle: 'dialog' | 'tech' | 'terminal' | 'minimal' | 'scroll' | 'soft' | 'vinyl' | 'rpg'
+  backgroundImage?: string
 // ...
   gamedev: {
     key: 'gamedev',
@@ -40,7 +41,7 @@ export interface ThemeConfig {
       bgOverlay: 'rgba(0, 0, 0, 0.4)'
     },
     bgEffect: 'pixel', // RPG Pixel Dust
-    cardStyle: 'terminal', // Terminal fits pixel art well
+    cardStyle: 'rpg', // New RPG style
     layoutMode: 'console',
     fontFamily: '"Courier New", Courier, monospace',
     backgroundImage: '/images/gamedev_bg.png',

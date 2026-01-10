@@ -463,41 +463,203 @@ const variantClass = computed(() => `card-${props.variant}`)
 
 /* 7. Music (Vinyl - Light Mode Adapted) */
 
+
+
 .card-vinyl {
+
+
 
   background: rgba(255, 255, 255, 0.7); /* More opaque */
 
+
+
   backdrop-filter: blur(16px);
+
+
 
   border: 1px solid rgba(255, 255, 255, 0.6);
 
+
+
   border-radius: 8px;
+
+
 
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Stronger shadow */
 
+
+
 }
+
+
 
 .card-vinyl .card-thumbnail img {
 
+
+
   border-radius: 4px;
 
+
+
 }
+
+
 
 .card-vinyl:hover {
 
+
+
   border-color: var(--theme-accent);
+
+
 
   box-shadow: 0 12px 30px rgba(139, 92, 246, 0.25); /* violet shadow */
 
+
+
   background: rgba(255, 255, 255, 0.85);
 
+
+
 }
+
+
 
 .card-vinyl .card-title {
 
+
+
   /* Ensure title respects the dark theme text color */
+
+
 
   color: var(--theme-text); 
 
+
+
 }
+
+
+
+
+
+
+
+/* 8. Game Dev (RPG Text Box) */
+
+
+
+.card-rpg {
+
+
+
+  background: linear-gradient(180deg, #1e3a8a 0%, #172554 100%); /* Deep RPG Blue */
+
+
+
+  border: 2px solid #ffffff;
+
+
+
+  border-radius: 4px;
+
+
+
+  /* Retro double border effect */
+
+
+
+  box-shadow: 
+
+
+
+    0 0 0 2px #000000, 
+
+
+
+    0 0 0 4px #ffffff,
+
+
+
+    0 10px 20px rgba(0,0,0,0.5);
+
+
+
+  font-family: "Courier New", monospace;
+
+
+
+  color: #fefce8;
+
+
+
+}
+
+
+
+.card-rpg .card-thumbnail {
+
+
+
+  border-bottom: 2px solid #ffffff;
+
+
+
+  image-rendering: pixelated; /* If thumbnail is pixel art */
+
+
+
+}
+
+
+
+.card-rpg .card-title {
+
+
+
+  color: #facc15; /* Gold */
+
+
+
+  text-shadow: 2px 2px 0px #000;
+
+
+
+}
+
+
+
+.card-rpg:hover {
+
+
+
+  transform: translateY(-4px);
+
+
+
+  background: linear-gradient(180deg, #2563eb 0%, #1e40af 100%); /* Lighter Blue */
+
+
+
+}
+
+
+
+.card-rpg .read-more::before {
+
+
+
+  content: '▶ ';
+
+
+
+  animation: blink 1s step-end infinite;
+
+
+
+}
+
+
+
+@keyframes blink { 50% { opacity: 0; } }
 </style>

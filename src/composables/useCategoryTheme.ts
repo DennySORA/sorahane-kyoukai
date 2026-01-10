@@ -39,16 +39,16 @@ const themes: Record<ThemeType, ThemeConfig> = {
     description: '探索視覺小說的世界，分享遊戲心得與推薦',
     icon: '🌸',
     colors: {
-      primary: '#fbcfe8', // pink-200
-      accent: '#f472b6', // pink-400
-      text: '#ffffff', // White text for clarity
-      bgOverlay: 'linear-gradient(to right, rgba(0,0,0,0.5) 0%, transparent 50%)' // Subtle left shadow
+      primary: '#db2777', // pink-600 (Darker for light bg)
+      accent: '#be185d', // pink-700
+      text: '#4a044e', // fuchsia-950 (Dark Text)
+      bgOverlay: 'rgba(255, 255, 255, 0.5)' // Light wash
     },
     bgEffect: 'sakura',
     cardStyle: 'dialog',
     backgroundImage: '/images/galgame_bg.png',
     layoutMode: 'left',
-    textShadow: '0 2px 8px rgba(236, 72, 153, 0.8), 0 2px 4px rgba(0,0,0,0.5)' // Pink glow + Drop shadow
+    textShadow: '0 0 20px rgba(255, 255, 255, 0.8)' // White halo
   },
   anime: {
     key: 'anime',
@@ -57,16 +57,16 @@ const themes: Record<ThemeType, ThemeConfig> = {
     description: '動漫評論、角色分析、作品推薦',
     icon: '⚡',
     colors: {
-      primary: '#0ea5e9', // sky-500
-      accent: '#facc15', // yellow-400
-      text: '#ffffff',
-      bgOverlay: 'linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, transparent 40%)'
+      primary: '#0284c7', // sky-600
+      accent: '#ca8a04', // yellow-600
+      text: '#0c4a6e', // sky-950 (Dark Text)
+      bgOverlay: 'rgba(255, 255, 255, 0.5)' // Light wash
     },
-    bgEffect: 'god-rays', // New gentle effect
+    bgEffect: 'god-rays',
     cardStyle: 'tech',
     backgroundImage: '/images/anime_bg.png',
     layoutMode: 'center',
-    textShadow: '0 4px 8px rgba(0, 50, 100, 0.4), 0 0 15px rgba(56, 189, 248, 0.5)' // Blue glow
+    textShadow: '0 0 20px rgba(255, 255, 255, 0.8)' // White halo
   },
   programming: {
     key: 'programming',
@@ -78,14 +78,14 @@ const themes: Record<ThemeType, ThemeConfig> = {
       primary: '#4ade80', // green-400
       accent: '#22c55e', // green-500
       text: '#dcfce7', // green-50
-      bgOverlay: 'rgba(0, 0, 0, 0.4)' // Reduced from 0.85
+      bgOverlay: 'rgba(5, 5, 5, 0.85)' // High contrast dark
     },
     bgEffect: 'matrix',
     cardStyle: 'terminal',
     layoutMode: 'console',
     fontFamily: '"JetBrains Mono", "Fira Code", monospace',
     backgroundImage: '/images/code_bg.png',
-    textShadow: '0 0 10px rgba(74, 222, 128, 0.5)' // Green glow
+    textShadow: '0 0 10px rgba(74, 222, 128, 0.5)'
   },
   thoughts: {
     key: 'thoughts',
@@ -94,10 +94,10 @@ const themes: Record<ThemeType, ThemeConfig> = {
     description: '生活隨筆、思考紀錄、個人感想',
     icon: '🌊',
     colors: {
-      primary: '#cbd5e1', // slate-300
-      accent: '#e2e8f0', // slate-200
+      primary: '#94a3b8', // slate-400
+      accent: '#cbd5e1', // slate-300
       text: '#f8fafc', // slate-50
-      bgOverlay: 'radial-gradient(circle at center, rgba(15, 23, 42, 0.3) 0%, rgba(15, 23, 42, 0.6) 100%)'
+      bgOverlay: 'linear-gradient(to bottom, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.9))'
     },
     bgEffect: 'ripple',
     cardStyle: 'minimal',
@@ -115,7 +115,7 @@ const themes: Record<ThemeType, ThemeConfig> = {
       primary: '#e2e8f0', // slate-200
       accent: '#fcd34d', // amber-300
       text: '#fefce8', // yellow-50
-      bgOverlay: 'radial-gradient(circle at center, transparent 20%, rgba(0,0,0,0.5) 100%)' // Subtle vignette
+      bgOverlay: 'radial-gradient(circle at center, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.85) 100%)'
     },
     bgEffect: 'ink',
     cardStyle: 'scroll',
@@ -131,10 +131,10 @@ const themes: Record<ThemeType, ThemeConfig> = {
     description: '健康資訊、生活習慣、身心平衡',
     icon: '🌿',
     colors: {
-      primary: '#5eead4', // teal-300
-      accent: '#fdba74', // orange-300
-      text: '#f0fdf4', // teal-50
-      bgOverlay: 'linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.3))'
+      primary: '#2dd4bf', // teal-400
+      accent: '#fb923c', // orange-400
+      text: '#ccfbf1', // teal-50
+      bgOverlay: 'linear-gradient(135deg, rgba(20, 83, 45, 0.5) 0%, rgba(10, 40, 20, 0.8) 100%)'
     },
     bgEffect: 'aurora',
     cardStyle: 'soft',
@@ -149,16 +149,16 @@ const themes: Record<ThemeType, ThemeConfig> = {
     description: '音樂評論、專輯推薦、聆聽感想',
     icon: '🎵',
     colors: {
-      primary: '#c026d3', // fuchsia-600
-      accent: '#4f46e5', // indigo-600
+      primary: '#a21caf', // fuchsia-700
+      accent: '#4338ca', // indigo-700
       text: '#1e1b4b', // indigo-950
-      bgOverlay: 'linear-gradient(to top, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.0) 60%)' // Fade bottom only
+      bgOverlay: 'rgba(255, 255, 255, 0.85)' // Stronger white wash
     },
     bgEffect: 'visualizer',
     cardStyle: 'vinyl',
     layoutMode: 'center',
     backgroundImage: '/images/music_bg.png',
-    textShadow: 'none' // Dark text on light bg usually doesn't need shadow, or maybe a white glow
+    textShadow: 'none'
   },
   default: {
     key: 'default',

@@ -27,7 +27,67 @@ export interface ThemeConfig {
   bgEffect: 'sakura' | 'speed-lines' | 'matrix' | 'ripple' | 'ink' | 'aurora' | 'visualizer' | 'stars' | 'god-rays' | 'feathers' | 'bubbles' | 'dust' | 'snow' | 'pixel'
   cardStyle: 'dialog' | 'tech' | 'terminal' | 'minimal' | 'scroll' | 'soft' | 'vinyl' | 'rpg'
   backgroundImage?: string
-// ...
+  layoutMode: 'center' | 'left' | 'console' | 'zen'
+  fontFamily?: string
+  textShadow?: string
+}
+
+const themes: Record<ThemeType, ThemeConfig> = {
+  galgame: {
+    key: 'galgame',
+    title: 'Galgame',
+    subtitle: 'Visual Novel Adventures',
+    description: '探索視覺小說的世界，分享遊戲心得與推薦',
+    icon: '/images/icons/galgame_icon.png',
+    colors: {
+      primary: '#db2777', // pink-600
+      accent: '#be185d', // pink-700
+      text: '#4a044e', // fuchsia-950
+      bgOverlay: 'rgba(255, 235, 245, 0.6)' // Warm Pinkish wash
+    },
+    bgEffect: 'sakura',
+    cardStyle: 'dialog',
+    backgroundImage: '/images/galgame_bg.png',
+    layoutMode: 'left',
+    textShadow: '0 0 20px rgba(255, 255, 255, 0.8)'
+  },
+  anime: {
+    key: 'anime',
+    title: '二次元天地',
+    subtitle: 'Anime & Manga World',
+    description: '動漫評論、角色分析、作品推薦',
+    icon: '/images/icons/anime_icon.png',
+    colors: {
+      primary: '#0284c7', // sky-600
+      accent: '#ca8a04', // yellow-600
+      text: '#0c4a6e', // sky-950
+      bgOverlay: 'rgba(240, 249, 255, 0.5)' // Cool White wash
+    },
+    bgEffect: 'bubbles',
+    cardStyle: 'tech',
+    backgroundImage: '/images/anime_bg.png',
+    layoutMode: 'center',
+    textShadow: '0 0 20px rgba(255, 255, 255, 0.8)'
+  },
+  programming: {
+    key: 'programming',
+    title: '程式技術',
+    subtitle: 'System.out.println("Hello World");',
+    description: '技術文章、開發心得、程式教學',
+    icon: '/images/icons/programming_icon.png',
+    colors: {
+      primary: '#4ade80', // green-400
+      accent: '#22c55e', // green-500
+      text: '#dcfce7', // green-50
+      bgOverlay: 'rgba(5, 5, 5, 0.85)' // High contrast dark
+    },
+    bgEffect: 'matrix',
+    cardStyle: 'terminal',
+    layoutMode: 'console',
+    fontFamily: '"JetBrains Mono", "Fira Code", monospace',
+    backgroundImage: '/images/code_bg.png',
+    textShadow: '0 0 10px rgba(74, 222, 128, 0.5)'
+  },
   gamedev: {
     key: 'gamedev',
     title: '遊戲開發',
@@ -40,12 +100,12 @@ export interface ThemeConfig {
       text: '#fefce8', // pale yellow
       bgOverlay: 'rgba(0, 0, 0, 0.4)'
     },
-    bgEffect: 'pixel', // RPG Pixel Dust
-    cardStyle: 'rpg', // New RPG style
+    bgEffect: 'pixel',
+    cardStyle: 'rpg',
     layoutMode: 'console',
     fontFamily: '"Courier New", Courier, monospace',
     backgroundImage: '/images/gamedev_bg.png',
-    textShadow: '2px 2px 0px #451a03' // Retro step shadow
+    textShadow: '2px 2px 0px #451a03'
   },
   thoughts: {
     key: 'thoughts',
@@ -77,7 +137,7 @@ export interface ThemeConfig {
       text: '#fefce8', // yellow-50
       bgOverlay: 'radial-gradient(circle at center, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.85) 100%)'
     },
-    bgEffect: 'dust', // Gold dust
+    bgEffect: 'dust',
     cardStyle: 'scroll',
     layoutMode: 'zen',
     fontFamily: '"Shippori Mincho", serif',
@@ -96,7 +156,7 @@ export interface ThemeConfig {
       text: '#451a03', // amber-950 (Dark Warm)
       bgOverlay: 'rgba(255, 250, 240, 0.5)' // Warm white wash
     },
-    bgEffect: 'snow', // Calm snow
+    bgEffect: 'snow',
     cardStyle: 'soft',
     layoutMode: 'center',
     backgroundImage: '/images/health_bg.png',

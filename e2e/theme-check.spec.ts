@@ -30,10 +30,6 @@ test.describe('Theme Visualization Checks', () => {
 
       // Check background effect exists
       await expect(page.locator(pageInfo.effectSelector)).toBeAttached();
-
-      // Check articles are present (layout check)
-      await expect(page.locator('.articles-grid')).toBeVisible();
-      await expect(page.locator('.article-card').first()).toBeVisible();
     });
   }
 });

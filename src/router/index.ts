@@ -29,6 +29,12 @@ const router = createRouter({
       meta: { title: '程式技術 - 空羽ノ境' }
     },
     {
+      path: '/gamedev',
+      name: 'gamedev',
+      component: () => import('@/views/CategoryView.vue'),
+      meta: { title: '遊戲開發 - 空羽ノ境' }
+    },
+    {
       path: '/thoughts',
       name: 'thoughts',
       component: () => import('@/views/CategoryView.vue'),

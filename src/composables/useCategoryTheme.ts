@@ -5,6 +5,7 @@ export type ThemeType =
   | 'galgame' 
   | 'anime' 
   | 'programming' 
+  | 'gamedev'
   | 'thoughts' 
   | 'writing' 
   | 'health' 
@@ -86,6 +87,25 @@ const themes: Record<ThemeType, ThemeConfig> = {
     fontFamily: '"JetBrains Mono", "Fira Code", monospace',
     backgroundImage: '/images/code_bg.png',
     textShadow: '0 0 10px rgba(74, 222, 128, 0.5)'
+  },
+  gamedev: {
+    key: 'gamedev',
+    title: '遊戲開發',
+    subtitle: 'Press Start to Begin',
+    description: '遊戲引擎、圖學渲染、關卡設計',
+    icon: '/images/icons/gamedev_icon.png',
+    colors: {
+      primary: '#8b5cf6', // violet-500
+      accent: '#f97316', // orange-500
+      text: '#f5f3ff', // violet-50
+      bgOverlay: 'rgba(15, 23, 42, 0.7)' // Dark Slate
+    },
+    bgEffect: 'matrix', // Reusing matrix for now
+    cardStyle: 'tech', // Using Tech style from Anime but maybe different colors?
+    layoutMode: 'console',
+    fontFamily: '"JetBrains Mono", "Fira Code", monospace',
+    backgroundImage: '/images/gamedev_bg.png',
+    textShadow: '0 0 15px rgba(139, 92, 246, 0.6)'
   },
   thoughts: {
     key: 'thoughts',

@@ -40,16 +40,17 @@ interface Category {
   icon: string
   href: string
   accent: string
+  iconImage: string
 }
 
 const categories: Category[] = [
-  { name: 'Galgame', icon: 'G', href: '/galgame', accent: '245, 197, 66' },
-  { name: '二次元天地', icon: '二', href: '/anime', accent: '236, 72, 153' },
-  { name: '程式技術', icon: '程', href: '/programming', accent: '129, 140, 248' },
-  { name: '心境與筆記', icon: '心', href: '/thoughts', accent: '74, 124, 140' },
-  { name: '寫作技巧', icon: '寫', href: '/writing', accent: '251, 146, 60' },
-  { name: '健康知識', icon: '健', href: '/health', accent: '135, 206, 235' },
-  { name: '音樂賞析', icon: '音', href: '/music', accent: '196, 181, 253' }
+  { name: 'Galgame', icon: 'G', href: '/galgame', accent: '245, 197, 66', iconImage: '/images/icons/galgame_icon.png' },
+  { name: '二次元天地', icon: '二', href: '/anime', accent: '236, 72, 153', iconImage: '/images/icons/anime_icon.png' },
+  { name: '程式技術', icon: '程', href: '/programming', accent: '129, 140, 248', iconImage: '/images/icons/programming_icon.png' },
+  { name: '心境與筆記', icon: '心', href: '/thoughts', accent: '74, 124, 140', iconImage: '/images/icons/thoughts_icon.png' },
+  { name: '寫作技巧', icon: '寫', href: '/writing', accent: '251, 146, 60', iconImage: '/images/icons/writing_icon.png' },
+  { name: '健康知識', icon: '健', href: '/health', accent: '135, 206, 235', iconImage: '/images/icons/health_icon.png' },
+  { name: '音樂賞析', icon: '音', href: '/music', accent: '196, 181, 253', iconImage: '/images/icons/music_icon.png' }
 ]
 
 const orbPositions = computed(() => {
@@ -158,7 +159,9 @@ function handleMouseLeave(): void {
             <div class="orb-sigil"></div>
             <div class="orb-pulse" aria-hidden="true"></div>
             <div class="orb-content">
-              <span class="orb-icon">{{ category.icon }}</span>
+              <span class="orb-icon">
+                <img :src="category.iconImage" :alt="category.name" />
+              </span>
               <span class="orb-name">{{ category.name }}</span>
             </div>
           </div>
@@ -570,16 +573,23 @@ function handleMouseLeave(): void {
 }
 
 .orb-icon {
-  font-family: var(--font-display-jp);
-  font-size: 22px;
-  font-weight: 600;
-  color: rgba(var(--orb-accent), 1);
-  text-shadow: 0 0 16px rgba(var(--orb-accent), 0.6);
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: transform 0.3s ease;
 }
 
+.orb-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px rgba(var(--orb-accent), 0.6));
+}
+
 .category-orb:hover .orb-icon {
-  transform: scale(1.1);
+  transform: scale(1.15);
 }
 
 .orb-name {

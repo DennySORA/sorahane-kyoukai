@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import StarBackground from '@/components/ui/StarBackground.vue'
+import ThemeBackground from '@/components/ui/ThemeBackground.vue'
 import { useCategoryTheme } from '@/composables/useCategoryTheme'
 
 const { currentTheme } = useCategoryTheme()
@@ -21,7 +21,7 @@ const themeStyles = computed(() => ({
         alt=""
         class="bg-image"
       />
-      <StarBackground :star-count="60" />
+      <ThemeBackground :effect="currentTheme.bgEffect" />
       <div class="bg-overlay"></div>
     </div>
 

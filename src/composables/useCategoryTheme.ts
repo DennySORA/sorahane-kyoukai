@@ -23,7 +23,7 @@ export interface ThemeConfig {
     text: string // Specific text color override
     bgOverlay: string // Specific overlay color/opacity
   }
-  bgEffect: 'sakura' | 'speed-lines' | 'matrix' | 'ripple' | 'ink' | 'aurora' | 'visualizer' | 'stars' | 'god-rays' | 'feathers'
+  bgEffect: 'sakura' | 'speed-lines' | 'matrix' | 'ripple' | 'ink' | 'aurora' | 'visualizer' | 'stars' | 'god-rays' | 'feathers' | 'bubbles' | 'dust' | 'snow'
   cardStyle: 'dialog' | 'tech' | 'terminal' | 'minimal' | 'scroll' | 'soft' | 'vinyl'
   backgroundImage?: string
   layoutMode: 'center' | 'left' | 'console' | 'zen'
@@ -62,7 +62,7 @@ const themes: Record<ThemeType, ThemeConfig> = {
       text: '#0c4a6e', // sky-950
       bgOverlay: 'rgba(240, 249, 255, 0.5)' // Cool White wash
     },
-    bgEffect: 'feathers', // Falling feathers
+    bgEffect: 'bubbles', // Bubbles for fresh look
     cardStyle: 'tech',
     backgroundImage: '/images/anime_bg.png',
     layoutMode: 'center',
@@ -117,7 +117,7 @@ const themes: Record<ThemeType, ThemeConfig> = {
       text: '#fefce8', // yellow-50
       bgOverlay: 'radial-gradient(circle at center, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.85) 100%)'
     },
-    bgEffect: 'ink',
+    bgEffect: 'dust', // Gold dust
     cardStyle: 'scroll',
     layoutMode: 'zen',
     fontFamily: '"Shippori Mincho", serif',
@@ -129,18 +129,18 @@ const themes: Record<ThemeType, ThemeConfig> = {
     title: '健康知識',
     subtitle: 'Body & Soul',
     description: '健康資訊、生活習慣、身心平衡',
-    icon: '🌿',
+    icon: '🌱',
     colors: {
-      primary: '#2dd4bf', // teal-400
-      accent: '#fb923c', // orange-400
-      text: '#ccfbf1', // teal-50
-      bgOverlay: 'linear-gradient(135deg, rgba(20, 83, 45, 0.5) 0%, rgba(10, 40, 20, 0.8) 100%)'
+      primary: '#f59e0b', // amber-500
+      accent: '#d97706', // amber-600
+      text: '#451a03', // amber-950 (Dark Warm)
+      bgOverlay: 'rgba(255, 250, 240, 0.5)' // Warm white wash
     },
-    bgEffect: 'aurora',
+    bgEffect: 'snow', // Calm snow
     cardStyle: 'soft',
     layoutMode: 'center',
     backgroundImage: '/images/health_bg.png',
-    textShadow: '0 2px 10px rgba(0,0,0,0.3)'
+    textShadow: 'none'
   },
   music: {
     key: 'music',

@@ -20,10 +20,14 @@ export interface ThemeConfig {
   colors: {
     primary: string // Main brand color
     accent: string // Secondary/Highlight color
-    bgGradient: string // CSS gradient string for overlays
+    text: string // Specific text color override
+    bgOverlay: string // Specific overlay color/opacity
   }
   bgEffect: 'sakura' | 'speed-lines' | 'matrix' | 'ripple' | 'ink' | 'aurora' | 'visualizer' | 'stars'
   cardStyle: 'dialog' | 'tech' | 'terminal' | 'minimal' | 'scroll' | 'soft' | 'vinyl'
+  backgroundImage?: string
+  layoutMode: 'center' | 'left' | 'console' | 'zen'
+  fontFamily?: string
 }
 
 const themes: Record<ThemeType, ThemeConfig> = {
@@ -34,12 +38,15 @@ const themes: Record<ThemeType, ThemeConfig> = {
     description: '探索視覺小說的世界，分享遊戲心得與推薦',
     icon: '🌸',
     colors: {
-      primary: '#ec4899', // nebula-pink
-      accent: '#4338ca', // cosmic-purple-light
-      bgGradient: 'linear-gradient(135deg, rgba(236, 72, 153, 0.15) 0%, rgba(67, 56, 202, 0.1) 100%)'
+      primary: '#f9a8d4', // pink-300
+      accent: '#f472b6', // pink-400
+      text: '#fdf2f8', // pink-50
+      bgOverlay: 'linear-gradient(180deg, rgba(80, 24, 60, 0.8) 0%, rgba(40, 10, 30, 0.9) 100%)'
     },
     bgEffect: 'sakura',
-    cardStyle: 'dialog'
+    cardStyle: 'dialog',
+    backgroundImage: '/images/hero_bg.jpeg', // Fallback to hero for now, but heavily tinted
+    layoutMode: 'left'
   },
   anime: {
     key: 'anime',
@@ -48,82 +55,97 @@ const themes: Record<ThemeType, ThemeConfig> = {
     description: '動漫評論、角色分析、作品推薦',
     icon: '⚡',
     colors: {
-      primary: '#87ceeb', // sky-blue
-      accent: '#4a7c8c', // teal-cloud
-      bgGradient: 'linear-gradient(135deg, rgba(135, 206, 235, 0.15) 0%, rgba(74, 124, 140, 0.1) 100%)'
+      primary: '#38bdf8', // sky-400
+      accent: '#facc15', // yellow-400
+      text: '#f0f9ff', // sky-50
+      bgOverlay: 'linear-gradient(135deg, rgba(10, 30, 60, 0.8) 0%, rgba(10, 10, 20, 0.9) 100%)'
     },
     bgEffect: 'speed-lines',
-    cardStyle: 'tech'
+    cardStyle: 'tech',
+    backgroundImage: '/images/universe_bg.jpeg',
+    layoutMode: 'center'
   },
   programming: {
     key: 'programming',
     title: '程式技術',
-    subtitle: 'Code & Technology',
+    subtitle: 'System.out.println("Hello World");',
     description: '技術文章、開發心得、程式教學',
-    icon: '💻',
+    icon: '>',
     colors: {
-      primary: '#4338ca', // cosmic-purple-light
-      accent: '#10b981', // emerald-500 (Matrix Greenish)
-      bgGradient: 'linear-gradient(135deg, rgba(67, 56, 202, 0.15) 0%, rgba(16, 185, 129, 0.05) 100%)'
+      primary: '#4ade80', // green-400
+      accent: '#22c55e', // green-500
+      text: '#dcfce7', // green-50
+      bgOverlay: 'rgba(5, 5, 5, 0.95)' // Almost solid black
     },
     bgEffect: 'matrix',
-    cardStyle: 'terminal'
+    cardStyle: 'terminal',
+    layoutMode: 'console',
+    fontFamily: '"JetBrains Mono", "Fira Code", monospace'
   },
   thoughts: {
     key: 'thoughts',
     title: '心境與筆記',
     subtitle: 'Thoughts & Notes',
     description: '生活隨筆、思考紀錄、個人感想',
-    icon: '🌙',
+    icon: '🌊',
     colors: {
-      primary: '#e2e8f0', // moon-silver
-      accent: '#1e3a5f', // night-blue
-      bgGradient: 'linear-gradient(135deg, rgba(226, 232, 240, 0.1) 0%, rgba(30, 58, 95, 0.15) 100%)'
+      primary: '#94a3b8', // slate-400
+      accent: '#cbd5e1', // slate-300
+      text: '#f8fafc', // slate-50
+      bgOverlay: 'linear-gradient(to bottom, #0f172a, #1e293b)'
     },
     bgEffect: 'ripple',
-    cardStyle: 'minimal'
+    cardStyle: 'minimal',
+    layoutMode: 'zen'
   },
   writing: {
     key: 'writing',
     title: '寫作技巧',
-    subtitle: 'Writing Skills',
+    subtitle: 'The Art of Storytelling',
     description: '創作心法、寫作技巧、故事構思',
     icon: '✒️',
     colors: {
-      primary: '#f8fafc', // star-white
-      accent: '#f5c542', // sun-gold
-      bgGradient: 'linear-gradient(135deg, rgba(248, 250, 252, 0.05) 0%, rgba(245, 197, 66, 0.1) 100%)'
+      primary: '#e2e8f0', // slate-200
+      accent: '#d4d4d8', // zinc-300
+      text: '#f4f4f5', // zinc-50
+      bgOverlay: 'linear-gradient(to right, #27272a, #18181b)' // Dark ink wash vibe
     },
     bgEffect: 'ink',
-    cardStyle: 'scroll'
+    cardStyle: 'scroll',
+    layoutMode: 'zen',
+    fontFamily: '"Shippori Mincho", serif'
   },
   health: {
     key: 'health',
     title: '健康知識',
-    subtitle: 'Health & Wellness',
+    subtitle: 'Body & Soul',
     description: '健康資訊、生活習慣、身心平衡',
     icon: '🌿',
     colors: {
-      primary: '#4a7c8c', // teal-cloud
-      accent: '#fb923c', // dawn-orange
-      bgGradient: 'linear-gradient(135deg, rgba(74, 124, 140, 0.15) 0%, rgba(251, 146, 60, 0.1) 100%)'
+      primary: '#2dd4bf', // teal-400
+      accent: '#fb923c', // orange-400
+      text: '#ccfbf1', // teal-50
+      bgOverlay: 'linear-gradient(135deg, rgba(20, 83, 45, 0.6) 0%, rgba(10, 40, 20, 0.9) 100%)'
     },
     bgEffect: 'aurora',
-    cardStyle: 'soft'
+    cardStyle: 'soft',
+    layoutMode: 'center'
   },
   music: {
     key: 'music',
     title: '音樂賞析',
-    subtitle: 'Music Appreciation',
+    subtitle: 'Resonance',
     description: '音樂評論、專輯推薦、聆聽感想',
     icon: '🎵',
     colors: {
-      primary: '#312e81', // cosmic-purple
-      accent: '#d946ef', // fuchsia-500
-      bgGradient: 'linear-gradient(135deg, rgba(49, 46, 129, 0.2) 0%, rgba(217, 70, 239, 0.15) 100%)'
+      primary: '#d946ef', // fuchsia-500
+      accent: '#8b5cf6', // violet-500
+      text: '#fae8ff', // fuchsia-50
+      bgOverlay: 'linear-gradient(45deg, #2e1065, #000000)'
     },
     bgEffect: 'visualizer',
-    cardStyle: 'vinyl'
+    cardStyle: 'vinyl',
+    layoutMode: 'center'
   },
   default: {
     key: 'default',
@@ -134,10 +156,13 @@ const themes: Record<ThemeType, ThemeConfig> = {
     colors: {
       primary: '#f5c542',
       accent: '#312e81',
-      bgGradient: 'linear-gradient(135deg, rgba(49, 46, 129, 0.2) 0%, rgba(245, 197, 66, 0.1) 100%)'
+      text: '#ffffff',
+      bgOverlay: 'rgba(15, 23, 42, 0.8)'
     },
     bgEffect: 'stars',
-    cardStyle: 'minimal'
+    cardStyle: 'minimal',
+    backgroundImage: '/images/universe_bg.jpeg',
+    layoutMode: 'center'
   }
 }
 

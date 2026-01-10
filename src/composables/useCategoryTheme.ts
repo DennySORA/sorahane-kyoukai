@@ -45,7 +45,7 @@ const themes: Record<ThemeType, ThemeConfig> = {
     },
     bgEffect: 'sakura',
     cardStyle: 'dialog',
-    backgroundImage: '/images/galgame_bg.jpeg',
+    backgroundImage: '/images/galgame_bg.png',
     layoutMode: 'left'
   },
   anime: {
@@ -58,11 +58,11 @@ const themes: Record<ThemeType, ThemeConfig> = {
       primary: '#38bdf8', // sky-400
       accent: '#facc15', // yellow-400
       text: '#f0f9ff', // sky-50
-      bgOverlay: 'linear-gradient(135deg, rgba(10, 30, 60, 0.8) 0%, rgba(10, 10, 20, 0.9) 100%)'
+      bgOverlay: 'linear-gradient(135deg, rgba(30, 58, 138, 0.6) 0%, rgba(30, 58, 138, 0.3) 100%)' // Blue tint
     },
     bgEffect: 'speed-lines',
     cardStyle: 'tech',
-    backgroundImage: '/images/anime_bg.jpeg',
+    backgroundImage: '/images/anime_bg.png',
     layoutMode: 'center'
   },
   programming: {
@@ -75,13 +75,13 @@ const themes: Record<ThemeType, ThemeConfig> = {
       primary: '#4ade80', // green-400
       accent: '#22c55e', // green-500
       text: '#dcfce7', // green-50
-      bgOverlay: 'rgba(5, 5, 5, 0.95)' // Almost solid black
+      bgOverlay: 'rgba(5, 5, 5, 0.85)' // High contrast dark
     },
     bgEffect: 'matrix',
     cardStyle: 'terminal',
     layoutMode: 'console',
     fontFamily: '"JetBrains Mono", "Fira Code", monospace',
-    backgroundImage: '/images/code_bg.jpeg'
+    backgroundImage: '/images/code_bg.png'
   },
   thoughts: {
     key: 'thoughts',
@@ -93,12 +93,12 @@ const themes: Record<ThemeType, ThemeConfig> = {
       primary: '#94a3b8', // slate-400
       accent: '#cbd5e1', // slate-300
       text: '#f8fafc', // slate-50
-      bgOverlay: 'linear-gradient(to bottom, #0f172a, #1e293b)'
+      bgOverlay: 'linear-gradient(to bottom, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.9))'
     },
     bgEffect: 'ripple',
     cardStyle: 'minimal',
     layoutMode: 'zen',
-    backgroundImage: '/images/thoughts_bg.jpeg'
+    backgroundImage: '/images/thoughts_bg.png'
   },
   writing: {
     key: 'writing',
@@ -108,15 +108,15 @@ const themes: Record<ThemeType, ThemeConfig> = {
     icon: '✒️',
     colors: {
       primary: '#e2e8f0', // slate-200
-      accent: '#d4d4d8', // zinc-300
-      text: '#f4f4f5', // zinc-50
-      bgOverlay: 'linear-gradient(to right, #27272a, #18181b)' // Dark ink wash vibe
+      accent: '#fcd34d', // amber-300 (Warm light)
+      text: '#fefce8', // yellow-50 (Warm white)
+      bgOverlay: 'radial-gradient(circle at center, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.85) 100%)' // Dark vignette
     },
     bgEffect: 'ink',
     cardStyle: 'scroll',
     layoutMode: 'zen',
     fontFamily: '"Shippori Mincho", serif',
-    backgroundImage: '/images/writing_bg.jpeg'
+    backgroundImage: '/images/writing_bg.png'
   },
   health: {
     key: 'health',
@@ -128,12 +128,12 @@ const themes: Record<ThemeType, ThemeConfig> = {
       primary: '#2dd4bf', // teal-400
       accent: '#fb923c', // orange-400
       text: '#ccfbf1', // teal-50
-      bgOverlay: 'linear-gradient(135deg, rgba(20, 83, 45, 0.6) 0%, rgba(10, 40, 20, 0.9) 100%)'
+      bgOverlay: 'linear-gradient(135deg, rgba(20, 83, 45, 0.5) 0%, rgba(10, 40, 20, 0.8) 100%)'
     },
     bgEffect: 'aurora',
     cardStyle: 'soft',
     layoutMode: 'center',
-    backgroundImage: '/images/health_bg.jpeg'
+    backgroundImage: '/images/health_bg.png'
   },
   music: {
     key: 'music',
@@ -142,15 +142,15 @@ const themes: Record<ThemeType, ThemeConfig> = {
     description: '音樂評論、專輯推薦、聆聽感想',
     icon: '🎵',
     colors: {
-      primary: '#d946ef', // fuchsia-500
-      accent: '#8b5cf6', // violet-500
-      text: '#fae8ff', // fuchsia-50
-      bgOverlay: 'linear-gradient(45deg, #2e1065, #000000)'
+      primary: '#a21caf', // fuchsia-700 (Darker for light bg)
+      accent: '#4338ca', // indigo-700
+      text: '#1e1b4b', // indigo-950 (Dark Text)
+      bgOverlay: 'linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(255,240,200,0.5) 100%)' // Bright/Light mode
     },
     bgEffect: 'visualizer',
     cardStyle: 'vinyl',
     layoutMode: 'center',
-    backgroundImage: '/images/music_bg.jpeg'
+    backgroundImage: '/images/music_bg.png'
   },
   default: {
     key: 'default',

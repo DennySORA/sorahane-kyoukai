@@ -104,8 +104,8 @@ const bgImage = computed(() => currentTheme.value.backgroundImage || '')
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid var(--theme-primary);
   border-radius: 50%;
@@ -115,8 +115,8 @@ const bgImage = computed(() => currentTheme.value.backgroundImage || '')
 }
 
 .category-icon img {
-  width: 85%;
-  height: 85%;
+  width: 95%;
+  height: 95%;
   object-fit: contain;
   filter: drop-shadow(0 0 5px rgba(var(--theme-primary), 0.5));
 }

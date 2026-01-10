@@ -573,8 +573,8 @@ function handleMouseLeave(): void {
 }
 
 .orb-icon {
-  width: 56px;
-  height: 56px;
+  width: 68px;
+  height: 68px;
   display: flex;
   align-items: center;
   justify-content: center;

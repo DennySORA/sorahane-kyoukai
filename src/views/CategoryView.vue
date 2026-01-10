@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import ThemeBackground from '@/components/ui/ThemeBackground.vue'
+import ArticleCard from '@/components/ui/ArticleCard.vue'
 import { useCategoryTheme } from '@/composables/useCategoryTheme'
 
 const { currentTheme } = useCategoryTheme()
@@ -10,6 +11,33 @@ const themeStyles = computed(() => ({
   '--theme-accent': currentTheme.value.colors.accent,
   '--theme-bg-gradient': currentTheme.value.colors.bgGradient
 }))
+
+const dummyArticles = [
+  {
+    id: 1,
+    title: '星空下的誓言：視覺小說敘事分析',
+    excerpt: '探討 AVG 遊戲中如何透過音樂與演出的配合，營造出令玩家難以忘懷的經典場景。從腳本結構到情感堆疊的深度解析。',
+    date: '2025-01-10',
+    tags: ['Review', 'Narrative'],
+    thumbnail: '/images/hero_bg.jpeg'
+  },
+  {
+    id: 2,
+    title: 'Vue 3 Composition API 實戰指南',
+    excerpt: '如何優雅地組織你的程式碼？深入淺出解說 Composables 的設計模式與最佳實踐，讓你的專案架構更上一層樓。',
+    date: '2025-01-05',
+    tags: ['Vue', 'Tutorial'],
+    thumbnail: '/images/sunrise_bg.jpeg'
+  },
+  {
+    id: 3,
+    title: '尋找靈魂的共鳴：近期音樂收藏',
+    excerpt: '整理了本月份循環播放的播放清單，包含 Post-Rock、Shoegaze 以及幾首令人驚豔的遊戲原聲帶曲目。',
+    date: '2024-12-28',
+    tags: ['Music', 'Playlist'],
+    thumbnail: '/images/universe_bg.jpeg'
+  }
+]
 </script>
 
 <template>
@@ -34,12 +62,14 @@ const themeStyles = computed(() => ({
         <p class="category-description">{{ currentTheme.description }}</p>
       </div>
 
-      <!-- Articles Placeholder -->
+      <!-- Articles Grid -->
       <div class="articles-grid">
-        <div class="coming-soon">
-          <span class="coming-soon-text">Coming Soon</span>
-          <p class="coming-soon-desc">文章即將上線，敬請期待</p>
-        </div>
+        <ArticleCard
+          v-for="article in dummyArticles"
+          :key="article.id"
+          v-bind="article"
+          :variant="currentTheme.cardStyle"
+        />
       </div>
     </div>
   </main>
@@ -148,36 +178,7 @@ const themeStyles = computed(() => ({
 /* Articles Grid */
 .articles-grid {
   display: grid;
-  gap: 24px;
-}
-
-.coming-soon {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 80px 24px;
-  background: rgba(15, 23, 42, 0.4);
-  border: 1px solid var(--theme-primary);
-  border-radius: 16px;
-  backdrop-filter: blur(8px);
-  box-shadow: 0 0 20px rgba(0,0,0,0.2);
-  transition: border-color 0.5s ease;
-}
-
-.coming-soon-text {
-  font-family: var(--font-display-en);
-  font-size: 24px;
-  font-weight: 500;
-  color: var(--theme-primary);
-  letter-spacing: 0.2em;
-  margin-bottom: 12px;
-}
-
-.coming-soon-desc {
-  font-family: var(--font-body);
-  font-size: 14px;
-  color: var(--color-moon-silver);
-  opacity: 0.7;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 32px;
 }
 </style>

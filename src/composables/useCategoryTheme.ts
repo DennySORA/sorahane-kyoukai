@@ -37,7 +37,7 @@ const themes: Record<ThemeType, ThemeConfig> = {
     title: 'Galgame',
     subtitle: 'Visual Novel Adventures',
     description: '探索視覺小說的世界，分享遊戲心得與推薦',
-    icon: '🌸',
+    icon: '/images/icons/galgame_icon.png',
     colors: {
       primary: '#db2777', // pink-600
       accent: '#be185d', // pink-700
@@ -55,7 +55,7 @@ const themes: Record<ThemeType, ThemeConfig> = {
     title: '二次元天地',
     subtitle: 'Anime & Manga World',
     description: '動漫評論、角色分析、作品推薦',
-    icon: '⚡',
+    icon: '/images/icons/anime_icon.png',
     colors: {
       primary: '#0284c7', // sky-600
       accent: '#ca8a04', // yellow-600
@@ -73,7 +73,7 @@ const themes: Record<ThemeType, ThemeConfig> = {
     title: '程式技術',
     subtitle: 'System.out.println("Hello World");',
     description: '技術文章、開發心得、程式教學',
-    icon: '>',
+    icon: '/images/icons/programming_icon.png',
     colors: {
       primary: '#4ade80', // green-400
       accent: '#22c55e', // green-500
@@ -92,7 +92,7 @@ const themes: Record<ThemeType, ThemeConfig> = {
     title: '心境與筆記',
     subtitle: 'Thoughts & Notes',
     description: '生活隨筆、思考紀錄、個人感想',
-    icon: '🌊',
+    icon: '/images/icons/thoughts_icon.png',
     colors: {
       primary: '#94a3b8', // slate-400
       accent: '#cbd5e1', // slate-300
@@ -110,7 +110,7 @@ const themes: Record<ThemeType, ThemeConfig> = {
     title: '寫作技巧',
     subtitle: 'The Art of Storytelling',
     description: '創作心法、寫作技巧、故事構思',
-    icon: '✒️',
+    icon: '/images/icons/writing_icon.png',
     colors: {
       primary: '#e2e8f0', // slate-200
       accent: '#fcd34d', // amber-300
@@ -129,7 +129,7 @@ const themes: Record<ThemeType, ThemeConfig> = {
     title: '健康知識',
     subtitle: 'Body & Soul',
     description: '健康資訊、生活習慣、身心平衡',
-    icon: '🌱',
+    icon: '/images/icons/health_icon.png',
     colors: {
       primary: '#f59e0b', // amber-500
       accent: '#d97706', // amber-600
@@ -147,7 +147,7 @@ const themes: Record<ThemeType, ThemeConfig> = {
     title: '音樂賞析',
     subtitle: 'Resonance',
     description: '音樂評論、專輯推薦、聆聽感想',
-    icon: '🎵',
+    icon: '/images/icons/music_icon.png',
     colors: {
       primary: '#a21caf', // fuchsia-700
       accent: '#4338ca', // indigo-700
@@ -165,7 +165,7 @@ const themes: Record<ThemeType, ThemeConfig> = {
     title: '分類',
     subtitle: 'Category',
     description: '探索空羽ノ境的各類文章',
-    icon: '✨',
+    icon: '/images/logo.png', // Fallback to logo
     colors: {
       primary: '#f5c542',
       accent: '#312e81',

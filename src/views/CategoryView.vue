@@ -37,7 +37,9 @@ const bgImage = computed(() => currentTheme.value.backgroundImage || '')
     <!-- Content -->
     <div class="category-content">
       <div class="category-header">
-        <div class="category-icon">{{ currentTheme.icon }}</div>
+        <div class="category-icon">
+          <img :src="currentTheme.icon" alt="" />
+        </div>
         <div class="header-text">
           <h1 class="category-title">{{ currentTheme.title }}</h1>
           <p class="category-subtitle">{{ currentTheme.subtitle }}</p>
@@ -107,11 +109,16 @@ const bgImage = computed(() => currentTheme.value.backgroundImage || '')
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid var(--theme-primary);
   border-radius: 50%;
-  font-size: 32px;
-  color: var(--theme-primary);
   margin-bottom: 24px;
   backdrop-filter: blur(4px);
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+.category-icon img {
+  width: 60%;
+  height: 60%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 5px rgba(var(--theme-primary), 0.5));
 }
 
 .category-title {

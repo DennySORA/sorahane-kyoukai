@@ -46,7 +46,8 @@ const themes: Record<ThemeType, ThemeConfig> = {
     bgEffect: 'sakura',
     cardStyle: 'dialog',
     backgroundImage: '/images/galgame_bg.png',
-    layoutMode: 'left'
+    layoutMode: 'left',
+    textShadow: '0 4px 12px rgba(0, 0, 0, 0.6)' // Strong shadow for legibility on sunset
   },
   anime: {
     key: 'anime',
@@ -55,15 +56,16 @@ const themes: Record<ThemeType, ThemeConfig> = {
     description: '動漫評論、角色分析、作品推薦',
     icon: '⚡',
     colors: {
-      primary: '#38bdf8', // sky-400
+      primary: '#0ea5e9', // sky-500 (Darker for contrast)
       accent: '#facc15', // yellow-400
-      text: '#f0f9ff', // sky-50
-      bgOverlay: 'linear-gradient(135deg, rgba(30, 58, 138, 0.6) 0%, rgba(30, 58, 138, 0.3) 100%)' // Blue tint
+      text: '#ffffff',
+      bgOverlay: 'linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, transparent 40%)'
     },
     bgEffect: 'speed-lines',
     cardStyle: 'tech',
     backgroundImage: '/images/anime_bg.png',
-    layoutMode: 'center'
+    layoutMode: 'center',
+    textShadow: '0 4px 8px rgba(0, 50, 100, 0.5), 0 0 20px rgba(56, 189, 248, 0.6)' // Blue glow
   },
   programming: {
     key: 'programming',
@@ -75,13 +77,14 @@ const themes: Record<ThemeType, ThemeConfig> = {
       primary: '#4ade80', // green-400
       accent: '#22c55e', // green-500
       text: '#dcfce7', // green-50
-      bgOverlay: 'rgba(5, 5, 5, 0.85)' // High contrast dark
+      bgOverlay: 'rgba(0, 0, 0, 0.4)' // Reduced from 0.85
     },
     bgEffect: 'matrix',
     cardStyle: 'terminal',
     layoutMode: 'console',
     fontFamily: '"JetBrains Mono", "Fira Code", monospace',
-    backgroundImage: '/images/code_bg.png'
+    backgroundImage: '/images/code_bg.png',
+    textShadow: '0 0 10px rgba(74, 222, 128, 0.5)' // Green glow
   },
   thoughts: {
     key: 'thoughts',
@@ -90,15 +93,16 @@ const themes: Record<ThemeType, ThemeConfig> = {
     description: '生活隨筆、思考紀錄、個人感想',
     icon: '🌊',
     colors: {
-      primary: '#94a3b8', // slate-400
-      accent: '#cbd5e1', // slate-300
+      primary: '#cbd5e1', // slate-300
+      accent: '#e2e8f0', // slate-200
       text: '#f8fafc', // slate-50
-      bgOverlay: 'linear-gradient(to bottom, rgba(15, 23, 42, 0.8), rgba(30, 41, 59, 0.9))'
+      bgOverlay: 'radial-gradient(circle at center, rgba(15, 23, 42, 0.3) 0%, rgba(15, 23, 42, 0.6) 100%)'
     },
     bgEffect: 'ripple',
     cardStyle: 'minimal',
     layoutMode: 'zen',
-    backgroundImage: '/images/thoughts_bg.png'
+    backgroundImage: '/images/thoughts_bg.png',
+    textShadow: '0 4px 12px rgba(0, 0, 0, 0.8)'
   },
   writing: {
     key: 'writing',
@@ -108,15 +112,16 @@ const themes: Record<ThemeType, ThemeConfig> = {
     icon: '✒️',
     colors: {
       primary: '#e2e8f0', // slate-200
-      accent: '#fcd34d', // amber-300 (Warm light)
-      text: '#fefce8', // yellow-50 (Warm white)
-      bgOverlay: 'radial-gradient(circle at center, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.85) 100%)' // Dark vignette
+      accent: '#fcd34d', // amber-300
+      text: '#fefce8', // yellow-50
+      bgOverlay: 'radial-gradient(circle at center, transparent 20%, rgba(0,0,0,0.5) 100%)' // Subtle vignette
     },
     bgEffect: 'ink',
     cardStyle: 'scroll',
     layoutMode: 'zen',
     fontFamily: '"Shippori Mincho", serif',
-    backgroundImage: '/images/writing_bg.png'
+    backgroundImage: '/images/writing_bg.png',
+    textShadow: '0 2px 4px rgba(0,0,0,0.5)'
   },
   health: {
     key: 'health',
@@ -125,15 +130,16 @@ const themes: Record<ThemeType, ThemeConfig> = {
     description: '健康資訊、生活習慣、身心平衡',
     icon: '🌿',
     colors: {
-      primary: '#2dd4bf', // teal-400
-      accent: '#fb923c', // orange-400
-      text: '#ccfbf1', // teal-50
-      bgOverlay: 'linear-gradient(135deg, rgba(20, 83, 45, 0.5) 0%, rgba(10, 40, 20, 0.8) 100%)'
+      primary: '#5eead4', // teal-300
+      accent: '#fdba74', // orange-300
+      text: '#f0fdf4', // teal-50
+      bgOverlay: 'linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.3))'
     },
     bgEffect: 'aurora',
     cardStyle: 'soft',
     layoutMode: 'center',
-    backgroundImage: '/images/health_bg.png'
+    backgroundImage: '/images/health_bg.png',
+    textShadow: '0 2px 10px rgba(0,0,0,0.3)'
   },
   music: {
     key: 'music',
@@ -142,15 +148,16 @@ const themes: Record<ThemeType, ThemeConfig> = {
     description: '音樂評論、專輯推薦、聆聽感想',
     icon: '🎵',
     colors: {
-      primary: '#a21caf', // fuchsia-700 (Darker for light bg)
-      accent: '#4338ca', // indigo-700
-      text: '#1e1b4b', // indigo-950 (Dark Text)
-      bgOverlay: 'linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(255,240,200,0.5) 100%)' // Bright/Light mode
+      primary: '#c026d3', // fuchsia-600
+      accent: '#4f46e5', // indigo-600
+      text: '#1e1b4b', // indigo-950
+      bgOverlay: 'linear-gradient(to top, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.0) 60%)' // Fade bottom only
     },
     bgEffect: 'visualizer',
     cardStyle: 'vinyl',
     layoutMode: 'center',
-    backgroundImage: '/images/music_bg.png'
+    backgroundImage: '/images/music_bg.png',
+    textShadow: 'none' // Dark text on light bg usually doesn't need shadow, or maybe a white glow
   },
   default: {
     key: 'default',

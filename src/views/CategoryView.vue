@@ -115,8 +115,8 @@ const bgImage = computed(() => currentTheme.value.backgroundImage || '')
 }
 
 .category-icon img {
-  width: 60%;
-  height: 60%;
+  width: 85%;
+  height: 85%;
   object-fit: contain;
   filter: drop-shadow(0 0 5px rgba(var(--theme-primary), 0.5));
 }

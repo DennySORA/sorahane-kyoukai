@@ -35,21 +35,21 @@ function createParticles() {
 
 function createPetal(yOverride?: number): Petal {
   const colors = [
-    '236, 72, 153', // nebula-pink
-    '255, 255, 255', // white
-    '167, 139, 250'  // light purple
+    '255, 182, 193', // light pink
+    '255, 105, 180', // hot pink
+    '219, 39, 119'   // pink-600
   ]
   
   return {
     x: Math.random() * window.innerWidth,
     y: yOverride ?? Math.random() * window.innerHeight,
-    size: Math.random() * 5 + 3,
-    speedX: Math.random() * 1 - 0.5,
-    speedY: Math.random() * 1 + 0.5,
+    size: Math.random() * 6 + 4,
+    speedX: Math.random() * 1.5 - 0.5,
+    speedY: Math.random() * 1.2 + 0.8,
     rotation: Math.random() * 360,
     rotationSpeed: Math.random() * 2 - 1,
-    color: colors[Math.floor(Math.random() * colors.length)] ?? '255, 255, 255',
-    opacity: Math.random() * 0.5 + 0.3
+    color: colors[Math.floor(Math.random() * colors.length)] ?? '255, 182, 193',
+    opacity: Math.random() * 0.6 + 0.4
   }
 }
 
@@ -60,17 +60,17 @@ function animate() {
   
   particles.forEach((p, index) => {
     p.y += p.speedY
-    p.x += p.speedX + Math.sin(p.y * 0.01) * 0.5 // Sway effect
+    p.x += p.speedX + Math.sin(p.y * 0.01) * 0.8 // More pronounced sway
     p.rotation += p.rotationSpeed
     
     // Reset if out of view
-    if (p.y > canvas.value!.height) {
-      particles[index] = createPetal(-10)
+    if (p.y > canvas.value!.height + 20) {
+      particles[index] = createPetal(-20)
     }
-    if (p.x > canvas.value!.width) {
-      p.x = 0
-    } else if (p.x < 0) {
-      p.x = canvas.value!.width
+    if (p.x > canvas.value!.width + 20) {
+      p.x = -20
+    } else if (p.x < -20) {
+      p.x = canvas.value!.width + 20
     }
     
     ctx!.save()
@@ -78,10 +78,21 @@ function animate() {
     ctx!.rotate((p.rotation * Math.PI) / 180)
     ctx!.fillStyle = `rgba(${p.color}, ${p.opacity})`
     
-    // Draw petal shape (oval)
+    // Improved Sakura Petal Shape (Heart-ish)
     ctx!.beginPath()
-    ctx!.ellipse(0, 0, p.size, p.size * 0.6, 0, 0, 2 * Math.PI)
+    ctx!.moveTo(0, 0)
+    ctx!.bezierCurveTo(-p.size, -p.size, -p.size / 2, -p.size * 1.5, 0, -p.size * 0.8)
+    ctx!.bezierCurveTo(p.size / 2, -p.size * 1.5, p.size, -p.size, 0, 0)
     ctx!.fill()
+    
+    // Petal Vein (optional detail)
+    ctx!.strokeStyle = `rgba(255, 255, 255, ${p.opacity * 0.3})`
+    ctx!.lineWidth = 1
+    ctx!.beginPath()
+    ctx!.moveTo(0, 0)
+    ctx!.lineTo(0, -p.size * 0.6)
+    ctx!.stroke()
+    
     ctx!.restore()
   })
   

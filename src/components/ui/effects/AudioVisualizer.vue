@@ -15,19 +15,19 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 40%; /* Only take up bottom portion */
+  height: 50%; /* Taller */
   pointer-events: none;
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  opacity: 0.5;
-  mask-image: linear-gradient(to top, black, transparent);
+  opacity: 0.9; /* More visible */
+  mask-image: linear-gradient(to top, black 20%, transparent 100%);
 }
 
 .bars {
   display: flex;
   align-items: flex-end;
-  gap: 4px;
+  gap: 6px; /* Wider gap */
   width: 100%;
   height: 100%;
   padding: 0 10%;
@@ -35,17 +35,19 @@
 }
 
 .bar {
-  width: 2%;
-  background: linear-gradient(to top, var(--color-cosmic-purple), var(--color-nebula-pink));
+  width: 3%; /* Wider bars */
+  /* Vibrant Deep Indigo -> Fuchsia/Pink */
+  background: linear-gradient(to top, #4f46e5, #d946ef);
   height: 10%;
   animation: bounce 1.2s ease-in-out infinite alternate;
   animation-delay: var(--delay);
-  border-radius: 4px 4px 0 0;
+  border-radius: 8px 8px 0 0;
+  box-shadow: 0 0 10px rgba(79, 70, 229, 0.5); /* Glow */
 }
 
 @keyframes bounce {
-  0% { height: 10%; opacity: 0.3; }
-  50% { height: 40%; opacity: 0.7; }
-  100% { height: 80%; opacity: 1; }
+  0% { height: 15%; opacity: 0.5; }
+  50% { height: 50%; opacity: 0.8; }
+  100% { height: 90%; opacity: 1; }
 }
 </style>

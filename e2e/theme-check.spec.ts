@@ -5,7 +5,7 @@ const pages = [
   { path: '/anime', effectSelector: '.bubble-canvas', name: 'Anime (Bubbles)' },
   { path: '/programming', effectSelector: '.matrix-canvas', name: 'Programming (Matrix)' },
   { path: '/thoughts', effectSelector: '.ripple-container', name: 'Thoughts (Ripple)' },
-  { path: '/writing', effectSelector: '.dust-canvas', name: 'Writing (Dust)' },
+  { path: '/writing', effectSelector: '.literary-canvas', name: 'Writing (Literary)' },
   { path: '/health', effectSelector: '.snow-canvas', name: 'Health (Snow)' },
   { path: '/music', effectSelector: '.visualizer-container', name: 'Music (Visualizer)' },
 ];

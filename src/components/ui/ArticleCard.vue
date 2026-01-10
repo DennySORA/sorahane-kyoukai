@@ -20,7 +20,7 @@ const variantClass = computed(() => `card-${props.variant}`)
 
 <template>
   <article class="article-card" :class="variantClass">
-    <div v-if="thumbnail" class="card-thumbnail">
+    <div v-if="thumbnail && props.variant !== 'terminal'" class="card-thumbnail">
       <img :src="thumbnail" :alt="title" loading="lazy" />
       <div class="thumbnail-overlay"></div>
     </div>
@@ -41,8 +41,8 @@ const variantClass = computed(() => `card-${props.variant}`)
       
       <div class="card-footer">
         <a href="#" class="read-more">
-          Read Article
-          <span class="arrow">→</span>
+          {{ props.variant === 'terminal' ? '>> READ_FILE' : 'Read Article' }}
+          <span class="arrow" v-if="props.variant !== 'terminal'">→</span>
         </a>
       </div>
     </div>
@@ -50,17 +50,23 @@ const variantClass = computed(() => `card-${props.variant}`)
 </template>
 
 <style scoped>
+/* Base Reset */
 .article-card {
   position: relative;
   overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  background: rgba(15, 23, 42, 0.6);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.4s ease;
   display: flex;
   flex-direction: column;
 }
 
+/* Base Styles (Default) */
+.article-card:not([class*="card-"]) {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Image Handling */
 .card-thumbnail {
   position: relative;
   aspect-ratio: 16 / 9;
@@ -79,9 +85,9 @@ const variantClass = computed(() => `card-${props.variant}`)
   inset: 0;
   background: var(--theme-bg-gradient, linear-gradient(to top, rgba(0,0,0,0.5), transparent));
   opacity: 0.6;
-  transition: opacity 0.4s ease;
 }
 
+/* Content Layout */
 .card-content {
   padding: 24px;
   flex: 1;
@@ -89,221 +95,171 @@ const variantClass = computed(() => `card-${props.variant}`)
   flex-direction: column;
 }
 
-.card-meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.8rem;
-  color: var(--color-moon-silver);
-  margin-bottom: 12px;
-  font-family: var(--font-display-en);
-}
-
-.card-tags {
-  display: flex;
-  gap: 8px;
-}
-
-.tag {
-  color: var(--theme-primary, var(--color-sky-blue));
-  opacity: 0.8;
-}
-
+/* Typography */
 .card-title {
-  font-family: var(--font-display-jp);
+  font-family: var(--theme-font-family, var(--font-display-jp));
   font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 12px;
   line-height: 1.4;
-}
-
-.title-link {
-  color: var(--color-star-white);
-  text-decoration: none;
-  background: linear-gradient(to right, var(--theme-primary, #fff), var(--theme-primary, #fff)) 0 100% / 0% 1px no-repeat;
-  transition: background-size 0.3s ease;
+  color: var(--theme-text, #fff);
 }
 
 .card-excerpt {
   font-family: var(--font-body);
   font-size: 0.95rem;
-  color: var(--color-moon-silver);
+  color: var(--theme-text);
+  opacity: 0.8;
   line-height: 1.6;
   margin-bottom: 20px;
   flex: 1;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.card-footer {
-  margin-top: auto;
 }
 
 .read-more {
+  color: var(--theme-accent, #fff);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-family: var(--font-display-en);
-  font-size: 0.9rem;
-  color: var(--theme-accent, var(--color-sun-gold));
-  text-decoration: none;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  transition: gap 0.3s ease;
 }
 
-.read-more:hover {
-  gap: 12px;
-}
+/* --- VARIANTS --- */
 
-/* Hover Effects General */
-.article-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
-}
-
-.article-card:hover .card-thumbnail img {
-  transform: scale(1.05);
-}
-
-.article-card:hover .title-link {
-  background-size: 100% 1px;
-}
-
-/* --- Variants --- */
-
-/* 1. Galgame (Dialog Style) */
+/* 1. Galgame (Dialog Box) */
 .card-dialog {
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-left: 4px solid var(--theme-primary);
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(40, 10, 30, 0.8) 0%, rgba(20, 5, 15, 0.9) 100%);
+  border: 2px solid var(--theme-primary);
+  box-shadow: 0 4px 20px rgba(236, 72, 153, 0.15);
 }
-
+.card-dialog .card-content {
+  padding: 20px;
+}
+.card-dialog .card-title {
+  color: var(--theme-primary);
+  text-shadow: 0 0 10px rgba(236, 72, 153, 0.4);
+}
 .card-dialog:hover {
-  background: rgba(255, 255, 255, 0.08);
-  box-shadow: 
-    0 10px 40px -10px rgba(236, 72, 153, 0.2), /* Pink glow */
-    0 0 20px rgba(0, 0, 0, 0.2);
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 10px 30px rgba(236, 72, 153, 0.3);
 }
 
-/* 2. Programming (Terminal Style) */
+/* 2. Programming (Terminal) */
 .card-terminal {
-  border-radius: 4px;
-  background: rgba(10, 10, 10, 0.85);
-  border: 1px solid rgba(67, 56, 202, 0.3);
+  background: #000;
+  border: 1px dashed var(--theme-primary);
+  border-radius: 0;
   font-family: 'Courier New', monospace;
+  color: var(--theme-text);
 }
-
-.card-terminal .card-title,
-.card-terminal .card-excerpt,
-.card-terminal .card-meta {
-  font-family: 'Courier New', monospace;
+.card-terminal .card-thumbnail {
+  display: none; /* No images in terminal usually */
 }
-
-.card-terminal::before {
-  content: '> ';
-  position: absolute;
-  top: 24px; /* Adjust based on padding */
-  left: 10px;
+.card-terminal .card-title {
+  font-family: inherit;
   color: var(--theme-accent);
-  opacity: 0;
-  transition: opacity 0.3s;
 }
-
+.card-terminal .card-title::before {
+  content: './';
+  color: var(--theme-primary);
+}
 .card-terminal:hover {
-  border-color: var(--theme-accent);
-  box-shadow: 0 0 15px rgba(16, 185, 129, 0.15);
+  background: #0a0a0a;
+  border-style: solid;
+  box-shadow: 0 0 15px var(--theme-primary);
 }
 
-/* 3. Anime (Tech Style) */
+/* 3. Anime (Tech Interface) */
 .card-tech {
-  clip-path: polygon(
-    0 10px, 
-    10px 0, 
-    100% 0, 
-    100% calc(100% - 10px), 
-    calc(100% - 10px) 100%, 
-    0 100%
-  );
-  background: rgba(15, 23, 42, 0.8);
-  border: none; /* clip-path hides border, use outline or inner shadow */
+  background: rgba(10, 20, 40, 0.85);
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+  border-left: 2px solid var(--theme-primary);
 }
-
-.card-tech::after {
+.card-tech::before {
   content: '';
   position: absolute;
-  inset: 0;
-  border: 1px solid rgba(135, 206, 235, 0.3);
-  clip-path: polygon(
-    0 10px, 
-    10px 0, 
-    100% 0, 
-    100% calc(100% - 10px), 
-    calc(100% - 10px) 100%, 
-    0 100%
-  );
-  pointer-events: none;
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  border-top: 2px solid var(--theme-accent);
+  border-right: 2px solid var(--theme-accent);
+}
+.card-tech:hover {
+  transform: translateX(5px);
+  background: rgba(15, 30, 60, 0.9);
 }
 
-.card-tech:hover::after {
-  border-color: var(--theme-primary);
-  box-shadow: inset 0 0 20px rgba(135, 206, 235, 0.2);
-}
-
-/* 4. Thoughts (Minimal) */
+/* 4. Minimal (Thoughts/Zen) */
 .card-minimal {
   background: transparent;
   border: none;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 0;
-  padding: 0;
+}
+.card-minimal .card-thumbnail {
+  aspect-ratio: 21 / 9; /* Wider, cinematic */
+  opacity: 0.8;
+  filter: grayscale(80%);
+  transition: all 0.5s ease;
+}
+.card-minimal:hover .card-thumbnail {
+  opacity: 1;
+  filter: grayscale(0%);
+}
+.card-minimal .card-title {
+  font-size: 1.5rem;
+  letter-spacing: 0.1em;
 }
 
-.card-minimal .card-content {
-  padding: 24px 0;
-}
-
-.card-minimal:hover {
-  transform: translateY(-2px);
-  background: transparent;
-  box-shadow: none;
-  border-bottom-color: var(--theme-primary);
-}
-
-/* 5. Writing (Scroll/Parchment) */
+/* 5. Writing (Scroll/Paper) */
 .card-scroll {
-  background: rgba(248, 250, 252, 0.03);
-  border: 1px solid rgba(245, 197, 66, 0.2);
-  border-radius: 2px;
+  background: #e2e8f0; /* Light paper-ish */
+  color: #18181b !important;
+  border: none;
+  box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.2);
+  margin-bottom: 10px;
+  margin-right: 10px;
+}
+.card-scroll .card-title,
+.card-scroll .card-excerpt,
+.card-scroll .card-meta {
+  color: #18181b !important;
+  font-family: "Shippori Mincho", serif;
+}
+.card-scroll .thumbnail-overlay {
+  display: none;
+}
+.card-scroll:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 14px 14px 0 rgba(0, 0, 0, 0.1);
 }
 
-.card-scroll .card-title {
-  font-family: var(--font-display-jp); /* Mincho */
-}
-
-/* 6. Health (Soft) */
+/* 6. Health (Soft/Organic) */
 .card-soft {
   border-radius: 24px;
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
-
 .card-soft:hover {
   transform: scale(1.02);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 /* 7. Music (Vinyl) */
 .card-vinyl {
-  background: rgba(10, 10, 20, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #111;
+  border: 1px solid #333;
   border-radius: 8px;
 }
-
+.card-vinyl .card-thumbnail img {
+  border-radius: 4px;
+}
 .card-vinyl:hover {
   border-color: var(--theme-accent);
-  box-shadow: 0 0 20px rgba(217, 70, 239, 0.2);
+  box-shadow: 0 0 20px var(--theme-primary);
 }
 </style>

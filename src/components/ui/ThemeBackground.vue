@@ -15,7 +15,8 @@ const components = {
   ink: defineAsyncComponent(() => import('./effects/InkSpread.vue')),
   aurora: defineAsyncComponent(() => import('./effects/AuroraBorealis.vue')),
   visualizer: defineAsyncComponent(() => import('./effects/AudioVisualizer.vue')),
-  'god-rays': defineAsyncComponent(() => import('./effects/GodRays.vue'))
+  'god-rays': defineAsyncComponent(() => import('./effects/GodRays.vue')),
+  feathers: defineAsyncComponent(() => import('./effects/FeatherParticles.vue'))
 }
 
 const currentEffectComponent = computed(() => {

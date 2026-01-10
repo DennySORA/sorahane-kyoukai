@@ -23,7 +23,7 @@ export interface ThemeConfig {
     text: string // Specific text color override
     bgOverlay: string // Specific overlay color/opacity
   }
-  bgEffect: 'sakura' | 'speed-lines' | 'matrix' | 'ripple' | 'ink' | 'aurora' | 'visualizer' | 'stars' | 'god-rays'
+  bgEffect: 'sakura' | 'speed-lines' | 'matrix' | 'ripple' | 'ink' | 'aurora' | 'visualizer' | 'stars' | 'god-rays' | 'feathers'
   cardStyle: 'dialog' | 'tech' | 'terminal' | 'minimal' | 'scroll' | 'soft' | 'vinyl'
   backgroundImage?: string
   layoutMode: 'center' | 'left' | 'console' | 'zen'
@@ -39,16 +39,16 @@ const themes: Record<ThemeType, ThemeConfig> = {
     description: '探索視覺小說的世界，分享遊戲心得與推薦',
     icon: '🌸',
     colors: {
-      primary: '#db2777', // pink-600 (Darker for light bg)
+      primary: '#db2777', // pink-600
       accent: '#be185d', // pink-700
-      text: '#4a044e', // fuchsia-950 (Dark Text)
-      bgOverlay: 'rgba(255, 255, 255, 0.5)' // Light wash
+      text: '#4a044e', // fuchsia-950
+      bgOverlay: 'rgba(255, 235, 245, 0.6)' // Warm Pinkish wash
     },
     bgEffect: 'sakura',
     cardStyle: 'dialog',
     backgroundImage: '/images/galgame_bg.png',
     layoutMode: 'left',
-    textShadow: '0 0 20px rgba(255, 255, 255, 0.8)' // White halo
+    textShadow: '0 0 20px rgba(255, 255, 255, 0.8)'
   },
   anime: {
     key: 'anime',
@@ -59,14 +59,14 @@ const themes: Record<ThemeType, ThemeConfig> = {
     colors: {
       primary: '#0284c7', // sky-600
       accent: '#ca8a04', // yellow-600
-      text: '#0c4a6e', // sky-950 (Dark Text)
-      bgOverlay: 'rgba(255, 255, 255, 0.5)' // Light wash
+      text: '#0c4a6e', // sky-950
+      bgOverlay: 'rgba(240, 249, 255, 0.5)' // Cool White wash
     },
-    bgEffect: 'god-rays',
+    bgEffect: 'feathers', // Falling feathers
     cardStyle: 'tech',
     backgroundImage: '/images/anime_bg.png',
     layoutMode: 'center',
-    textShadow: '0 0 20px rgba(255, 255, 255, 0.8)' // White halo
+    textShadow: '0 0 20px rgba(255, 255, 255, 0.8)'
   },
   programming: {
     key: 'programming',

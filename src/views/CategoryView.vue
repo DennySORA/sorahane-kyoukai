@@ -30,8 +30,8 @@ const bgImage = computed(() => currentTheme.value.backgroundImage || '')
       <!-- Fallback color if no image -->
       <div v-else class="bg-solid"></div>
       
-      <ThemeBackground :effect="currentTheme.bgEffect" />
       <div class="bg-overlay"></div>
+      <ThemeBackground :effect="currentTheme.bgEffect" />
     </div>
 
     <!-- Content -->

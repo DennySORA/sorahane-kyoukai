@@ -14,6 +14,8 @@ interface Petal {
   speedY: number
   rotation: number
   rotationSpeed: number
+  flip: number
+  flipSpeed: number
   color: string
   opacity: number
 }
@@ -25,31 +27,34 @@ function resizeCanvas() {
 }
 
 function createParticles() {
-  const particleCount = Math.min(window.innerWidth * 0.05, 50) // Responsive count
+  const count = Math.min(window.innerWidth * 0.08, 80) // More petals
   particles = []
   
-  for (let i = 0; i < particleCount; i++) {
+  for (let i = 0; i < count; i++) {
     particles.push(createPetal())
   }
 }
 
 function createPetal(yOverride?: number): Petal {
   const colors = [
-    '255, 182, 193', // light pink
-    '255, 105, 180', // hot pink
-    '219, 39, 119'   // pink-600
+    '255, 192, 203', // Pink
+    '255, 182, 193', // LightPink
+    '255, 105, 180', // HotPink
+    '255, 240, 245'  // LavenderBlush (Very pale)
   ]
   
   return {
     x: Math.random() * window.innerWidth,
     y: yOverride ?? Math.random() * window.innerHeight,
-    size: Math.random() * 6 + 4,
-    speedX: Math.random() * 1.5 - 0.5,
-    speedY: Math.random() * 1.2 + 0.8,
+    size: Math.random() * 8 + 5, // Larger size for detail
+    speedX: Math.random() * 2 - 1,
+    speedY: Math.random() * 1.5 + 1,
     rotation: Math.random() * 360,
-    rotationSpeed: Math.random() * 2 - 1,
-    color: colors[Math.floor(Math.random() * colors.length)] ?? '255, 182, 193',
-    opacity: Math.random() * 0.6 + 0.4
+    rotationSpeed: (Math.random() * 2 - 1) * 0.5,
+    flip: Math.random() * Math.PI,
+    flipSpeed: Math.random() * 0.03 + 0.01,
+    color: colors[Math.floor(Math.random() * colors.length)],
+    opacity: Math.random() * 0.5 + 0.5
   }
 }
 
@@ -60,8 +65,9 @@ function animate() {
   
   particles.forEach((p, index) => {
     p.y += p.speedY
-    p.x += p.speedX + Math.sin(p.y * 0.01) * 0.8 // More pronounced sway
+    p.x += p.speedX + Math.sin(p.y * 0.005) * 0.5
     p.rotation += p.rotationSpeed
+    p.flip += p.flipSpeed
     
     // Reset if out of view
     if (p.y > canvas.value!.height + 20) {
@@ -75,24 +81,28 @@ function animate() {
     
     ctx!.save()
     ctx!.translate(p.x, p.y)
+    
+    // 3D Flip effect using scaling
+    const flipScale = Math.abs(Math.cos(p.flip))
+    ctx!.scale(flipScale, 1) 
     ctx!.rotate((p.rotation * Math.PI) / 180)
+    
     ctx!.fillStyle = `rgba(${p.color}, ${p.opacity})`
     
-    // Improved Sakura Petal Shape (Heart-ish)
+    // Realistic Sakura Shape
     ctx!.beginPath()
-    ctx!.moveTo(0, 0)
-    ctx!.bezierCurveTo(-p.size, -p.size, -p.size / 2, -p.size * 1.5, 0, -p.size * 0.8)
-    ctx!.bezierCurveTo(p.size / 2, -p.size * 1.5, p.size, -p.size, 0, 0)
+    // Start at bottom tip (stem side)
+    ctx!.moveTo(0, p.size) 
+    // Left curve to top-left notch
+    ctx!.bezierCurveTo(-p.size * 0.8, p.size * 0.5, -p.size * 1.2, -p.size * 0.5, -p.size * 0.3, -p.size)
+    // Center notch
+    ctx!.lineTo(0, -p.size * 0.7)
+    // Right notch to right curve
+    ctx!.lineTo(p.size * 0.3, -p.size)
+    // Right curve back to bottom
+    ctx!.bezierCurveTo(p.size * 1.2, -p.size * 0.5, p.size * 0.8, p.size * 0.5, 0, p.size)
+    
     ctx!.fill()
-    
-    // Petal Vein (optional detail)
-    ctx!.strokeStyle = `rgba(255, 255, 255, ${p.opacity * 0.3})`
-    ctx!.lineWidth = 1
-    ctx!.beginPath()
-    ctx!.moveTo(0, 0)
-    ctx!.lineTo(0, -p.size * 0.6)
-    ctx!.stroke()
-    
     ctx!.restore()
   })
   

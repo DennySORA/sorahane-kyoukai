@@ -137,7 +137,7 @@ const themes: Record<ThemeType, ThemeConfig> = {
       text: '#fefce8', // yellow-50
       bgOverlay: 'radial-gradient(circle at center, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.85) 100%)'
     },
-    bgEffect: 'dust',
+    bgEffect: 'literary', // Gold dust was here
     cardStyle: 'scroll',
     layoutMode: 'zen',
     fontFamily: '"Shippori Mincho", serif',

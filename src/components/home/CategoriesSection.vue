@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, computed } from 'vue'
+import { ref, watch, computed, onMounted, onUnmounted } from 'vue'
 import { useSectionVisibility } from '@/composables/useSectionVisibility'
 
 const { sectionRef, hasBeenVisible } = useSectionVisibility({ threshold: 0.3 })
@@ -7,11 +7,32 @@ const { sectionRef, hasBeenVisible } = useSectionVisibility({ threshold: 0.3 })
 const showContent = ref(false)
 const isHovering = ref(false)
 const activeIndex = ref<number | null>(null)
+const mousePosition = ref({ x: 0, y: 0 })
+const magicCircleRef = ref<HTMLElement | null>(null)
 
 watch(hasBeenVisible, (visible) => {
   if (visible) {
     setTimeout(() => { showContent.value = true }, 200)
   }
+})
+
+function handleMouseMove(event: MouseEvent): void {
+  if (!magicCircleRef.value) return
+  const rect = magicCircleRef.value.getBoundingClientRect()
+  const centerX = rect.left + rect.width / 2
+  const centerY = rect.top + rect.height / 2
+  mousePosition.value = {
+    x: (event.clientX - centerX) / (rect.width / 2),
+    y: (event.clientY - centerY) / (rect.height / 2)
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('mousemove', handleMouseMove, { passive: true })
+})
+
+onUnmounted(() => {
+  window.removeEventListener('mousemove', handleMouseMove)
 })
 
 interface Category {
@@ -63,15 +84,26 @@ function handleMouseLeave(): void {
   >
     <!-- Magic Circle -->
     <div
+      ref="magicCircleRef"
       class="magic-circle"
       :class="{ 'is-energized': isHovering, 'is-focused': activeIndex !== null }"
       :style="{
         '--active-angle': activeIndex !== null ? `${orbPositions[activeIndex]?.angle ?? 0}deg` : '0deg',
-        '--focus-accent': activeAccent
+        '--focus-accent': activeAccent,
+        '--mouse-x': mousePosition.x,
+        '--mouse-y': mousePosition.y
       }"
       @mouseenter="handleMouseEnter"
       @mouseleave="handleMouseLeave"
     >
+      <!-- Ambient particles -->
+      <div class="ambient-particles" aria-hidden="true">
+        <span v-for="n in 20" :key="n" class="ambient-particle" :style="{ '--particle-index': n }"></span>
+      </div>
+
+      <!-- Energy beam to active orb -->
+      <div v-if="activeIndex !== null" class="energy-beam" aria-hidden="true"></div>
+
       <div class="magic-glow"></div>
       <div class="magic-ring ring-outer"></div>
       <div class="magic-ring ring-middle"></div>
@@ -79,8 +111,14 @@ function handleMouseLeave(): void {
       <div class="rune-ring"></div>
       <div class="sigil-lines"></div>
 
+      <!-- Floating runes -->
+      <div class="floating-runes" aria-hidden="true">
+        <span v-for="n in 8" :key="n" class="floating-rune" :style="{ '--rune-index': n }"></span>
+      </div>
+
       <div class="sigil-core">
         <div class="sigil-core-inner"></div>
+        <div class="core-pulse" aria-hidden="true"></div>
         <Transition name="title-fade">
           <div v-if="showContent" class="center-title">
             <h2 class="section-title">探索領域</h2>
@@ -101,6 +139,7 @@ function handleMouseLeave(): void {
           :key="category.href"
           :to="category.href"
           class="category-orb"
+          :class="{ 'is-active': activeIndex === index }"
           :style="{
             '--orbit-angle': `${orbPositions[index]?.angle ?? 0}deg`,
             '--animation-delay': `${orbPositions[index]?.delay ?? 0}ms`,
@@ -113,7 +152,11 @@ function handleMouseLeave(): void {
         >
           <div class="orb-inner">
             <div class="orb-glow"></div>
+            <div class="orb-particles" aria-hidden="true">
+              <span v-for="n in 6" :key="n" class="orb-particle" :style="{ '--p-index': n }"></span>
+            </div>
             <div class="orb-sigil"></div>
+            <div class="orb-pulse" aria-hidden="true"></div>
             <div class="orb-content">
               <span class="orb-icon">{{ category.icon }}</span>
               <span class="orb-name">{{ category.name }}</span>
@@ -430,9 +473,10 @@ function handleMouseLeave(): void {
 .category-orb::before {
   content: '';
   position: absolute;
-  inset: -20px;
+  inset: -35px;
   border-radius: 50%;
   cursor: pointer;
+  z-index: 1;
 }
 
 /* Counter-rotate orb content to keep text upright */
@@ -611,6 +655,248 @@ function handleMouseLeave(): void {
 @keyframes ring-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+/* Ambient Particles */
+.ambient-particles {
+  position: absolute;
+  inset: -60px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.ambient-particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: rgba(245, 197, 66, 0.6);
+  border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(calc(var(--particle-index) * 18deg)) translateX(280px);
+  animation: ambient-float 8s ease-in-out infinite;
+  animation-delay: calc(var(--particle-index) * -0.4s);
+  opacity: 0;
+}
+
+.magic-circle.is-energized .ambient-particle {
+  opacity: 1;
+}
+
+@keyframes ambient-float {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.3;
+  }
+  25% {
+    transform: translate(-10px, -20px) scale(1.2);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(5px, -30px) scale(0.8);
+    opacity: 0.5;
+  }
+  75% {
+    transform: translate(-5px, -15px) scale(1.1);
+    opacity: 0.7;
+  }
+}
+
+/* Energy Beam */
+.energy-beam {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 2px;
+  height: var(--marker-radius);
+  transform-origin: top center;
+  transform: translateX(-50%) rotate(var(--active-angle));
+  background: linear-gradient(
+    180deg,
+    rgba(var(--focus-accent), 0.8) 0%,
+    rgba(var(--focus-accent), 0.3) 60%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 5;
+  animation: beam-pulse 1.5s ease-in-out infinite;
+}
+
+.energy-beam::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  background: linear-gradient(
+    180deg,
+    rgba(var(--focus-accent), 0.4) 0%,
+    transparent 80%
+  );
+  filter: blur(4px);
+}
+
+@keyframes beam-pulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+/* Floating Runes */
+.floating-runes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.floating-rune {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(calc(var(--rune-index) * 45deg)) translateX(200px);
+  opacity: 0.4;
+}
+
+.floating-rune::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(var(--ring-warm), 0.5);
+  transform: rotate(45deg);
+  animation: rune-pulse 3s ease-in-out infinite;
+  animation-delay: calc(var(--rune-index) * 0.3s);
+}
+
+.magic-circle.is-energized .floating-rune {
+  opacity: 0.8;
+}
+
+@keyframes rune-pulse {
+  0%, 100% { transform: rotate(45deg) scale(1); opacity: 0.5; }
+  50% { transform: rotate(45deg) scale(1.3); opacity: 1; }
+}
+
+/* Core Pulse */
+.core-pulse {
+  position: absolute;
+  inset: -20px;
+  border-radius: 50%;
+  border: 2px solid rgba(var(--ring-warm), 0.3);
+  animation: core-pulse-expand 3s ease-out infinite;
+}
+
+.core-pulse::before {
+  content: '';
+  position: absolute;
+  inset: -15px;
+  border-radius: 50%;
+  border: 1px solid rgba(var(--ring-cool), 0.2);
+  animation: core-pulse-expand 3s ease-out infinite 0.5s;
+}
+
+@keyframes core-pulse-expand {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* Orb Particles */
+.orb-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.orb-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(var(--orb-accent), 0.8);
+  border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.category-orb:hover .orb-particle,
+.category-orb.is-active .orb-particle {
+  animation: orb-particle-orbit 2s ease-in-out infinite;
+  animation-delay: calc(var(--p-index) * -0.33s);
+  opacity: 1;
+}
+
+@keyframes orb-particle-orbit {
+  0% {
+    transform: translate(-50%, -50%) rotate(calc(var(--p-index) * 60deg)) translateX(35px) scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translate(-50%, -50%) rotate(calc(var(--p-index) * 60deg + 180deg)) translateX(40px) scale(0.6);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(calc(var(--p-index) * 60deg + 360deg)) translateX(35px) scale(1);
+    opacity: 0.9;
+  }
+}
+
+/* Orb Pulse Effect */
+.orb-pulse {
+  position: absolute;
+  inset: -10px;
+  border-radius: 50%;
+  border: 2px solid rgba(var(--orb-accent), 0);
+  pointer-events: none;
+}
+
+.category-orb:hover .orb-pulse,
+.category-orb.is-active .orb-pulse {
+  animation: orb-pulse-wave 1.2s ease-out infinite;
+}
+
+@keyframes orb-pulse-wave {
+  0% {
+    transform: scale(1);
+    border-color: rgba(var(--orb-accent), 0.6);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.8);
+    border-color: rgba(var(--orb-accent), 0);
+    opacity: 0;
+  }
+}
+
+/* Active orb enhanced glow */
+.category-orb.is-active .orb-inner {
+  transform: scale(1.2);
+  border-color: rgba(var(--orb-accent), 0.8);
+  box-shadow:
+    0 0 40px rgba(var(--orb-accent), 0.6),
+    0 0 80px rgba(var(--orb-accent), 0.3),
+    inset 0 0 20px rgba(var(--orb-accent), 0.2);
+}
+
+.category-orb.is-active .orb-glow {
+  opacity: 1;
+  transform: scale(1.3);
+}
+
+.category-orb.is-active .orb-sigil {
+  opacity: 1;
+  animation: ring-spin 4s linear infinite;
+}
+
+.category-orb.is-active .orb-icon {
+  transform: scale(1.15);
+  text-shadow: 0 0 20px rgba(var(--orb-accent), 0.8);
 }
 
 /* Responsive */

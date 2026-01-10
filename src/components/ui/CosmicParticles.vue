@@ -4,11 +4,15 @@ import { ref, onMounted, onUnmounted } from 'vue'
 interface Props {
   maxParticles?: number
   density?: number
+  enableMeteors?: boolean
+  enableNebula?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  maxParticles: 180,
-  density: 11000
+  maxParticles: 200,
+  density: 9000,
+  enableMeteors: true,
+  enableNebula: true
 })
 
 interface RgbColor {
@@ -16,6 +20,9 @@ interface RgbColor {
   g: number
   b: number
 }
+
+type ParticleType = 'star' | 'meteor' | 'nebula'
+type ParticleLayer = 'far' | 'mid' | 'near'
 
 interface Particle {
   x: number
@@ -28,17 +35,35 @@ interface Particle {
   parallax: number
   streak: boolean
   color: RgbColor
+  type: ParticleType
+  layer: ParticleLayer
+  life?: number
+  maxLife?: number
+  angle?: number
 }
 
 const canvasRef = ref<HTMLCanvasElement | null>(null)
 
 const defaultColor: RgbColor = { r: 248, g: 250, b: 252 }
 
-const palette: RgbColor[] = [
+// Enhanced cosmic color palette
+const starPalette: RgbColor[] = [
   defaultColor,
-  { r: 226, g: 232, b: 240 },
-  { r: 129, g: 140, b: 248 },
-  { r: 245, g: 197, b: 66 }
+  { r: 226, g: 232, b: 240 }, // Moon silver
+  { r: 129, g: 140, b: 248 }, // Cosmic purple
+  { r: 245, g: 197, b: 66 },  // Sun gold
+  { r: 135, g: 206, b: 235 }, // Sky blue
+  { r: 196, g: 181, b: 253 }  // Lavender
+]
+
+const defaultNebulaColor: RgbColor = { r: 67, g: 56, b: 202 }
+
+const nebulaPalette: RgbColor[] = [
+  defaultNebulaColor,         // Deep purple
+  { r: 236, g: 72, b: 153 },  // Nebula pink
+  { r: 74, g: 124, b: 140 },  // Teal cloud
+  { r: 139, g: 92, b: 246 },  // Violet
+  { r: 45, g: 212, b: 191 }   // Cyan
 ]
 
 let ctx: CanvasRenderingContext2D | null = null
@@ -57,28 +82,107 @@ const pointer = {
   targetY: 0.5
 }
 
-function buildParticle(): Particle {
-  const radius = 0.6 + Math.random() * 2.2
-  const speed = 0.06 + Math.random() * 0.18
+function getLayer(): ParticleLayer {
+  const rand = Math.random()
+  if (rand < 0.4) return 'far'
+  if (rand < 0.8) return 'mid'
+  return 'near'
+}
+
+interface LayerConfig {
+  radiusRange: [number, number]
+  speedRange: [number, number]
+  parallax: [number, number]
+  opacity: [number, number]
+}
+
+const layerConfigs: Record<ParticleLayer, LayerConfig> = {
+  far: { radiusRange: [0.3, 0.8], speedRange: [0.02, 0.06], parallax: [0.1, 0.3], opacity: [0.2, 0.4] },
+  mid: { radiusRange: [0.6, 1.5], speedRange: [0.05, 0.12], parallax: [0.3, 0.6], opacity: [0.4, 0.7] },
+  near: { radiusRange: [1.2, 2.8], speedRange: [0.1, 0.2], parallax: [0.6, 0.9], opacity: [0.6, 0.9] }
+}
+
+function buildStar(): Particle {
+  const layer = getLayer()
+  const config = layerConfigs[layer]
+  const radius = config.radiusRange[0] + Math.random() * (config.radiusRange[1] - config.radiusRange[0])
+  const speed = config.speedRange[0] + Math.random() * (config.speedRange[1] - config.speedRange[0])
   const drift = Math.random() * Math.PI * 2
+
   return {
     x: Math.random() * width,
     y: Math.random() * height,
     radius,
     vx: Math.cos(drift) * speed,
     vy: Math.sin(drift) * speed,
-    opacity: 0.3 + Math.random() * 0.6,
+    opacity: config.opacity[0] + Math.random() * (config.opacity[1] - config.opacity[0]),
     twinkle: Math.random() * Math.PI * 2,
-    parallax: 0.2 + Math.random() * 0.8,
-    streak: Math.random() < 0.18,
-    color: palette[Math.floor(Math.random() * palette.length)] ?? defaultColor
+    parallax: config.parallax[0] + Math.random() * (config.parallax[1] - config.parallax[0]),
+    streak: layer === 'near' && Math.random() < 0.25,
+    color: starPalette[Math.floor(Math.random() * starPalette.length)] ?? defaultColor,
+    type: 'star',
+    layer
   }
 }
+
+function buildMeteor(): Particle {
+  const angle = Math.PI * 0.2 + Math.random() * Math.PI * 0.15
+  const speed = 2 + Math.random() * 3
+  const startFromTop = Math.random() < 0.7
+
+  return {
+    x: startFromTop ? Math.random() * width * 1.2 : -50,
+    y: startFromTop ? -50 : Math.random() * height * 0.3,
+    radius: 1.5 + Math.random() * 1.5,
+    vx: Math.cos(angle) * speed,
+    vy: Math.sin(angle) * speed,
+    opacity: 0.8 + Math.random() * 0.2,
+    twinkle: 0,
+    parallax: 1,
+    streak: true,
+    color: starPalette[Math.floor(Math.random() * 3)] ?? defaultColor,
+    type: 'meteor',
+    layer: 'near',
+    life: 0,
+    maxLife: 80 + Math.random() * 60,
+    angle
+  }
+}
+
+function buildNebula(): Particle {
+  return {
+    x: Math.random() * width,
+    y: Math.random() * height,
+    radius: 40 + Math.random() * 80,
+    vx: (Math.random() - 0.5) * 0.02,
+    vy: (Math.random() - 0.5) * 0.02,
+    opacity: 0.03 + Math.random() * 0.05,
+    twinkle: Math.random() * Math.PI * 2,
+    parallax: 0.05 + Math.random() * 0.1,
+    streak: false,
+    color: nebulaPalette[Math.floor(Math.random() * nebulaPalette.length)] ?? defaultNebulaColor,
+    type: 'nebula',
+    layer: 'far'
+  }
+}
+
+let meteors: Particle[] = []
+let nebulas: Particle[] = []
+let meteorSpawnTimer = 0
 
 function seedParticles(): void {
   const area = Math.max(width * height, 1)
   const count = Math.min(props.maxParticles, Math.floor(area / props.density))
-  particles = Array.from({ length: Math.max(count, 40) }, () => buildParticle())
+  particles = Array.from({ length: Math.max(count, 50) }, () => buildStar())
+
+  // Seed nebula particles for background atmosphere
+  if (props.enableNebula) {
+    const nebulaCount = Math.min(8, Math.floor(area / 150000))
+    nebulas = Array.from({ length: Math.max(nebulaCount, 3) }, () => buildNebula())
+  }
+
+  meteors = []
+  meteorSpawnTimer = 0
 }
 
 function resizeCanvas(): void {
@@ -117,9 +221,44 @@ function renderFrame(time: number): void {
   if (!ctx) return
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
   ctx.clearRect(0, 0, width, height)
-  ctx.globalCompositeOperation = 'lighter'
   pointer.x += (pointer.targetX - pointer.x) * 0.05
   pointer.y += (pointer.targetY - pointer.y) * 0.05
+
+  // Render nebula particles first (background layer)
+  if (props.enableNebula && !reduceMotion) {
+    ctx.globalCompositeOperation = 'screen'
+    for (const nebula of nebulas) {
+      nebula.x += nebula.vx
+      nebula.y += nebula.vy
+
+      // Wrap around edges
+      if (nebula.x < -nebula.radius) nebula.x = width + nebula.radius
+      if (nebula.x > width + nebula.radius) nebula.x = -nebula.radius
+      if (nebula.y < -nebula.radius) nebula.y = height + nebula.radius
+      if (nebula.y > height + nebula.radius) nebula.y = -nebula.radius
+
+      const parallaxX = (pointer.x - 0.5) * nebula.parallax * 20
+      const parallaxY = (pointer.y - 0.5) * nebula.parallax * 16
+      const pulse = 0.7 + Math.sin(time * 0.0003 + nebula.twinkle) * 0.3
+      const alpha = nebula.opacity * pulse
+
+      const drawX = nebula.x + parallaxX
+      const drawY = nebula.y + parallaxY
+
+      const gradient = ctx.createRadialGradient(drawX, drawY, 0, drawX, drawY, nebula.radius)
+      gradient.addColorStop(0, `rgba(${nebula.color.r}, ${nebula.color.g}, ${nebula.color.b}, ${alpha * 0.8})`)
+      gradient.addColorStop(0.4, `rgba(${nebula.color.r}, ${nebula.color.g}, ${nebula.color.b}, ${alpha * 0.3})`)
+      gradient.addColorStop(1, 'transparent')
+
+      ctx.fillStyle = gradient
+      ctx.beginPath()
+      ctx.arc(drawX, drawY, nebula.radius, 0, Math.PI * 2)
+      ctx.fill()
+    }
+  }
+
+  // Render stars with layered depth
+  ctx.globalCompositeOperation = 'lighter'
   ctx.shadowBlur = 12
   ctx.shadowColor = 'rgba(248, 250, 252, 0.25)'
 
@@ -137,11 +276,22 @@ function renderFrame(time: number): void {
 
     const parallaxX = (pointer.x - 0.5) * particle.parallax * 40
     const parallaxY = (pointer.y - 0.5) * particle.parallax * 32
-    const twinkle = 0.6 + Math.sin(time * 0.001 + particle.twinkle) * 0.4
+    const twinkleSpeed = particle.layer === 'far' ? 0.0008 : particle.layer === 'mid' ? 0.001 : 0.0015
+    const twinkle = 0.6 + Math.sin(time * twinkleSpeed + particle.twinkle) * 0.4
     const alpha = particle.opacity * twinkle
 
     const drawX = particle.x + parallaxX
     const drawY = particle.y + parallaxY
+
+    // Add glow for near-layer stars
+    if (particle.layer === 'near') {
+      ctx.shadowBlur = 16
+      ctx.shadowColor = `rgba(${particle.color.r}, ${particle.color.g}, ${particle.color.b}, 0.4)`
+    } else {
+      ctx.shadowBlur = particle.layer === 'mid' ? 8 : 4
+      ctx.shadowColor = 'rgba(248, 250, 252, 0.15)'
+    }
+
     ctx.fillStyle = `rgba(${particle.color.r}, ${particle.color.g}, ${particle.color.b}, ${alpha})`
     ctx.beginPath()
     ctx.arc(drawX, drawY, particle.radius, 0, Math.PI * 2)
@@ -154,6 +304,69 @@ function renderFrame(time: number): void {
       ctx.moveTo(drawX, drawY)
       ctx.lineTo(drawX - particle.vx * 80, drawY - particle.vy * 80)
       ctx.stroke()
+    }
+  }
+
+  // Spawn and render meteors
+  if (props.enableMeteors && !reduceMotion) {
+    meteorSpawnTimer++
+    // Random meteor spawn (average every 3-6 seconds at 60fps)
+    if (meteorSpawnTimer > 180 + Math.random() * 180) {
+      if (meteors.length < 3) {
+        meteors.push(buildMeteor())
+      }
+      meteorSpawnTimer = 0
+    }
+
+    ctx.shadowBlur = 20
+    for (let i = meteors.length - 1; i >= 0; i--) {
+      const meteor = meteors[i]
+      if (!meteor) continue
+
+      meteor.x += meteor.vx
+      meteor.y += meteor.vy
+      meteor.life = (meteor.life ?? 0) + 1
+
+      const lifeRatio = (meteor.life ?? 0) / (meteor.maxLife ?? 100)
+      const fadeIn = Math.min(1, (meteor.life ?? 0) / 10)
+      const fadeOut = lifeRatio > 0.7 ? 1 - (lifeRatio - 0.7) / 0.3 : 1
+      const alpha = meteor.opacity * fadeIn * fadeOut
+
+      // Remove dead meteors
+      if (lifeRatio >= 1 || meteor.x > width + 100 || meteor.y > height + 100) {
+        meteors.splice(i, 1)
+        continue
+      }
+
+      ctx.shadowColor = `rgba(${meteor.color.r}, ${meteor.color.g}, ${meteor.color.b}, 0.6)`
+
+      // Draw meteor trail with gradient
+      const trailLength = 120 * fadeOut
+      const gradient = ctx.createLinearGradient(
+        meteor.x, meteor.y,
+        meteor.x - meteor.vx * trailLength / Math.abs(meteor.vx || 1),
+        meteor.y - meteor.vy * trailLength / Math.abs(meteor.vy || 1)
+      )
+      gradient.addColorStop(0, `rgba(${meteor.color.r}, ${meteor.color.g}, ${meteor.color.b}, ${alpha})`)
+      gradient.addColorStop(0.3, `rgba(${meteor.color.r}, ${meteor.color.g}, ${meteor.color.b}, ${alpha * 0.5})`)
+      gradient.addColorStop(1, 'transparent')
+
+      ctx.strokeStyle = gradient
+      ctx.lineWidth = meteor.radius * 1.5
+      ctx.lineCap = 'round'
+      ctx.beginPath()
+      ctx.moveTo(meteor.x, meteor.y)
+      ctx.lineTo(
+        meteor.x - meteor.vx * trailLength / Math.abs(meteor.vx || 1),
+        meteor.y - meteor.vy * trailLength / Math.abs(meteor.vy || 1)
+      )
+      ctx.stroke()
+
+      // Draw meteor head
+      ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`
+      ctx.beginPath()
+      ctx.arc(meteor.x, meteor.y, meteor.radius, 0, Math.PI * 2)
+      ctx.fill()
     }
   }
 }

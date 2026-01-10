@@ -205,6 +205,7 @@ onUnmounted(() => {
   align-items: center;
   gap: 16px;
   text-decoration: none;
+  height: 100%;
   transition: transform 0.3s var(--ease-out-back), opacity 0.3s ease;
 }
 
@@ -215,8 +216,8 @@ onUnmounted(() => {
 
 .logo-orb {
   position: relative;
-  width: calc(var(--header-height) - 18px);
-  height: calc(var(--header-height) - 18px);
+  width: auto;
+  height: 100%;
   border-radius: 14px;
   display: grid;
   place-items: center;
@@ -224,6 +225,7 @@ onUnmounted(() => {
   border: none;
   box-shadow: none;
   transition: transform 0.3s var(--ease-out-back);
+  padding: 6px 0;
 }
 
 .logo-orb::before {
@@ -270,9 +272,9 @@ onUnmounted(() => {
 }
 
 .logo-image {
-  height: 85%;
+  height: 100%;
   width: auto;
-  max-height: calc(var(--header-height) - 24px);
+  max-height: calc(var(--header-height) - 12px);
   filter:
     drop-shadow(0 0 16px rgba(245, 197, 66, 0.35))
     drop-shadow(0 0 32px rgba(67, 56, 202, 0.25));

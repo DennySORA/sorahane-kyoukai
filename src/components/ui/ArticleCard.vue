@@ -127,77 +127,133 @@ const variantClass = computed(() => `card-${props.variant}`)
 
 /* --- VARIANTS --- */
 
-/* 1. Galgame (Dialog Box) */
+/* 1. Galgame (Dialog Box - Light) */
+
 .card-dialog {
-  border-radius: 4px; /* More like a text box */
-  background: rgba(20, 5, 15, 0.7);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  border-radius: 4px;
+
+  background: rgba(255, 255, 255, 0.5);
+
+  backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(255, 255, 255, 0.6);
+
   border-top: 3px solid var(--theme-primary);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+
+  box-shadow: 0 4px 15px rgba(219, 39, 119, 0.1);
+
 }
+
 .card-dialog .card-content {
+
   padding: 24px;
+
 }
+
 .card-dialog .card-title {
-  color: var(--theme-primary);
-  text-shadow: 0 0 10px rgba(236, 72, 153, 0.4);
+
+  color: var(--theme-text); /* Dark Pink */
+
   font-size: 1.4rem;
+
   margin-bottom: 16px;
+
   position: relative;
+
   display: inline-block;
+
 }
-/* Decoration line for title */
+
 .card-dialog .card-title::after {
+
   content: '';
+
   display: block;
+
   width: 100%;
+
   height: 1px;
+
   background: linear-gradient(90deg, var(--theme-primary), transparent);
+
   margin-top: 4px;
+
 }
+
 .card-dialog:hover {
+
   transform: translateY(-2px);
-  background: rgba(30, 10, 20, 0.8);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+
+  background: rgba(255, 255, 255, 0.7);
+
+  box-shadow: 0 8px 25px rgba(219, 39, 119, 0.2);
+
 }
+
+
 
 /* 2. Programming (Terminal) */
+
 .card-terminal {
+
   background: #000;
+
   border: 1px dashed var(--theme-primary);
+
   border-radius: 0;
+
   font-family: 'Courier New', monospace;
+
   color: var(--theme-text);
-}
-.card-terminal .card-thumbnail {
-  display: none; /* No images in terminal usually */
-}
-.card-terminal .card-title {
-  font-family: inherit;
-  color: var(--theme-accent);
-}
-.card-terminal .card-title::before {
-  content: './';
-  color: var(--theme-primary);
-}
-.card-terminal:hover {
-  background: #0a0a0a;
-  border-style: solid;
-  box-shadow: 0 0 15px var(--theme-primary);
+
 }
 
-/* 3. Anime (Tech Interface) */
+.card-terminal .card-thumbnail {
+
+  display: none; /* No images in terminal usually */
+
+}
+
+.card-terminal .card-title {
+
+  font-family: inherit;
+
+  color: var(--theme-accent);
+
+}
+
+.card-terminal .card-title::before {
+
+  content: './';
+
+  color: var(--theme-primary);
+
+}
+
+.card-terminal:hover {
+
+  background: #0a0a0a;
+
+  border-style: solid;
+
+  box-shadow: 0 0 15px var(--theme-primary);
+
+}
+
+
+
+/* 3. Anime (Tech Interface - Light) */
 
 .card-tech {
 
-  background: rgba(10, 20, 40, 0.9); /* Slightly more opaque */
+  background: rgba(255, 255, 255, 0.6);
 
   clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
 
   border-left: 2px solid var(--theme-primary);
 
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(14, 165, 233, 0.1);
 
 }
 
@@ -221,11 +277,19 @@ const variantClass = computed(() => `card-${props.variant}`)
 
 }
 
+.card-tech .card-title {
+
+  color: var(--theme-text); /* Dark Blue */
+
+}
+
 .card-tech:hover {
 
   transform: translateX(5px);
 
-  background: rgba(15, 30, 60, 0.95);
+  background: rgba(255, 255, 255, 0.8);
+
+  box-shadow: 0 4px 20px rgba(14, 165, 233, 0.2);
 
 }
 

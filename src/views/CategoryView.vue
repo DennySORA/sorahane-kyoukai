@@ -1,81 +1,19 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useRoute } from 'vue-router'
 import StarBackground from '@/components/ui/StarBackground.vue'
+import { useCategoryTheme } from '@/composables/useCategoryTheme'
 
-const route = useRoute()
+const { currentTheme } = useCategoryTheme()
 
-interface CategoryInfo {
-  title: string
-  subtitle: string
-  description: string
-  icon: string
-}
-
-const categoryMap: Record<string, CategoryInfo> = {
-  galgame: {
-    title: 'Galgame',
-    subtitle: 'Visual Novel Adventures',
-    description: '探索視覺小說的世界，分享遊戲心得與推薦',
-    icon: 'G'
-  },
-  anime: {
-    title: '二次元天地',
-    subtitle: 'Anime & Manga World',
-    description: '動漫評論、角色分析、作品推薦',
-    icon: '二'
-  },
-  programming: {
-    title: '程式技術',
-    subtitle: 'Code & Technology',
-    description: '技術文章、開發心得、程式教學',
-    icon: '程'
-  },
-  thoughts: {
-    title: '心境與筆記',
-    subtitle: 'Thoughts & Notes',
-    description: '生活隨筆、思考紀錄、個人感想',
-    icon: '心'
-  },
-  writing: {
-    title: '寫作技巧',
-    subtitle: 'Writing Skills',
-    description: '創作心法、寫作技巧、故事構思',
-    icon: '寫'
-  },
-  health: {
-    title: '健康知識',
-    subtitle: 'Health & Wellness',
-    description: '健康資訊、生活習慣、身心平衡',
-    icon: '健'
-  },
-  music: {
-    title: '音樂賞析',
-    subtitle: 'Music Appreciation',
-    description: '音樂評論、專輯推薦、聆聽感想',
-    icon: '音'
-  }
-}
-
-const categorySlug = computed(() => {
-  const path = route.path.replace('/', '')
-  return path || 'galgame'
-})
-
-const defaultCategory: CategoryInfo = {
-  title: 'Galgame',
-  subtitle: 'Visual Novel Adventures',
-  description: '探索視覺小說的世界，分享遊戲心得與推薦',
-  icon: 'G'
-}
-
-const category = computed((): CategoryInfo => {
-  return categoryMap[categorySlug.value] ?? defaultCategory
-})
+const themeStyles = computed(() => ({
+  '--theme-primary': currentTheme.value.colors.primary,
+  '--theme-accent': currentTheme.value.colors.accent,
+  '--theme-bg-gradient': currentTheme.value.colors.bgGradient
+}))
 </script>
 
 <template>
-  <main class="category-page">
+  <main class="category-page" :style="themeStyles">
     <!-- Background -->
     <div class="category-bg">
       <img
@@ -90,10 +28,10 @@ const category = computed((): CategoryInfo => {
     <!-- Content -->
     <div class="category-content">
       <div class="category-header">
-        <div class="category-icon">{{ category.icon }}</div>
-        <h1 class="category-title">{{ category.title }}</h1>
-        <p class="category-subtitle">{{ category.subtitle }}</p>
-        <p class="category-description">{{ category.description }}</p>
+        <div class="category-icon">{{ currentTheme.icon }}</div>
+        <h1 class="category-title">{{ currentTheme.title }}</h1>
+        <p class="category-subtitle">{{ currentTheme.subtitle }}</p>
+        <p class="category-description">{{ currentTheme.description }}</p>
       </div>
 
       <!-- Articles Placeholder -->
@@ -159,21 +97,18 @@ const category = computed((): CategoryInfo => {
   justify-content: center;
   width: 80px;
   height: 80px;
-  background: linear-gradient(
-    135deg,
-    rgba(30, 58, 95, 0.8) 0%,
-    rgba(49, 46, 129, 0.6) 100%
-  );
+  background: var(--theme-bg-gradient);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 50%;
   font-family: var(--font-display-jp);
   font-size: 32px;
   font-weight: 600;
-  color: var(--color-sun-gold);
+  color: var(--theme-primary);
   margin-bottom: 24px;
   box-shadow:
-    0 0 30px rgba(245, 197, 66, 0.2),
+    0 0 30px rgba(255, 255, 255, 0.05),
     0 8px 32px rgba(0, 0, 0, 0.3);
+  transition: all 0.5s ease;
 }
 
 .category-title {
@@ -184,19 +119,21 @@ const category = computed((): CategoryInfo => {
   letter-spacing: 0.1em;
   margin-bottom: 8px;
   text-shadow:
-    0 0 20px rgba(248, 250, 252, 0.3),
-    0 0 40px rgba(245, 197, 66, 0.2);
+    0 0 20px var(--theme-primary),
+    0 0 40px rgba(0, 0, 0, 0.5);
+  transition: text-shadow 0.5s ease;
 }
 
 .category-subtitle {
   font-family: var(--font-display-en);
   font-size: 16px;
   font-style: italic;
-  color: var(--color-moon-silver);
+  color: var(--theme-primary);
   letter-spacing: 0.2em;
   text-transform: uppercase;
   margin-bottom: 16px;
-  opacity: 0.8;
+  opacity: 0.9;
+  transition: color 0.5s ease;
 }
 
 .category-description {
@@ -220,17 +157,19 @@ const category = computed((): CategoryInfo => {
   align-items: center;
   justify-content: center;
   padding: 80px 24px;
-  background: rgba(30, 58, 95, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(15, 23, 42, 0.4);
+  border: 1px solid var(--theme-primary);
   border-radius: 16px;
   backdrop-filter: blur(8px);
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  transition: border-color 0.5s ease;
 }
 
 .coming-soon-text {
   font-family: var(--font-display-en);
   font-size: 24px;
   font-weight: 500;
-  color: var(--color-sun-gold);
+  color: var(--theme-primary);
   letter-spacing: 0.2em;
   margin-bottom: 12px;
 }

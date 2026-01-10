@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 const pages = [
   { path: '/galgame', effectSelector: '.sakura-canvas', name: 'Galgame (Sakura)' },
-  { path: '/anime', effectSelector: '.speed-lines-canvas', name: 'Anime (SpeedLines)' },
+  { path: '/anime', effectSelector: '.god-rays-container', name: 'Anime (GodRays)' },
   { path: '/programming', effectSelector: '.matrix-canvas', name: 'Programming (Matrix)' },
   { path: '/thoughts', effectSelector: '.ripple-container', name: 'Thoughts (Ripple)' },
   { path: '/writing', effectSelector: '.ink-container', name: 'Writing (Ink)' },

@@ -249,17 +249,24 @@ const variantClass = computed(() => `card-${props.variant}`)
   background: rgba(255, 255, 255, 0.08);
 }
 
-/* 7. Music (Vinyl) */
+/* 7. Music (Vinyl - Light Mode Adapted) */
 .card-vinyl {
-  background: #111;
-  border: 1px solid #333;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 .card-vinyl .card-thumbnail img {
   border-radius: 4px;
 }
 .card-vinyl:hover {
   border-color: var(--theme-accent);
-  box-shadow: 0 0 20px var(--theme-primary);
+  box-shadow: 0 8px 25px rgba(139, 92, 246, 0.15); /* violet shadow */
+  background: rgba(255, 255, 255, 0.8);
+}
+.card-vinyl .card-title {
+  /* Ensure title respects the dark theme text color */
+  color: var(--theme-text); 
 }
 </style>

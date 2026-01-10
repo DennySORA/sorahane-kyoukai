@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import ThemeBackground from '@/components/ui/ThemeBackground.vue'
-import ArticleCard from '@/components/ui/ArticleCard.vue'
 import { useCategoryTheme } from '@/composables/useCategoryTheme'
 
 const { currentTheme } = useCategoryTheme()
@@ -16,33 +15,6 @@ const themeStyles = computed(() => ({
 }))
 
 const bgImage = computed(() => currentTheme.value.backgroundImage || '')
-
-const dummyArticles = [
-  {
-    id: 1,
-    title: '星空下的誓言：視覺小說敘事分析',
-    excerpt: '探討 AVG 遊戲中如何透過音樂與演出的配合，營造出令玩家難以忘懷的經典場景。從腳本結構到情感堆疊的深度解析。',
-    date: '2025-01-10',
-    tags: ['Review', 'Narrative'],
-    thumbnail: '/images/hero_bg.jpeg'
-  },
-  {
-    id: 2,
-    title: 'Vue 3 Composition API 實戰指南',
-    excerpt: '如何優雅地組織你的程式碼？深入淺出解說 Composables 的設計模式與最佳實踐，讓你的專案架構更上一層樓。',
-    date: '2025-01-05',
-    tags: ['Vue', 'Tutorial'],
-    thumbnail: '/images/sunrise_bg.jpeg'
-  },
-  {
-    id: 3,
-    title: '尋找靈魂的共鳴：近期音樂收藏',
-    excerpt: '整理了本月份循環播放的播放清單，包含 Post-Rock、Shoegaze 以及幾首令人驚豔的遊戲原聲帶曲目。',
-    date: '2024-12-28',
-    tags: ['Music', 'Playlist'],
-    thumbnail: '/images/universe_bg.jpeg'
-  }
-]
 </script>
 
 <template>
@@ -71,16 +43,6 @@ const dummyArticles = [
           <p class="category-subtitle">{{ currentTheme.subtitle }}</p>
         </div>
         <p class="category-description">{{ currentTheme.description }}</p>
-      </div>
-
-      <!-- Articles Grid -->
-      <div class="articles-grid">
-        <ArticleCard
-          v-for="article in dummyArticles"
-          :key="article.id"
-          v-bind="article"
-          :variant="currentTheme.cardStyle"
-        />
       </div>
     </div>
   </main>
@@ -249,12 +211,5 @@ const dummyArticles = [
 .layout-zen .bg-image {
   filter: grayscale(100%) contrast(1.2); /* Black and white feel */
   opacity: 0.2;
-}
-
-/* Articles Grid */
-.articles-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 32px;
 }
 </style>

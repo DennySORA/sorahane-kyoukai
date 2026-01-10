@@ -16,7 +16,10 @@ const components = {
   aurora: defineAsyncComponent(() => import('./effects/AuroraBorealis.vue')),
   visualizer: defineAsyncComponent(() => import('./effects/AudioVisualizer.vue')),
   'god-rays': defineAsyncComponent(() => import('./effects/GodRays.vue')),
-  feathers: defineAsyncComponent(() => import('./effects/FeatherParticles.vue'))
+  feathers: defineAsyncComponent(() => import('./effects/FeatherParticles.vue')),
+  bubbles: defineAsyncComponent(() => import('./effects/Bubbles.vue')),
+  dust: defineAsyncComponent(() => import('./effects/DustParticles.vue')),
+  snow: defineAsyncComponent(() => import('./effects/SnowParticles.vue'))
 }
 
 const currentEffectComponent = computed(() => {

@@ -84,43 +84,17 @@ function handleMouseLeave(): void {
     ref="sectionRef"
     class="categories-section"
   >
-    <!-- Magic Circle -->
+    <!-- Celestial System -->
     <div
       ref="magicCircleRef"
-      class="magic-circle"
+      class="celestial-system"
       :class="{ 'is-energized': isHovering, 'is-focused': activeIndex !== null }"
-      :style="{
-        '--active-angle': activeIndex !== null ? `${orbPositions[activeIndex]?.angle ?? 0}deg` : '0deg',
-        '--focus-accent': activeAccent,
-        '--mouse-x': mousePosition.x,
-        '--mouse-y': mousePosition.y
-      }"
       @mouseenter="handleMouseEnter"
       @mouseleave="handleMouseLeave"
     >
-      <!-- Ambient particles -->
-      <div class="ambient-particles" aria-hidden="true">
-        <span v-for="n in 20" :key="n" class="ambient-particle" :style="{ '--particle-index': n }"></span>
-      </div>
-
-      <!-- Energy beam to active orb -->
-      <div v-if="activeIndex !== null" class="energy-beam" aria-hidden="true"></div>
-
-      <div class="magic-glow"></div>
-      <div class="magic-ring ring-outer"></div>
-      <div class="magic-ring ring-middle"></div>
-      <div class="magic-ring ring-inner"></div>
-      <div class="rune-ring"></div>
-      <div class="sigil-lines"></div>
-
-      <!-- Floating runes -->
-      <div class="floating-runes" aria-hidden="true">
-        <span v-for="n in 8" :key="n" class="floating-rune" :style="{ '--rune-index': n }"></span>
-      </div>
-
-      <div class="sigil-core">
-        <div class="sigil-core-inner"></div>
-        <div class="core-pulse" aria-hidden="true"></div>
+      <!-- Central Star (Title) -->
+      <div class="system-core">
+        <div class="core-glow"></div>
         <Transition name="title-fade">
           <div v-if="showContent" class="center-title">
             <h2 class="section-title">探索領域</h2>
@@ -129,18 +103,22 @@ function handleMouseLeave(): void {
         </Transition>
       </div>
 
-      <div class="sigil-marker" aria-hidden="true"></div>
+      <!-- Orbit Tracks -->
+      <div class="orbit-track track-1"></div>
+      <div class="orbit-track track-2"></div>
+      <div class="orbit-track track-3"></div>
 
+      <!-- Rotating Orbs -->
       <div
         v-if="showContent"
-        class="orbs-track"
+        class="planets-track"
         :class="{ 'is-paused': activeIndex !== null }"
       >
         <router-link
           v-for="(category, index) in categories"
           :key="category.href"
           :to="category.href"
-          class="category-orb"
+          class="planet-orb"
           :class="{ 'is-active': activeIndex === index }"
           :style="{
             '--orbit-angle': `${orbPositions[index]?.angle ?? 0}deg`,
@@ -152,26 +130,17 @@ function handleMouseLeave(): void {
           @focus="activeIndex = index"
           @blur="activeIndex = null"
         >
-          <div class="orb-inner">
-            <div class="orb-glow"></div>
-            <div class="orb-particles" aria-hidden="true">
-              <span v-for="n in 6" :key="n" class="orb-particle" :style="{ '--p-index': n }"></span>
-            </div>
-            <div class="orb-sigil"></div>
-            <div class="orb-pulse" aria-hidden="true"></div>
+          <div class="orb-container">
+            <div class="orb-halo"></div>
             <div class="orb-content">
-              <span class="orb-icon">
+              <div class="icon-wrapper">
                 <img :src="category.iconImage" :alt="category.name" />
-              </span>
-              <span class="orb-name">{{ category.name }}</span>
+              </div>
+              <span class="orb-label">{{ category.name }}</span>
             </div>
           </div>
         </router-link>
       </div>
-    </div>
-
-    <div class="sigil-radials" aria-hidden="true">
-      <div class="radial" v-for="n in 10" :key="n" :style="{ '--ray-angle': `${n * 36}deg` }"></div>
     </div>
   </section>
 </template>
@@ -187,266 +156,86 @@ function handleMouseLeave(): void {
   overflow: hidden;
 }
 
-/* Magic Circle */
-.magic-circle {
+/* Celestial System Container */
+.celestial-system {
   position: relative;
-  width: 560px;
-  height: 560px;
+  width: 600px;
+  height: 600px;
   display: flex;
   align-items: center;
   justify-content: center;
-  --ring-warm: 245, 197, 66;
-  --ring-cool: 129, 140, 248;
-  --focus-accent: var(--ring-warm);
-  --orbit-speed: 46s;
-  --outer-spin: 140s;
-  --middle-spin: 90s;
-  --inner-spin: 70s;
-  --marker-radius: 235px;
-  transition: transform 0.4s var(--ease-out-expo);
+  --system-speed: 60s;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.magic-circle::before {
-  content: '';
+/* Central Core (Title) */
+.system-core {
   position: absolute;
-  inset: -40px;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(67, 56, 202, 0.2) 0%,
-    rgba(15, 23, 42, 0.1) 55%,
-    transparent 70%
-  );
-  opacity: 0.7;
-  animation: breath 6s ease-in-out infinite;
-}
-
-.magic-circle::after {
-  content: '';
-  position: absolute;
-  inset: 40px;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  opacity: 0.4;
-}
-
-.magic-circle.is-energized .magic-glow {
-  opacity: 1;
-}
-
-.magic-circle.is-focused .sigil-marker {
-  opacity: 1;
-}
-
-.magic-circle.is-focused .sigil-core {
-  box-shadow:
-    0 0 45px rgba(var(--focus-accent), 0.35),
-    0 0 90px rgba(var(--focus-accent), 0.2);
-  border-color: rgba(var(--focus-accent), 0.45);
-}
-
-/* Ambient Glow */
-.magic-glow {
-  position: absolute;
-  width: 360px;
-  height: 360px;
-  background: radial-gradient(
-    circle,
-    rgba(245, 197, 66, 0.2) 0%,
-    rgba(67, 56, 202, 0.08) 45%,
-    transparent 70%
-  );
-  border-radius: 50%;
-  animation: breath 5s ease-in-out infinite;
-  opacity: 0.8;
-}
-
-/* Rings */
-.magic-ring {
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-}
-
-.ring-outer {
-  width: 520px;
-  height: 520px;
-  border: 1px solid rgba(var(--ring-warm), 0.22);
-  box-shadow:
-    0 0 30px rgba(var(--ring-warm), 0.15),
-    inset 0 0 30px rgba(var(--ring-cool), 0.1);
-  animation: ring-spin var(--outer-spin) linear infinite;
-}
-
-.magic-circle.is-focused .ring-outer {
-  border-color: rgba(var(--focus-accent), 0.4);
-  box-shadow:
-    0 0 35px rgba(var(--focus-accent), 0.25),
-    inset 0 0 35px rgba(var(--focus-accent), 0.15);
-}
-
-.ring-outer::after {
-  content: '';
-  position: absolute;
-  inset: 18px;
-  border-radius: 50%;
-  border: 1px dashed rgba(var(--ring-cool), 0.25);
-  opacity: 0.6;
-}
-
-.ring-middle {
-  width: 430px;
-  height: 430px;
-  border: 1px dashed rgba(var(--ring-warm), 0.2);
-  box-shadow:
-    0 0 18px rgba(var(--ring-warm), 0.1),
-    inset 0 0 18px rgba(var(--ring-warm), 0.08);
-  animation: ring-spin var(--middle-spin) linear infinite reverse;
-}
-
-.ring-inner {
-  width: 320px;
-  height: 320px;
-  border: 1px solid rgba(var(--ring-cool), 0.28);
-  box-shadow:
-    0 0 16px rgba(var(--ring-cool), 0.15),
-    inset 0 0 20px rgba(var(--ring-cool), 0.12);
-  animation: ring-spin var(--inner-spin) linear infinite;
-}
-
-/* Rune Ring */
-.rune-ring {
-  position: absolute;
-  width: 395px;
-  height: 395px;
-  border-radius: 50%;
-  background: repeating-conic-gradient(
-    from 0deg,
-    rgba(var(--ring-warm), 0.45) 0deg,
-    rgba(var(--ring-warm), 0.45) 6deg,
-    transparent 6deg,
-    transparent 18deg
-  );
-  -webkit-mask: radial-gradient(transparent 63%, #000 64%, #000 67%, transparent 68%);
-  mask: radial-gradient(transparent 63%, #000 64%, #000 67%, transparent 68%);
-  opacity: 0.5;
-  animation: ring-spin 120s linear infinite reverse;
-}
-
-/* Sigil Lines */
-.sigil-lines {
-  position: absolute;
-  width: 260px;
-  height: 260px;
-  border-radius: 50%;
-  background: repeating-conic-gradient(
-    from 0deg,
-    transparent 0deg,
-    transparent 12deg,
-    rgba(var(--ring-cool), 0.4) 12deg,
-    rgba(var(--ring-cool), 0.4) 13deg
-  );
-  -webkit-mask: radial-gradient(transparent 45%, #000 46%, #000 54%, transparent 55%);
-  mask: radial-gradient(transparent 45%, #000 46%, #000 54%, transparent 55%);
-  opacity: 0.35;
-  animation: ring-spin 65s linear infinite;
-}
-
-/* Core */
-.sigil-core {
-  position: absolute;
-  width: 188px;
-  height: 188px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle at 35% 35%,
-    rgba(var(--ring-warm), 0.3) 0%,
-    rgba(15, 23, 42, 0.85) 65%
-  );
-  border: 1px solid rgba(var(--ring-warm), 0.35);
-  box-shadow:
-    0 0 40px rgba(var(--ring-warm), 0.25),
-    0 0 80px rgba(var(--ring-cool), 0.2);
   z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 200px;
 }
 
-.sigil-core-inner {
+.core-glow {
   position: absolute;
-  inset: 18px;
-  border: 1px solid rgba(var(--ring-cool), 0.35);
+  inset: 0;
+  background: radial-gradient(circle, rgba(245, 197, 66, 0.15) 0%, transparent 70%);
   border-radius: 50%;
-  box-shadow: inset 0 0 18px rgba(var(--ring-cool), 0.2);
-  animation: ring-spin 40s linear infinite;
+  filter: blur(20px);
+  animation: pulse 4s ease-in-out infinite;
 }
 
-/* Center Title */
 .center-title {
-  position: relative;
   text-align: center;
-  z-index: 1;
-  padding: 10px;
+  position: relative;
+  z-index: 2;
 }
 
 .section-title {
   font-family: var(--font-display-jp);
-  font-size: 26px;
-  font-weight: 600;
+  font-size: 32px;
+  font-weight: 700;
   color: var(--color-star-white);
-  letter-spacing: 0.15em;
+  letter-spacing: 0.2em;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
   margin-bottom: 8px;
-  text-shadow:
-    0 0 20px rgba(245, 197, 66, 0.5),
-    0 0 40px rgba(245, 197, 66, 0.3);
 }
 
 .section-subtitle {
   font-family: var(--font-display-en);
-  font-size: 11px;
-  font-style: italic;
+  font-size: 12px;
+  letter-spacing: 0.3em;
   color: var(--color-moon-silver);
-  letter-spacing: 0.2em;
   text-transform: uppercase;
-  opacity: 0.8;
+  opacity: 0.7;
 }
 
-/* Marker */
-.sigil-marker {
+/* Orbit Tracks (Simple Lines) */
+.orbit-track {
   position: absolute;
-  width: 12px;
-  height: 12px;
   border-radius: 50%;
-  left: 50%;
-  top: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   pointer-events: none;
-  transform: translate(-50%, -50%) rotate(var(--active-angle)) translateX(var(--marker-radius));
-  transform-origin: center;
-  background: radial-gradient(
-    circle,
-    rgba(var(--focus-accent), 0.95) 0%,
-    rgba(var(--focus-accent), 0.35) 60%,
-    transparent 70%
-  );
-  box-shadow: 0 0 18px rgba(var(--focus-accent), 0.6);
-  opacity: 0;
-  transition: opacity 0.3s ease;
 }
 
-/* Rotating Orbs Track */
-.orbs-track {
+.track-1 { width: 300px; height: 300px; border-style: dashed; opacity: 0.3; }
+.track-2 { width: 450px; height: 450px; opacity: 0.5; }
+.track-3 { width: 580px; height: 580px; border: 1px solid rgba(255, 255, 255, 0.04); }
+
+/* Rotating Track */
+.planets-track {
   position: absolute;
   width: 100%;
   height: 100%;
-  animation: orbit-spin var(--orbit-speed) linear infinite;
-  transition: animation-duration 0.8s ease;
-  z-index: 20;
+  animation: orbit-spin var(--system-speed) linear infinite;
   pointer-events: none;
 }
 
-/* Pause rotation when hovering the magic circle area for easy targeting */
-.magic-circle.is-energized .orbs-track {
+.celestial-system.is-energized .planets-track {
   animation-play-state: paused;
 }
 
@@ -455,10 +244,11 @@ function handleMouseLeave(): void {
   to { transform: rotate(360deg); }
 }
 
-/* Category Orb */
-.category-orb {
-  --orb-size: 92px;
-  --orbit-radius: 235px;
+/* Planet Orb */
+.planet-orb {
+  --orb-size: 80px;
+  --orbit-radius: 225px; /* Distance from center */
+  
   position: absolute;
   left: 50%;
   top: 50%;
@@ -466,31 +256,33 @@ function handleMouseLeave(): void {
   height: var(--orb-size);
   margin-left: calc(var(--orb-size) / -2);
   margin-top: calc(var(--orb-size) / -2);
+  
+  /* Position on orbit */
   transform: rotate(var(--orbit-angle)) translateX(var(--orbit-radius)) rotate(calc(-1 * var(--orbit-angle)));
+  
+  /* Initial Entry Animation */
   opacity: 0;
-  animation: orb-appear 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation: orb-entry 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
   animation-delay: var(--animation-delay);
+  
   text-decoration: none;
   pointer-events: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.category-orb::before {
-  content: '';
-  position: absolute;
-  inset: -35px;
-  border-radius: 50%;
-  cursor: pointer;
-  z-index: 1;
+/* Counter-rotate content to keep it upright */
+.planet-orb .orb-container {
+  animation: counter-rotate var(--system-speed) linear infinite;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* Counter-rotate orb content to keep text upright */
-.orbs-track .category-orb .orb-inner {
-  animation: counter-rotate var(--orbit-speed) linear infinite;
-  transition: animation-duration 0.8s ease;
-}
-
-/* Pause counter-rotate when hovering the magic circle area */
-.magic-circle.is-energized .orbs-track .category-orb .orb-inner {
+.celestial-system.is-energized .planet-orb .orb-container {
   animation-play-state: paused;
 }
 
@@ -499,540 +291,96 @@ function handleMouseLeave(): void {
   to { transform: rotate(-360deg); }
 }
 
-.orb-inner {
+/* Icon Wrapper */
+.icon-wrapper {
+  width: 64px;
+  height: 64px;
+  /* Glassy Background behind icon */
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+  transition: all 0.3s ease;
   position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle at 30% 30%,
-    rgba(var(--orb-accent), 0.4) 0%,
-    rgba(15, 23, 42, 0.88) 65%
-  );
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(var(--orb-accent), 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  cursor: pointer;
-  overflow: hidden;
 }
 
-.orb-glow {
-  position: absolute;
-  inset: -6px;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(var(--orb-accent), 0.55) 0%,
-    transparent 70%
-  );
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.orb-sigil {
-  position: absolute;
-  inset: 12px;
-  border-radius: 50%;
-  border: 1px dashed rgba(var(--orb-accent), 0.4);
-  opacity: 0.35;
-  transition: opacity 0.3s ease;
-}
-
-/* Show subtle glow on all orbs when container is hovered */
-.magic-circle.is-energized .category-orb .orb-glow {
-  opacity: 0.3;
-}
-
-/* Higher specificity to override is-energized state on hover */
-.magic-circle.is-energized .category-orb:hover .orb-glow,
-.category-orb:hover .orb-glow {
-  opacity: 1;
-}
-
-.category-orb:hover .orb-inner {
-  transform: scale(1.15);
-  border-color: rgba(var(--orb-accent), 0.7);
-  box-shadow:
-    0 0 30px rgba(var(--orb-accent), 0.5),
-    0 0 70px rgba(var(--orb-accent), 0.25);
-}
-
-.category-orb:hover .orb-sigil {
-  opacity: 0.85;
-  animation: ring-spin 8s linear infinite;
-}
-
-.orb-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  z-index: 1;
-}
-
-.orb-icon {
-  width: 68px;
-  height: 68px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.icon-wrapper img {
+  width: 110%; /* Pop out slightly */
+  height: 110%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
   transition: transform 0.3s ease;
 }
 
-.orb-icon img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  filter: drop-shadow(0 0 8px rgba(var(--orb-accent), 0.6));
-}
-
-.category-orb:hover .orb-icon {
-  transform: scale(1.15);
-}
-
-.orb-name {
-  font-family: var(--font-body);
-  font-size: 10px;
-  font-weight: 500;
-  color: rgba(226, 232, 240, 0.85);
-  text-align: center;
-  max-width: 65px;
-  line-height: 1.2;
-  transition: color 0.3s ease;
-}
-
-.category-orb:hover .orb-name {
-  color: rgba(var(--orb-accent), 0.95);
-}
-
-/* Focus */
-.category-orb:focus-visible .orb-inner {
-  box-shadow:
-    0 0 0 2px rgba(var(--orb-accent), 0.5),
-    0 0 20px rgba(var(--orb-accent), 0.4);
-}
-
-@keyframes orb-appear {
-  from {
-    opacity: 0;
-    transform: rotate(var(--orbit-angle)) translateX(0) rotate(calc(-1 * var(--orbit-angle))) scale(0.5);
-  }
-  to {
-    opacity: 1;
-    transform: rotate(var(--orbit-angle)) translateX(var(--orbit-radius)) rotate(calc(-1 * var(--orbit-angle))) scale(1);
-  }
-}
-
-/* Radials */
-.sigil-radials {
+/* Orb Halo (Active/Hover Glow) */
+.orb-halo {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-  opacity: 0.2;
-  animation: ring-spin 120s linear infinite;
-}
-
-.radial {
-  position: absolute;
-  width: 1px;
-  height: 760px;
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    rgba(245, 197, 66, 0.4) 50%,
-    transparent 100%
-  );
-  transform: rotate(var(--ray-angle));
-  transform-origin: center center;
-}
-
-/* Transitions */
-.title-fade-enter-active {
-  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.title-fade-enter-from {
-  opacity: 0;
-  transform: scale(0.9);
-}
-
-@keyframes ring-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-/* Ambient Particles */
-.ambient-particles {
-  position: absolute;
-  inset: -60px;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.ambient-particle {
-  position: absolute;
-  width: 3px;
-  height: 3px;
-  background: rgba(245, 197, 66, 0.6);
-  border-radius: 50%;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%) rotate(calc(var(--particle-index) * 18deg)) translateX(280px);
-  animation: ambient-float 8s ease-in-out infinite;
-  animation-delay: calc(var(--particle-index) * -0.4s);
-  opacity: 0;
-}
-
-.magic-circle.is-energized .ambient-particle {
-  opacity: 1;
-}
-
-@keyframes ambient-float {
-  0%, 100% {
-    transform: translate(0, 0) scale(1);
-    opacity: 0.3;
-  }
-  25% {
-    transform: translate(-10px, -20px) scale(1.2);
-    opacity: 0.8;
-  }
-  50% {
-    transform: translate(5px, -30px) scale(0.8);
-    opacity: 0.5;
-  }
-  75% {
-    transform: translate(-5px, -15px) scale(1.1);
-    opacity: 0.7;
-  }
-}
-
-/* Energy Beam */
-.energy-beam {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 2px;
-  height: var(--marker-radius);
-  transform-origin: top center;
-  transform: translateX(-50%) rotate(var(--active-angle));
-  background: linear-gradient(
-    180deg,
-    rgba(var(--focus-accent), 0.8) 0%,
-    rgba(var(--focus-accent), 0.3) 60%,
-    transparent 100%
-  );
-  pointer-events: none;
-  z-index: 5;
-  animation: beam-pulse 1.5s ease-in-out infinite;
-}
-
-.energy-beam::before {
-  content: '';
-  position: absolute;
-  inset: -3px;
-  background: linear-gradient(
-    180deg,
-    rgba(var(--focus-accent), 0.4) 0%,
-    transparent 80%
-  );
-  filter: blur(4px);
-}
-
-@keyframes beam-pulse {
-  0%, 100% { opacity: 0.7; }
-  50% { opacity: 1; }
-}
-
-/* Floating Runes */
-.floating-runes {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 3;
-}
-
-.floating-rune {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%) rotate(calc(var(--rune-index) * 45deg)) translateX(200px);
-  opacity: 0.4;
-}
-
-.floating-rune::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border: 1px solid rgba(var(--ring-warm), 0.5);
-  transform: rotate(45deg);
-  animation: rune-pulse 3s ease-in-out infinite;
-  animation-delay: calc(var(--rune-index) * 0.3s);
-}
-
-.magic-circle.is-energized .floating-rune {
-  opacity: 0.8;
-}
-
-@keyframes rune-pulse {
-  0%, 100% { transform: rotate(45deg) scale(1); opacity: 0.5; }
-  50% { transform: rotate(45deg) scale(1.3); opacity: 1; }
-}
-
-/* Core Pulse */
-.core-pulse {
-  position: absolute;
-  inset: -20px;
-  border-radius: 50%;
-  border: 2px solid rgba(var(--ring-warm), 0.3);
-  animation: core-pulse-expand 3s ease-out infinite;
-}
-
-.core-pulse::before {
-  content: '';
-  position: absolute;
-  inset: -15px;
-  border-radius: 50%;
-  border: 1px solid rgba(var(--ring-cool), 0.2);
-  animation: core-pulse-expand 3s ease-out infinite 0.5s;
-}
-
-@keyframes core-pulse-expand {
-  0% {
-    transform: scale(0.8);
-    opacity: 0.8;
-  }
-  100% {
-    transform: scale(1.5);
-    opacity: 0;
-  }
-}
-
-/* Orb Particles */
-.orb-particles {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
-.orb-particle {
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  background: rgba(var(--orb-accent), 0.8);
-  border-radius: 50%;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  top: -10px; left: -10px; right: -10px; bottom: 30px; /* Focus around icon */
+  background: radial-gradient(circle, rgba(var(--orb-accent), 0.4) 0%, transparent 70%);
   opacity: 0;
   transition: opacity 0.3s ease;
-}
-
-.category-orb:hover .orb-particle,
-.category-orb.is-active .orb-particle {
-  animation: orb-particle-orbit 2s ease-in-out infinite;
-  animation-delay: calc(var(--p-index) * -0.33s);
-  opacity: 1;
-}
-
-@keyframes orb-particle-orbit {
-  0% {
-    transform: translate(-50%, -50%) rotate(calc(var(--p-index) * 60deg)) translateX(35px) scale(1);
-    opacity: 0.9;
-  }
-  50% {
-    transform: translate(-50%, -50%) rotate(calc(var(--p-index) * 60deg + 180deg)) translateX(40px) scale(0.6);
-    opacity: 0.5;
-  }
-  100% {
-    transform: translate(-50%, -50%) rotate(calc(var(--p-index) * 60deg + 360deg)) translateX(35px) scale(1);
-    opacity: 0.9;
-  }
-}
-
-/* Orb Pulse Effect */
-.orb-pulse {
-  position: absolute;
-  inset: -10px;
+  z-index: -1;
   border-radius: 50%;
-  border: 2px solid rgba(var(--orb-accent), 0);
-  pointer-events: none;
+  transform: scale(0.8);
 }
 
-.category-orb:hover .orb-pulse,
-.category-orb.is-active .orb-pulse {
-  animation: orb-pulse-wave 1.2s ease-out infinite;
+/* Interactions */
+.planet-orb:hover .icon-wrapper {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(var(--orb-accent), 0.6);
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(var(--orb-accent), 0.3);
 }
 
-@keyframes orb-pulse-wave {
-  0% {
-    transform: scale(1);
-    border-color: rgba(var(--orb-accent), 0.6);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1.8);
-    border-color: rgba(var(--orb-accent), 0);
-    opacity: 0;
-  }
+.planet-orb:hover .icon-wrapper img {
+  transform: scale(1.15) translateY(-2px);
 }
 
-/* Active orb enhanced glow */
-.category-orb.is-active .orb-inner {
+.planet-orb:hover .orb-halo {
+  opacity: 1;
   transform: scale(1.2);
-  border-color: rgba(var(--orb-accent), 0.8);
-  box-shadow:
-    0 0 40px rgba(var(--orb-accent), 0.6),
-    0 0 80px rgba(var(--orb-accent), 0.3),
-    inset 0 0 20px rgba(var(--orb-accent), 0.2);
 }
 
-.category-orb.is-active .orb-glow {
-  opacity: 1;
-  transform: scale(1.3);
+.planet-orb:hover .orb-label {
+  color: rgba(var(--orb-accent), 1);
+  text-shadow: 0 0 10px rgba(var(--orb-accent), 0.5);
+  transform: translateY(2px);
 }
 
-.category-orb.is-active .orb-sigil {
-  opacity: 1;
-  animation: ring-spin 4s linear infinite;
+/* Label */
+.orb-label {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
-.category-orb.is-active .orb-icon {
-  transform: scale(1.15);
-  text-shadow: 0 0 20px rgba(var(--orb-accent), 0.8);
+@keyframes orb-entry {
+  from { opacity: 0; transform: rotate(var(--orbit-angle)) translateX(0) rotate(calc(-1 * var(--orbit-angle))) scale(0); }
+  to { opacity: 1; transform: rotate(var(--orbit-angle)) translateX(var(--orbit-radius)) rotate(calc(-1 * var(--orbit-angle))) scale(1); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.1); }
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .magic-circle {
-    width: 420px;
-    height: 420px;
-  }
-
-  .ring-outer {
-    width: 380px;
-    height: 380px;
-  }
-
-  .ring-middle {
-    width: 310px;
-    height: 310px;
-  }
-
-  .ring-inner {
-    width: 240px;
-    height: 240px;
-  }
-
-  .rune-ring {
-    width: 300px;
-    height: 300px;
-  }
-
-  .sigil-lines {
-    width: 200px;
-    height: 200px;
-  }
-
-  .sigil-core {
-    width: 150px;
-    height: 150px;
-  }
-
-  .sigil-core-inner {
-    inset: 14px;
-  }
-
-  .section-title {
-    font-size: 20px;
-  }
-
-  .section-subtitle {
-    font-size: 9px;
-  }
-
-  .category-orb {
-    --orb-size: 72px;
-    --orbit-radius: 170px;
-  }
-
-  .magic-circle {
-    --marker-radius: 170px;
-  }
-
-  .orb-icon {
-    font-size: 18px;
-  }
-
-  .orb-name {
-    font-size: 9px;
-    max-width: 55px;
-  }
-}
-
-@media (max-width: 480px) {
-  .magic-circle {
-    width: 340px;
-    height: 340px;
-  }
-
-  .ring-outer {
-    width: 300px;
-    height: 300px;
-  }
-
-  .ring-middle {
-    width: 240px;
-    height: 240px;
-  }
-
-  .ring-inner {
-    width: 190px;
-    height: 190px;
-  }
-
-  .rune-ring {
-    width: 230px;
-    height: 230px;
-  }
-
-  .sigil-core {
-    width: 130px;
-    height: 130px;
-  }
-
-  .sigil-core-inner {
-    inset: 12px;
-  }
-
-  .section-title {
-    font-size: 18px;
-  }
-
-  .category-orb {
-    --orb-size: 58px;
-    --orbit-radius: 130px;
-  }
-
-  .magic-circle {
-    --marker-radius: 130px;
-  }
-
-  .orb-icon {
-    font-size: 16px;
-  }
-
-  .orb-name {
-    font-size: 8px;
-    max-width: 48px;
-  }
+  .celestial-system { width: 360px; height: 360px; }
+  .track-1 { width: 180px; height: 180px; }
+  .track-2 { width: 260px; height: 260px; }
+  .track-3 { width: 340px; height: 340px; }
+  
+  .planet-orb { --orbit-radius: 130px; }
+  .icon-wrapper { width: 48px; height: 48px; }
+  .orb-label { font-size: 11px; }
+  .section-title { font-size: 24px; }
 }
 </style>

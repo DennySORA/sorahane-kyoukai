@@ -45,7 +45,7 @@ const themes: Record<ThemeType, ThemeConfig> = {
     },
     bgEffect: 'sakura',
     cardStyle: 'dialog',
-    backgroundImage: '/images/hero_bg.jpeg', // Fallback to hero for now, but heavily tinted
+    backgroundImage: '/images/galgame_bg.jpeg',
     layoutMode: 'left'
   },
   anime: {
@@ -62,7 +62,7 @@ const themes: Record<ThemeType, ThemeConfig> = {
     },
     bgEffect: 'speed-lines',
     cardStyle: 'tech',
-    backgroundImage: '/images/universe_bg.jpeg',
+    backgroundImage: '/images/anime_bg.jpeg',
     layoutMode: 'center'
   },
   programming: {
@@ -80,7 +80,8 @@ const themes: Record<ThemeType, ThemeConfig> = {
     bgEffect: 'matrix',
     cardStyle: 'terminal',
     layoutMode: 'console',
-    fontFamily: '"JetBrains Mono", "Fira Code", monospace'
+    fontFamily: '"JetBrains Mono", "Fira Code", monospace',
+    backgroundImage: '/images/code_bg.jpeg'
   },
   thoughts: {
     key: 'thoughts',
@@ -96,7 +97,8 @@ const themes: Record<ThemeType, ThemeConfig> = {
     },
     bgEffect: 'ripple',
     cardStyle: 'minimal',
-    layoutMode: 'zen'
+    layoutMode: 'zen',
+    backgroundImage: '/images/thoughts_bg.jpeg'
   },
   writing: {
     key: 'writing',
@@ -113,7 +115,8 @@ const themes: Record<ThemeType, ThemeConfig> = {
     bgEffect: 'ink',
     cardStyle: 'scroll',
     layoutMode: 'zen',
-    fontFamily: '"Shippori Mincho", serif'
+    fontFamily: '"Shippori Mincho", serif',
+    backgroundImage: '/images/writing_bg.jpeg'
   },
   health: {
     key: 'health',
@@ -129,7 +132,8 @@ const themes: Record<ThemeType, ThemeConfig> = {
     },
     bgEffect: 'aurora',
     cardStyle: 'soft',
-    layoutMode: 'center'
+    layoutMode: 'center',
+    backgroundImage: '/images/health_bg.jpeg'
   },
   music: {
     key: 'music',
@@ -145,7 +149,8 @@ const themes: Record<ThemeType, ThemeConfig> = {
     },
     bgEffect: 'visualizer',
     cardStyle: 'vinyl',
-    layoutMode: 'center'
+    layoutMode: 'center',
+    backgroundImage: '/images/music_bg.jpeg'
   },
   default: {
     key: 'default',

@@ -30,9 +30,10 @@ function animate() {
   ctx.font = `${charSize}px monospace`
   
   for (let i = 0; i < columns.length; i++) {
-    const text = chars[Math.floor(Math.random() * chars.length)]
+    const text = chars[Math.floor(Math.random() * chars.length)] ?? '0'
     const x = i * charSize
-    const y = columns[i] * charSize
+    const colY = columns[i] ?? 0
+    const y = colY * charSize
     
     // Highlight random characters
     if (Math.random() > 0.98) {
@@ -47,7 +48,10 @@ function animate() {
     if (y > canvas.value.height && Math.random() > 0.975) {
       columns[i] = 0
     }
-    columns[i]++
+    
+    if (columns[i] !== undefined) {
+      columns[i] = columns[i]! + 1
+    }
   }
   
   animationFrameId = requestAnimationFrame(animate)

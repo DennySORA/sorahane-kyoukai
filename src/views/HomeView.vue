@@ -71,12 +71,13 @@ onUnmounted(() => {
         />
       </div>
 
-      <!-- Enhanced Space Effect (Meteors, Stars, Nebula) -->
-      <CosmicParticles />
-
       <!-- Gradient Overlay -->
       <div class="gradient-overlay"></div>
     </div>
+
+    <!-- Enhanced Space Effect (Meteors, Stars, Nebula) -->
+    <!-- Moved outside background-container to ensure visibility -->
+    <CosmicParticles />
 
     <!-- Content Sections -->
     <div class="content-container">

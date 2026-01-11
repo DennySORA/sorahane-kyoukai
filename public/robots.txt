@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 # Sitemaps
-Sitemap: https://dennysora.me/sitemap.xml
+Sitemap: https://sorahane-kyoukai.org/sitemap.xml

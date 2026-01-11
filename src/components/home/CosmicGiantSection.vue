@@ -2,6 +2,7 @@
 import { ref, watch } from 'vue'
 import TypeWriter from '@/components/ui/TypeWriter.vue'
 import { useSectionVisibility } from '@/composables/useSectionVisibility'
+import { getAssetUrl } from '@/utils/assets'
 
 const { sectionRef, hasBeenVisible } = useSectionVisibility({ threshold: 0.3 })
 
@@ -47,7 +48,7 @@ const socialLinks = [
         <div v-if="showLogo" class="cosmic-logo-wrapper">
           <div class="cosmic-logo-glow"></div>
           <img
-            src="/images/personal_logo.png"
+            :src="getAssetUrl('/images/personal_logo.png')"
             alt="Cosmic Giant"
             class="cosmic-logo"
           />

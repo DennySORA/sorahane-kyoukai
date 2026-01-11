@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, watch, computed, onMounted, onUnmounted } from 'vue'
 import { useSectionVisibility } from '@/composables/useSectionVisibility'
+import { getAssetUrl } from '@/utils/assets'
 
 const { sectionRef, hasBeenVisible } = useSectionVisibility({ threshold: 0.3 })
 
@@ -44,14 +45,14 @@ interface Category {
 }
 
 const categories: Category[] = [
-  { name: 'Galgame', icon: 'G', href: '/galgame', accent: '245, 197, 66', iconImage: '/images/icons/galgame_icon.png' },
-  { name: '二次元天地', icon: '二', href: '/anime', accent: '236, 72, 153', iconImage: '/images/icons/anime_icon.png' },
-  { name: '程式技術', icon: '程', href: '/programming', accent: '129, 140, 248', iconImage: '/images/icons/programming_icon.png' },
-  { name: '遊戲開發', icon: '遊', href: '/gamedev', accent: '139, 92, 246', iconImage: '/images/icons/gamedev_icon.png' },
-  { name: '心境與筆記', icon: '心', href: '/thoughts', accent: '74, 124, 140', iconImage: '/images/icons/thoughts_icon.png' },
-  { name: '寫作技巧', icon: '寫', href: '/writing', accent: '251, 146, 60', iconImage: '/images/icons/writing_icon.png' },
-  { name: '健康知識', icon: '健', href: '/health', accent: '135, 206, 235', iconImage: '/images/icons/health_icon.png' },
-  { name: '音樂賞析', icon: '音', href: '/music', accent: '196, 181, 253', iconImage: '/images/icons/music_icon.png' }
+  { name: 'Galgame', icon: 'G', href: '/galgame', accent: '245, 197, 66', iconImage: getAssetUrl('/images/icons/galgame_icon.png') },
+  { name: '二次元天地', icon: '二', href: '/anime', accent: '236, 72, 153', iconImage: getAssetUrl('/images/icons/anime_icon.png') },
+  { name: '程式技術', icon: '程', href: '/programming', accent: '129, 140, 248', iconImage: getAssetUrl('/images/icons/programming_icon.png') },
+  { name: '遊戲開發', icon: '遊', href: '/gamedev', accent: '139, 92, 246', iconImage: getAssetUrl('/images/icons/gamedev_icon.png') },
+  { name: '心境與筆記', icon: '心', href: '/thoughts', accent: '74, 124, 140', iconImage: getAssetUrl('/images/icons/thoughts_icon.png') },
+  { name: '寫作技巧', icon: '寫', href: '/writing', accent: '251, 146, 60', iconImage: getAssetUrl('/images/icons/writing_icon.png') },
+  { name: '健康知識', icon: '健', href: '/health', accent: '135, 206, 235', iconImage: getAssetUrl('/images/icons/health_icon.png') },
+  { name: '音樂賞析', icon: '音', href: '/music', accent: '196, 181, 253', iconImage: getAssetUrl('/images/icons/music_icon.png') }
 ]
 
 const orbPositions = computed(() => {

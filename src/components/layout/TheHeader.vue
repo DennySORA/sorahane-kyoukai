@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
+import { getAssetUrl } from '@/utils/assets'
 
 interface NavItem {
   name: string
@@ -69,7 +70,7 @@ onUnmounted(() => {
       <router-link to="/" class="header-logo" @click="closeMobileMenu">
         <span class="logo-orb">
           <img
-            src="/images/logo.png"
+            :src="getAssetUrl('/images/logo.png')"
             alt="空羽ノ境"
             class="logo-image"
           />

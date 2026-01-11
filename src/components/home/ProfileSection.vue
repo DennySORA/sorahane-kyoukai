@@ -2,6 +2,7 @@
 import { ref, watch } from 'vue'
 import TypeWriter from '@/components/ui/TypeWriter.vue'
 import { useSectionVisibility } from '@/composables/useSectionVisibility'
+import { getAssetUrl } from '@/utils/assets'
 
 const { sectionRef, hasBeenVisible } = useSectionVisibility({ threshold: 0.3 })
 
@@ -43,7 +44,7 @@ const socialLinks = [
         <div v-if="showLogo" class="logo-wrapper">
           <div class="logo-halo"></div>
           <img
-            src="/images/personal_logo.png"
+            :src="getAssetUrl('/images/personal_logo.png')"
             alt="DennySORA"
             class="personal-logo"
           />

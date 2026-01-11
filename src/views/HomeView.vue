@@ -6,6 +6,7 @@ import CosmicParticles from '@/components/ui/CosmicParticles.vue'
 import HeroSection from '@/components/home/HeroSection.vue'
 import CosmicGiantSection from '@/components/home/CosmicGiantSection.vue'
 import CategoriesSection from '@/components/home/CategoriesSection.vue'
+import { getAssetUrl } from '@/utils/assets'
 
 const scrollStore = useScrollStore()
 const { progress } = useScrollProgress()
@@ -38,7 +39,7 @@ onUnmounted(() => {
         :style="{ opacity: scrollStore.backgroundOpacities.hero }"
       >
         <img
-          src="/images/hero_bg.jpeg"
+          :src="getAssetUrl('/images/hero_bg.jpeg')"
           alt=""
           class="bg-image"
           loading="eager"
@@ -51,7 +52,7 @@ onUnmounted(() => {
         :style="{ opacity: scrollStore.backgroundOpacities.universe }"
       >
         <img
-          src="/images/universe_bg.jpeg"
+          :src="getAssetUrl('/images/universe_bg.jpeg')"
           alt=""
           class="bg-image"
           loading="lazy"
@@ -64,7 +65,7 @@ onUnmounted(() => {
         :style="{ opacity: scrollStore.backgroundOpacities.sunrise }"
       >
         <img
-          src="/images/sunrise_bg.jpeg"
+          :src="getAssetUrl('/images/sunrise_bg.jpeg')"
           alt=""
           class="bg-image"
           loading="lazy"

@@ -48,7 +48,7 @@ const socialLinks = [
         <div v-if="showLogo" class="cosmic-logo-wrapper">
           <div class="cosmic-logo-glow"></div>
           <img
-            :src="getAssetUrl('/images/personal_logo.png')"
+            :src="getAssetUrl('/images/personal_logo.webp')"
             alt="Cosmic Giant"
             class="cosmic-logo"
           />

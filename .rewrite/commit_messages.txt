@@ -1,0 +1,631 @@
+cfe49d35fa8142650b7c9bcc25cb6b6e70b71de0
+chore(repo): add baseline gitignore
+
+- What: add a generated `.gitignore` covering Linux/macOS/Windows and Vue artifacts.
+- Why: keep OS junk and build outputs out of version control.
+
+Tests: not run (not provided)
+----
+9f12615e3eb73ec2b8b6dcfd9ede0f33090adbb6
+feat(scaffold): initialize Vue 3 + Tailwind app
+
+- What: add Vite + Vue 3 + Tailwind v4 scaffolding with Pinia and Vue Router.
+- What: include TypeScript configs, ESLint/Prettier, Vitest, Playwright, and Vite tooling.
+- What: add initial entry files and assets (`src/main.ts`, `src/App.vue`, `index.html`).
+- Why: establish the project foundation for development and testing.
+
+Tests: not run (not provided)
+----
+c893f2e990766090e0d35a183c9f38cfa66dd598
+chore(assets): add assistant notes and reference images
+
+- What: add `CLAUDE.md` guidance for project collaboration.
+- What: add reference images under `material/` for hero/background/logo assets.
+- Why: document assistant context and capture design references.
+
+Tests: not run (not provided)
+----
+85b997c39681051a3c7efd603f004260c08a34c3
+feat(home): build celestial homepage layout and navigation
+
+- What: add Hero, CosmicGiant, Categories, and Profile sections plus the header layout.
+- What: introduce UI components (TypeWriter, ScrollIndicator, CategoryOrb, StarBackground).
+- What: add scroll store/composables and wire router routes for category pages.
+- What: apply celestial theming, background transitions, and public image assets.
+- Why: deliver a themed landing experience with scroll-driven transitions and navigation.
+
+Tests: not run (not provided)
+----
+bbf8416acd8a28acd53b2ff90e8ad067237008f8
+fix(home): refine categories orbit and header sizing
+
+- What: center the section title, add rotating orbits, and refine hover pause behavior.
+- What: adjust orbital glow, ring styling, and responsive scaling in CategoriesSection.
+- What: increase header height and logo/text sizing for desktop and mobile.
+- Why: improve readability and interaction affordances.
+
+Tests: not run (not provided)
+----
+931caa130903f19f44f9f4b96be161a5f8181538
+docs(repo): add repository guidelines
+
+- What: add `AGENTS.md` with structure, tooling, and workflow conventions.
+- Why: document expectations for contributors and automation.
+
+Tests: not run (not provided)
+----
+ca527c3a47a137b3a999ac79916020b106cf6f88
+feat(ui): add cosmic particles and magic circle styling
+
+- What: add `CosmicParticles` canvas effect and render it in the app shell.
+- What: redesign CategoriesSection into a magic-circle layout with accent styling.
+- What: update header markup/styles and introduce global header height tokens.
+- Why: enrich the ambient visual system and align layout spacing.
+
+Tests: not run (not provided)
+----
+cef14819014228c29f832e52d7fe2dcd1f892a80
+feat(ui): tune logo glows and orb focus accents
+
+- What: add active accent tracking and pause orbiting when a category is focused.
+- What: boost magic circle focus styles and ring glow based on active category.
+- What: add hover lift/halo effects to cosmic and profile logos and resize header tokens.
+- Why: sharpen focus feedback and make hero/profile logos feel interactive.
+
+Tests: not run (not provided)
+----
+d1d3f7a13837c8733d28cf9fb76fc955acd4f9dc
+fix(ui): reduce hover jitter and rebalance logo sizes
+
+- What: remove hover speed boosts on the magic circle and only enhance glow.
+- What: add conic halo accents to hero/profile logos and switch to saturation filters.
+- What: dial back header and logo dimensions via updated header height tokens.
+- Why: stabilize hover behavior and keep header proportions consistent.
+
+Tests: not run (not provided)
+----
+65eb3e878a80ec1e85eeb90b460367b53735b2c8
+fix(ui): ensure orb hover hits and header sizing
+
+- What: set pointer-events on `.orbs-track` and `.category-orb` for reliable hover/click.
+- What: tighten hover glow specificity and align logo sizing to header height.
+- Why: improve interaction reliability on orbiting links.
+
+Tests: not run (not provided)
+----
+6b915389734c31cf69c48cd2262ec5255653ecd9
+fix(types): harden strict null handling in UI
+
+- What: add nullish fallbacks in CategoriesSection and CosmicParticles color selection.
+- What: type the CategoryView computed return and guard HomeView scroll progress reads.
+- What: ignore `.playwright-mcp` in `.gitignore`.
+- Why: satisfy TypeScript strictness and avoid undefined access.
+
+Tests: not run (not provided)
+----
+9e30638b561bf750c8b32271ca444ed96a405f02
+feat(ui): deepen cosmic effects and category feedback
+
+- What: enrich CosmicParticles with stronger palettes, layered depth, and meteor/nebula tweaks.
+- What: expand CategoriesSection hover/active visuals (particles, beams, runes, pulses).
+- What: adjust header logo sizing for stronger presence.
+- Why: make exploration interactions feel more alive and legible.
+
+Tests: not run (not provided)
+----
+8e105be5c4d2ed3c6ac9d61258a98284cb795077
+feat(theme): add category theme composable
+
+- What: introduce `useCategoryTheme` with route-based theme selection.
+- What: define ThemeConfig fields for colors, effects, card styles, layouts, and assets.
+- Why: centralize theme metadata for category pages.
+
+Tests: not run (not provided)
+----
+488ac0d159ac6720a292ff3666c4bc7677bf6ef9
+refactor(views): derive CategoryView from theme config
+
+- What: replace local category mapping with `useCategoryTheme` in CategoryView.
+- What: drive UI text and CSS variables from theme data.
+- Why: keep category metadata in a single source of truth.
+
+Tests: not run (not provided)
+----
+3051f55799c8c7dc03a88d409a19a2ed6a53e520
+feat(ui): add ThemeBackground with sakura effect
+
+- What: add `ThemeBackground` to render stars and theme-specific effects with transitions.
+- What: implement `SakuraParticles` canvas effect with falling petals.
+- Why: provide a reusable background layer for themed pages.
+
+Tests: not run (not provided)
+----
+483892a9072c99d8d2a4f24e7d8b50ffe9e030a6
+refactor(views): render theme background by effect key
+
+- What: replace `StarBackground` with `ThemeBackground` in CategoryView.
+- What: bind the effect to `currentTheme.bgEffect`.
+- Why: enable per-category background effects without view-level logic.
+
+Tests: not run (not provided)
+----
+711698dcd402e334f997e78688eebe65dcf7a7e6
+feat(ui): add theme-aware ArticleCard component
+
+- What: add `ArticleCard` props for title/excerpt/date/tags/thumbnail.
+- What: implement multiple card variants (dialog, terminal, tech, minimal, scroll, soft, vinyl).
+- Why: provide a reusable article presentation component.
+
+Tests: not run (not provided)
+----
+73daee93c59eef8f82f19a1d46052611159f6e22
+feat(views): render ArticleCard grid with sample data
+
+- What: add dummy article data in CategoryView and render cards with theme variants.
+- What: replace the "Coming Soon" placeholder with a responsive grid.
+- Why: visualize article layout in each themed category.
+
+Tests: not run (not provided)
+----
+e39fea3af2d502e680223bcfdaddde9f4403307c
+fix(ui): guard sakura color selection
+
+- What: add a nullish fallback when selecting random petal colors.
+- Why: avoid undefined color values under strict type checks.
+
+Tests: not run (not provided)
+----
+d742a732867679cd2ce79c10e50ac60141d6208a
+feat(ui): add core background effect components
+
+- What: add AudioVisualizer, AuroraBorealis, InkSpread, MatrixRain, RippleEffect, and SpeedLines.
+- Why: expand the available background effects for themes.
+
+Tests: not run (not provided)
+----
+e73e745bb6f93d8879db2e68fbf602851a43d2ca
+feat(ui): wire background effects into ThemeBackground
+
+- What: lazy-load MatrixRain, SpeedLines, RippleEffect, InkSpread, AuroraBorealis, and AudioVisualizer.
+- What: render effects based on `props.effect` with fade transitions.
+- Why: enable switching background effects at runtime.
+
+Tests: not run (not provided)
+----
+193ee6396854682c5b48e52d77910ff2e4bfdfd5
+fix(ui): add MatrixRain fallbacks for undefined values
+
+- What: default missing characters and column values to safe fallbacks.
+- What: guard column increment when entries are undefined.
+- Why: eliminate strict TypeScript errors in the animation loop.
+
+Tests: not run (not provided)
+----
+dc44fba2c16ad6684133ce14e731271a639e4486
+test(e2e): add theme effect smoke checks
+
+- What: add Playwright checks for category routes, titles, and effect selectors.
+- What: assert no console errors per route.
+- Why: catch broken effect rendering during UI changes.
+
+Tests: not run (not provided)
+----
+ea92c7dc3a79438e7711735f29d6ba7c8907d45b
+feat(theme): expand theme config for layouts and images
+
+- What: add text colors, overlay settings, background images, layout modes, and fonts.
+- What: revise per-category palettes, icons, effects, and card styles.
+- Why: support distinct layouts and backgrounds per category.
+
+Tests: not run (not provided)
+----
+27019aa42a3f96e80426b08bed479637ce997739
+feat(views): add layout modes and dynamic backgrounds
+
+- What: bind theme CSS vars for text, overlays, and fonts plus a background image fallback.
+- What: implement layout modes (center, left, console, zen) with tailored styling.
+- Why: let CategoryView adapt layout and typography to each theme.
+
+Tests: not run (not provided)
+----
+5171cb6fa880b54974d58d85f5e07965fb9857c6
+feat(ui): intensify ArticleCard variant styling
+
+- What: overhaul base card styling and hover treatments across variants.
+- What: redesign dialog, terminal, tech, minimal, scroll, soft, and vinyl variants.
+- Why: make each category’s card style visually distinct.
+
+Tests: not run (not provided)
+----
+3b8983ead38130a8d09affd1e7276abe47f37e52
+chore(theme): point backgrounds to dedicated images
+
+- What: replace shared background images with per-category files.
+- Why: allow each theme to use its own tailored artwork.
+
+Tests: not run (not provided)
+----
+9a098a84a297b8dd5994a282414ed3630f757f06
+style(theme): tune overlays for new background art
+
+- What: switch background image paths to `.png` assets per theme.
+- What: adjust overlay gradients and text colors for new imagery.
+- Why: maintain legibility and contrast with updated art.
+
+Tests: not run (not provided)
+----
+edc56a80d83c5c5ea64cf0d53c7e6a28d4f4e0e3
+style(ui): lighten vinyl card for bright themes
+
+- What: change vinyl cards to a light glass background with blur.
+- What: adjust hover shadow and title color for readability.
+- Why: keep music cards legible on light backgrounds.
+
+Tests: not run (not provided)
+----
+522426193e96f07f0d8d98b344bed8eae7bb02b3
+feat(theme): refine overlays and text shadows
+
+- What: adjust theme palettes and overlay gradients for clearer backgrounds.
+- What: add textShadow metadata for category themes.
+- Why: improve readability without heavy filters.
+
+Tests: not run (not provided)
+----
+eab6e41e522bd76212e0f00815883fd9afffa2e3
+feat(views): apply theme text-shadow variables
+
+- What: add a `--theme-text-shadow` CSS variable derived from theme config.
+- What: apply text-shadow to titles/subtitles/descriptions with smoother transitions.
+- Why: increase readability on lighter images.
+
+Tests: not run (not provided)
+----
+c150454941c8acda131ca332f05ab5cada4864ff
+style(ui): boost card readability on light images
+
+- What: add local gradients, stronger shadows, and opacity tweaks across variants.
+- What: refine hover states to maintain contrast on bright backgrounds.
+- Why: prevent text from washing out on lighter themes.
+
+Tests: not run (not provided)
+----
+a70e1d033e6fa352b9f5a5b5ed75a2910042c696
+feat(ui): add GodRays background effect
+
+- What: add the `GodRays.vue` effect component.
+- Why: provide a new ambient option for anime themes.
+
+Tests: not run (not provided)
+----
+a67cf5acc1449e1442f1a7f01b1f926b04c031e0
+fix(ui): swap effects with out-in transitions
+
+- What: refactor ThemeBackground to compute a single effect component map.
+- What: use an out-in transition with a keyed component to avoid overlap.
+- Why: prevent residue when switching background effects.
+
+Tests: not run (not provided)
+----
+0cb5bc78b2201e332983c461d7dee249cb81114e
+style(theme): adjust galgame palette and anime effect
+
+- What: lighten Galgame colors, overlays, and text shadow for better contrast.
+- What: switch Anime to the `god-rays` effect and refine glow settings.
+- Why: balance contrast for light-wash visuals.
+
+Tests: not run (not provided)
+----
+70cd24be8fcfc3d2032bdbfa164cd72d17060e58
+style(ui): reshape galgame cards as VN textbox
+
+- What: adjust dialog card borders, background, and title decoration to mimic VN UI.
+- What: soften hover motion and shadow for a textbox feel.
+- Why: align card styling with the Galgame theme.
+
+Tests: not run (not provided)
+----
+cbf087b965140507388508951d2cbc1d4cbfa60b
+fix(types): extend theme effect and shadow typings
+
+- What: add `god-rays` to the ThemeConfig `bgEffect` union.
+- What: add optional `textShadow` to ThemeConfig.
+- Why: keep typings aligned with theme data.
+
+Tests: not run (not provided)
+----
+6f865b7bcdb66341c661ddbb5f0f953c3ab95d0e
+test(e2e): target GodRays selector for anime
+
+- What: update the anime route selector to `.god-rays-container`.
+- Why: match the new background effect component.
+
+Tests: not run (not provided)
+----
+fb732d26e6f3885435d2e4fb7a85321839ea6d9b
+feat(home): amplify cosmic particles and scope to home
+
+- What: move `CosmicParticles` from `App.vue` into `HomeView`.
+- What: increase star density, meteor frequency, and nebula parallax in the effect.
+- What: replace the home star overlay with the enhanced cosmic canvas.
+- Why: enrich the home atmosphere without affecting other routes.
+
+Tests: not run (not provided)
+----
+9e4de14d03670f80def7f954f506743baa5687f0
+fix(home): place cosmic particles above background layers
+
+- What: move `CosmicParticles` outside the background container.
+- Why: ensure the effect renders above overlays with correct z-index.
+
+Tests: not run (not provided)
+----
+db6deb9154772d4c66196d88cde0a145193ae7b3
+style(theme): switch galgame/anime/music to light wash
+
+- What: revise colors, text, and overlays for Galgame, Anime, and Music themes.
+- Why: increase contrast between typography and bright backgrounds.
+
+Tests: not run (not provided)
+----
+04912f9568d6cf5d74c2d72144d9f3abf0f4e56c
+style(ui): adapt dialog and tech cards for light themes
+
+- What: lighten Galgame dialog cards and adjust title colors for dark text.
+- What: convert Anime tech cards to a lighter glass style with new hover shadows.
+- Why: maintain readability against light-wash backgrounds.
+
+Tests: not run (not provided)
+----
+505e45ac93c6ce8b2e53443eb3c5670006a23800
+feat(ui): add feather particle background effect
+
+- What: add `FeatherParticles.vue` canvas effect.
+- Why: provide a softer ambient option for anime themes.
+
+Tests: not run (not provided)
+----
+7f8366fce0f72d5f5d99d5e0d5a273fbaabdcb19
+fix(theme): register feather effect and tune colors
+
+- What: add `feathers` to ThemeBackground and the ThemeConfig effect union.
+- What: adjust Galgame/Anime overlays and switch Anime to the feather effect.
+- Why: restore visible effects and align palette to updated assets.
+
+Tests: not run (not provided)
+----
+b27aa45c4dcd5a717ea705e712e449e9e174522a
+test(e2e): update anime selector for feathers
+
+- What: check `.feather-canvas` for the anime route.
+- Why: match the updated anime effect.
+
+Tests: not run (not provided)
+----
+442c7c25523d7683a105ccb014f7e33fb229f71d
+refactor(views): remove sample article grid
+
+- What: delete dummy article data and `ArticleCard` rendering from CategoryView.
+- What: remove the articles grid styles.
+- Why: keep the category view focused on header content for now.
+
+Tests: not run (not provided)
+----
+fe26a155b7a26140d6f7195d2a3fabd4bcf3a803
+test(e2e): drop article grid assertions
+
+- What: remove Playwright assertions for `.articles-grid` and `.article-card`.
+- Why: align tests with the removal of sample articles.
+
+Tests: not run (not provided)
+----
+97b7167731e07b83f63b9b50bb0d7b969e5c7900
+feat(ui): add bubbles, dust, and snow effects
+
+- What: add canvas effects for bubbles, dust particles, and snowfall.
+- Why: expand the visual effect library for themes.
+
+Tests: not run (not provided)
+----
+041252c78cdc79ab9fe1f0cff4dc383578c4c0f8
+feat(ui): register bubbles/dust/snow in ThemeBackground
+
+- What: extend ThemeBackground effect mapping with bubbles, dust, and snow.
+- Why: enable new effects to be selected by theme.
+
+Tests: not run (not provided)
+----
+cda2b856e6e35d1be3fca53e793b64b0dd83f367
+style(ui): warm up health card styling
+
+- What: shift the soft card to a warm amber glass look with new border and shadows.
+- What: ensure card titles use theme text color for contrast.
+- Why: align health cards with the updated amber palette.
+
+Tests: not run (not provided)
+----
+056a16e764eed695fa42441ec18781fdf516fdb3
+test(e2e): update effect selectors for new themes
+
+- What: switch anime to `.bubble-canvas`, writing to `.dust-canvas`, and health to `.snow-canvas`.
+- Why: keep theme visual checks aligned with current effects.
+
+Tests: not run (not provided)
+----
+665ad1458a1a134dd3bfd3451821ac60e10f1f29
+fix(theme): apply missed effect and color updates
+
+- What: extend ThemeConfig `bgEffect` to include bubbles, dust, and snow.
+- What: switch anime to bubbles, writing to dust, and health to snow with updated colors.
+- Why: complete theme changes missed in the previous pass.
+
+Tests: not run (not provided)
+----
+435ebad2a088ff2625c0925a2932a4e3ab64693f
+style(ui): sharpen sakura petals and colors
+
+- What: adjust petal palette, size, speed, and sway for stronger visibility.
+- What: replace oval petals with a sakura-like shape and add vein details.
+- Why: make the Galgame background effect more distinct.
+
+Tests: not run (not provided)
+----
+17bc9c7c20140df297c0017e3a7e7c136b35da0f
+fix(views): layer ThemeBackground above overlay
+
+- What: move `ThemeBackground` after the overlay layer in CategoryView.
+- Why: keep effect canvases visible above overlays.
+
+Tests: not run (not provided)
+----
+e52da09c8687aae7b85666890b07f554cdeefc76
+style(ui): intensify audio visualizer bars
+
+- What: increase visualizer height/opacity and widen bar spacing.
+- What: adjust gradients, glow, and bounce range for stronger motion.
+- Why: make the music effect more visible.
+
+Tests: not run (not provided)
+----
+e1c79dde13c6802339c2d4df6a26c1fe3f2fb499
+style(ui): add 3D flip sakura motion
+
+- What: add flip motion to petals and apply 3D scaling during render.
+- What: increase petal count/size and redraw with a more realistic sakura shape.
+- Why: create a richer, more lifelike falling-petal effect.
+
+Tests: not run (not provided)
+----
+60b22bcd53aa14ca1b7183e26aa949d5c6669f22
+style(ui): soften audio visualizer intensity
+
+- What: reduce visualizer height/opacity and thin bars with slower animation.
+- What: adjust bar gradient and spacing for a subtler footprint.
+- Why: keep music effects from overpowering the page.
+
+Tests: not run (not provided)
+----
+9d0a516a153e3410590ff41e772e4258fb3067bb
+style(ui): reduce sakura petal size and speed
+
+- What: increase particle count but shrink petal size and slow fall speeds.
+- Why: achieve a more delicate sakura effect.
+
+Tests: not run (not provided)
+----
+bbc706c10d16a1bf7cf5f5af2986bbe66f586363
+feat(home): use image icons for category orbs
+
+- What: add `iconImage` paths to categories and render images inside orbs.
+- What: update orb icon sizing and hover scaling with drop shadows.
+- Why: replace text glyphs with branded imagery.
+
+Tests: not run (not provided)
+----
+1dca725a801b55c1ef7f6ed63755db2fe9e9a6cb
+feat(theme): use image icons in category headers
+
+- What: update ThemeConfig icons to image paths (including the default logo).
+- What: render theme icons as `<img>` in CategoryView with drop-shadow styling.
+- Why: align category headers with the new icon set.
+
+Tests: not run (not provided)
+----
+1580db1b90bda2c22040bc644fd52bab2a29b6ba
+style(ui): enlarge category icon displays
+
+- What: increase orb icon size in CategoriesSection.
+- What: scale CategoryView header icons up for better visibility.
+- Why: make new icon assets readable at a glance.
+
+Tests: not run (not provided)
+----
+b346603cfe5e19349652ed8ad68673526adf32c5
+style(ui): maximize category icon and container sizes
+
+- What: further enlarge orb icons and header icon containers.
+- What: increase icon image scale within the header circle.
+- Why: improve visibility of detailed icon artwork.
+
+Tests: not run (not provided)
+----
+4626a15c8574a11aee0c06e3fba6bb7157f1db78
+feat(app): add gamedev category route and theme
+
+- What: add Game Development to CategoriesSection and header navigation.
+- What: add `gamedev` theme metadata with colors, icons, and background assets.
+- What: register the `/gamedev` route in the router.
+- Why: introduce a new category in navigation and theming.
+
+Tests: not run (not provided)
+----
+bb32812506e9304f2767f4803bf1c41df9c413ad
+feat(theme): add pixel background for gamedev
+
+- What: add `PixelParticles` and register `pixel` in ThemeBackground and ThemeConfig.
+- What: retune the gamedev palette and switch its background effect to pixel dust.
+- Why: give the gamedev category a retro RPG vibe.
+
+Tests: not run (not provided)
+----
+5de3cbad1d361a6b71152243d93e5d40bfabd77e
+feat(ui): add RPG card variant for gamedev
+
+- What: add `.card-rpg` styling with retro borders, colors, and a blinking cue.
+- What: extend ThemeConfig `cardStyle` to include `rpg` and assign it to gamedev.
+- Why: match gamedev cards to the pixel RPG theme.
+
+Tests: not run (not provided)
+----
+c377917e2c7a31b80635a895e2f371ede9699e5d
+fix(theme): restore full ThemeConfig structure
+
+- What: reintroduce `layoutMode`, `fontFamily`, and `textShadow` in ThemeConfig.
+- What: restore the full `themes` object after placeholder removal.
+- Why: keep theme data complete and type-safe.
+
+Tests: not run (not provided)
+----
+da21637d2a8b6410fa0ce17867dc28dda4b58737
+feat(ui): add literary particle effect
+
+- What: add `LiteraryParticles` with floating character animation.
+- What: register the `literary` effect in ThemeBackground.
+- Why: provide a writing-themed background effect.
+
+Tests: not run (not provided)
+----
+aea0b948679d2f1d258b7e999b567bd3b23ca04a
+style(theme): switch writing effect to literary
+
+- What: update the writing theme `bgEffect` to `literary`.
+- Why: align the writing category with the new literary particles.
+
+Tests: not run (not provided)
+----
+c851f245bebbc19453fdfb0e5b46ffeb7256c56d
+chore(assets): add theme images and icon set
+
+- What: add category background images and icon PNGs under `public/images`.
+- What: add Gemini config files and set Playwright to run headless.
+- Why: supply theme assets and keep test runs consistent.
+
+Tests: not run (not provided)
+----
+5c915003068de4304960e88a936539b963270313
+test(e2e): point writing check to literary effect
+
+- What: update the writing route selector to `.literary-canvas`.
+- Why: match the new writing background effect.
+
+Tests: not run (not provided)
+----
+7dd7ea77c4c89514ce572f016921a3a33aaf1a64
+style(home): redesign categories into celestial orbit
+
+- What: replace magic-circle markup with a celestial system layout and orbit tracks.
+- What: restyle orbiting category planets with new halo/icon/label treatments.
+- What: update responsive sizing rules for the new layout.
+- Why: present categories as a more modern, space-themed navigation centerpiece.
+
+Tests: not run (not provided)

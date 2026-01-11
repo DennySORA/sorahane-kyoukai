@@ -70,7 +70,7 @@ onUnmounted(() => {
       <router-link to="/" class="header-logo" @click="closeMobileMenu">
         <span class="logo-orb">
           <img
-            :src="getAssetUrl('/images/logo.png')"
+            :src="getAssetUrl('/images/logo.webp')"
             alt="空羽ノ境"
             class="logo-image"
           />

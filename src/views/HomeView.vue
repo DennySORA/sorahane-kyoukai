@@ -39,7 +39,7 @@ onUnmounted(() => {
         :style="{ opacity: scrollStore.backgroundOpacities.hero }"
       >
         <img
-          :src="getAssetUrl('/images/hero_bg.jpeg')"
+          :src="getAssetUrl('/images/hero_bg.webp')"
           alt=""
           class="bg-image"
           loading="eager"
@@ -52,7 +52,7 @@ onUnmounted(() => {
         :style="{ opacity: scrollStore.backgroundOpacities.universe }"
       >
         <img
-          :src="getAssetUrl('/images/universe_bg.jpeg')"
+          :src="getAssetUrl('/images/universe_bg.webp')"
           alt=""
           class="bg-image"
           loading="lazy"
@@ -65,7 +65,7 @@ onUnmounted(() => {
         :style="{ opacity: scrollStore.backgroundOpacities.sunrise }"
       >
         <img
-          :src="getAssetUrl('/images/sunrise_bg.jpeg')"
+          :src="getAssetUrl('/images/sunrise_bg.webp')"
           alt=""
           class="bg-image"
           loading="lazy"

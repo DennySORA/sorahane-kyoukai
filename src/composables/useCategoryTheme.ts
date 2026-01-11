@@ -39,7 +39,7 @@ const themes: Record<ThemeType, ThemeConfig> = {
     title: 'Galgame',
     subtitle: 'Visual Novel Adventures',
     description: '探索視覺小說的世界，分享遊戲心得與推薦',
-    icon: getAssetUrl('/images/icons/galgame_icon.png'),
+    icon: getAssetUrl('/images/icons/galgame_icon.webp'),
     colors: {
       primary: '#db2777', // pink-600
       accent: '#be185d', // pink-700
@@ -48,7 +48,7 @@ const themes: Record<ThemeType, ThemeConfig> = {
     },
     bgEffect: 'sakura',
     cardStyle: 'dialog',
-    backgroundImage: getAssetUrl('/images/galgame_bg.png'),
+    backgroundImage: getAssetUrl('/images/galgame_bg.webp'),
     layoutMode: 'left',
     textShadow: '0 0 20px rgba(255, 255, 255, 0.8)'
   },
@@ -57,7 +57,7 @@ const themes: Record<ThemeType, ThemeConfig> = {
     title: '二次元天地',
     subtitle: 'Anime & Manga World',
     description: '動漫評論、角色分析、作品推薦',
-    icon: getAssetUrl('/images/icons/anime_icon.png'),
+    icon: getAssetUrl('/images/icons/anime_icon.webp'),
     colors: {
       primary: '#0284c7', // sky-600
       accent: '#ca8a04', // yellow-600
@@ -66,7 +66,7 @@ const themes: Record<ThemeType, ThemeConfig> = {
     },
     bgEffect: 'bubbles',
     cardStyle: 'tech',
-    backgroundImage: getAssetUrl('/images/anime_bg.png'),
+    backgroundImage: getAssetUrl('/images/anime_bg.webp'),
     layoutMode: 'center',
     textShadow: '0 0 20px rgba(255, 255, 255, 0.8)'
   },
@@ -75,7 +75,7 @@ const themes: Record<ThemeType, ThemeConfig> = {
     title: '程式技術',
     subtitle: 'System.out.println("Hello World");',
     description: '技術文章、開發心得、程式教學',
-    icon: getAssetUrl('/images/icons/programming_icon.png'),
+    icon: getAssetUrl('/images/icons/programming_icon.webp'),
     colors: {
       primary: '#4ade80', // green-400
       accent: '#22c55e', // green-500
@@ -86,7 +86,7 @@ const themes: Record<ThemeType, ThemeConfig> = {
     cardStyle: 'terminal',
     layoutMode: 'console',
     fontFamily: '"JetBrains Mono", "Fira Code", monospace',
-    backgroundImage: getAssetUrl('/images/code_bg.png'),
+    backgroundImage: getAssetUrl('/images/code_bg.webp'),
     textShadow: '0 0 10px rgba(74, 222, 128, 0.5)'
   },
   gamedev: {
@@ -94,7 +94,7 @@ const themes: Record<ThemeType, ThemeConfig> = {
     title: '遊戲開發',
     subtitle: 'Press Start to Begin',
     description: '遊戲引擎、圖學渲染、關卡設計',
-    icon: getAssetUrl('/images/icons/gamedev_icon.png'),
+    icon: getAssetUrl('/images/icons/gamedev_icon.webp'),
     colors: {
       primary: '#facc15', // gold
       accent: '#ef4444', // red
@@ -105,7 +105,7 @@ const themes: Record<ThemeType, ThemeConfig> = {
     cardStyle: 'rpg',
     layoutMode: 'console',
     fontFamily: '"Courier New", Courier, monospace',
-    backgroundImage: getAssetUrl('/images/gamedev_bg.png'),
+    backgroundImage: getAssetUrl('/images/gamedev_bg.webp'),
     textShadow: '2px 2px 0px #451a03'
   },
   thoughts: {
@@ -113,7 +113,7 @@ const themes: Record<ThemeType, ThemeConfig> = {
     title: '心境與筆記',
     subtitle: 'Thoughts & Notes',
     description: '生活隨筆、思考紀錄、個人感想',
-    icon: getAssetUrl('/images/icons/thoughts_icon.png'),
+    icon: getAssetUrl('/images/icons/thoughts_icon.webp'),
     colors: {
       primary: '#94a3b8', // slate-400
       accent: '#cbd5e1', // slate-300
@@ -123,7 +123,7 @@ const themes: Record<ThemeType, ThemeConfig> = {
     bgEffect: 'ripple',
     cardStyle: 'minimal',
     layoutMode: 'zen',
-    backgroundImage: getAssetUrl('/images/thoughts_bg.png'),
+    backgroundImage: getAssetUrl('/images/thoughts_bg.webp'),
     textShadow: '0 4px 12px rgba(0, 0, 0, 0.8)'
   },
   writing: {
@@ -131,7 +131,7 @@ const themes: Record<ThemeType, ThemeConfig> = {
     title: '寫作技巧',
     subtitle: 'The Art of Storytelling',
     description: '創作心法、寫作技巧、故事構思',
-    icon: getAssetUrl('/images/icons/writing_icon.png'),
+    icon: getAssetUrl('/images/icons/writing_icon.webp'),
     colors: {
       primary: '#e2e8f0', // slate-200
       accent: '#fcd34d', // amber-300
@@ -142,7 +142,7 @@ const themes: Record<ThemeType, ThemeConfig> = {
     cardStyle: 'scroll',
     layoutMode: 'zen',
     fontFamily: '"Shippori Mincho", serif',
-    backgroundImage: getAssetUrl('/images/writing_bg.png'),
+    backgroundImage: getAssetUrl('/images/writing_bg.webp'),
     textShadow: '0 2px 4px rgba(0,0,0,0.5)'
   },
   health: {
@@ -150,7 +150,7 @@ const themes: Record<ThemeType, ThemeConfig> = {
     title: '健康知識',
     subtitle: 'Body & Soul',
     description: '健康資訊、生活習慣、身心平衡',
-    icon: getAssetUrl('/images/icons/health_icon.png'),
+    icon: getAssetUrl('/images/icons/health_icon.webp'),
     colors: {
       primary: '#f59e0b', // amber-500
       accent: '#d97706', // amber-600
@@ -160,7 +160,7 @@ const themes: Record<ThemeType, ThemeConfig> = {
     bgEffect: 'snow',
     cardStyle: 'soft',
     layoutMode: 'center',
-    backgroundImage: getAssetUrl('/images/health_bg.png'),
+    backgroundImage: getAssetUrl('/images/health_bg.webp'),
     textShadow: 'none'
   },
   music: {
@@ -168,7 +168,7 @@ const themes: Record<ThemeType, ThemeConfig> = {
     title: '音樂賞析',
     subtitle: 'Resonance',
     description: '音樂評論、專輯推薦、聆聽感想',
-    icon: getAssetUrl('/images/icons/music_icon.png'),
+    icon: getAssetUrl('/images/icons/music_icon.webp'),
     colors: {
       primary: '#a21caf', // fuchsia-700
       accent: '#4338ca', // indigo-700
@@ -178,7 +178,7 @@ const themes: Record<ThemeType, ThemeConfig> = {
     bgEffect: 'visualizer',
     cardStyle: 'vinyl',
     layoutMode: 'center',
-    backgroundImage: getAssetUrl('/images/music_bg.png'),
+    backgroundImage: getAssetUrl('/images/music_bg.webp'),
     textShadow: 'none'
   },
   default: {
@@ -186,7 +186,7 @@ const themes: Record<ThemeType, ThemeConfig> = {
     title: '分類',
     subtitle: 'Category',
     description: '探索空羽ノ境的各類文章',
-    icon: getAssetUrl('/images/logo.png'), // Fallback to logo
+    icon: getAssetUrl('/images/logo.webp'), // Fallback to logo
     colors: {
       primary: '#f5c542',
       accent: '#312e81',
@@ -195,7 +195,7 @@ const themes: Record<ThemeType, ThemeConfig> = {
     },
     bgEffect: 'stars',
     cardStyle: 'minimal',
-    backgroundImage: getAssetUrl('/images/universe_bg.jpeg'),
+    backgroundImage: getAssetUrl('/images/universe_bg.webp'),
     layoutMode: 'center'
   }
 }

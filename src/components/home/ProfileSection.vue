@@ -44,7 +44,7 @@ const socialLinks = [
         <div v-if="showLogo" class="logo-wrapper">
           <div class="logo-halo"></div>
           <img
-            :src="getAssetUrl('/images/personal_logo.png')"
+            :src="getAssetUrl('/images/personal_logo.webp')"
             alt="DennySORA"
             class="personal-logo"
           />

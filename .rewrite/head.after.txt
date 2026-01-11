@@ -1,0 +1,14 @@
+commit 2deb26ab734bc625e04cec0f421d84a34e963fe3
+Author:     DennySORA <dennysora.main@gmail.com>
+AuthorDate: Sun Jan 11 04:33:14 2026 +0800
+Commit:     DennySORA <dennysora.main@gmail.com>
+CommitDate: Sun Jan 11 04:33:14 2026 +0800
+
+    style(home): redesign categories into celestial orbit
+    
+    - What: replace magic-circle markup with a celestial system layout and orbit tracks.
+    - What: restyle orbiting category planets with new halo/icon/label treatments.
+    - What: update responsive sizing rules for the new layout.
+    - Why: present categories as a more modern, space-themed navigation centerpiece.
+    
+    Tests: not run (not provided)

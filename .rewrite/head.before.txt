@@ -1,0 +1,7 @@
+commit 7dd7ea77c4c89514ce572f016921a3a33aaf1a64
+Author:     DennySORA <dennysora.main@gmail.com>
+AuthorDate: Sun Jan 11 04:33:14 2026 +0800
+Commit:     DennySORA <dennysora.main@gmail.com>
+CommitDate: Sun Jan 11 04:33:14 2026 +0800
+
+    style(home): redesign CategoriesSection to celestial orbit style

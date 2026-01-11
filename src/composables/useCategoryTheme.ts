@@ -24,7 +24,7 @@ export interface ThemeConfig {
     text: string // Specific text color override
     bgOverlay: string // Specific overlay color/opacity
   }
-  bgEffect: 'sakura' | 'speed-lines' | 'matrix' | 'ripple' | 'ink' | 'aurora' | 'visualizer' | 'stars' | 'god-rays' | 'feathers' | 'bubbles' | 'dust' | 'snow' | 'pixel'
+  bgEffect: 'sakura' | 'speed-lines' | 'matrix' | 'ripple' | 'ink' | 'aurora' | 'visualizer' | 'stars' | 'god-rays' | 'feathers' | 'bubbles' | 'dust' | 'snow' | 'pixel' | 'literary'
   cardStyle: 'dialog' | 'tech' | 'terminal' | 'minimal' | 'scroll' | 'soft' | 'vinyl' | 'rpg'
   backgroundImage?: string
   layoutMode: 'center' | 'left' | 'console' | 'zen'

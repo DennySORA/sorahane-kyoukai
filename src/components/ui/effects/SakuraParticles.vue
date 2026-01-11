@@ -42,6 +42,7 @@ function createPetal(yOverride?: number): Petal {
     '255, 105, 180', // HotPink
     '255, 240, 245'  // LavenderBlush
   ]
+  const color = colors[Math.floor(Math.random() * colors.length)] ?? '255, 192, 203'
   
   return {
     x: Math.random() * window.innerWidth,
@@ -53,7 +54,7 @@ function createPetal(yOverride?: number): Petal {
     rotationSpeed: (Math.random() * 2 - 1) * 0.5,
     flip: Math.random() * Math.PI,
     flipSpeed: Math.random() * 0.03 + 0.01,
-    color: colors[Math.floor(Math.random() * colors.length)],
+    color,
     opacity: Math.random() * 0.5 + 0.5
   }
 }
@@ -116,17 +117,19 @@ onMounted(() => {
     createParticles()
     animate()
     
-    window.addEventListener('resize', () => {
-      resizeCanvas()
-      createParticles()
-    })
+    window.addEventListener('resize', handleResize)
   }
 })
 
 onUnmounted(() => {
   cancelAnimationFrame(animationFrameId)
-  window.removeEventListener('resize', resizeCanvas)
+  window.removeEventListener('resize', handleResize)
 })
+
+function handleResize() {
+  resizeCanvas()
+  createParticles()
+}
 </script>
 
 <template>

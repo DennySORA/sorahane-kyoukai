@@ -9,8 +9,8 @@ interface Props {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  maxParticles: 350,
-  density: 6000,
+  maxParticles: 100,
+  density: 12000,
   enableMeteors: true,
   enableNebula: true
 })
@@ -75,6 +75,7 @@ let dpr = 1
 let rafId: number | null = null
 let reduceMotion = false
 let motionQuery: MediaQueryList | null = null
+let isPageVisible = true
 
 const pointer = {
   x: 0.5,
@@ -176,10 +177,10 @@ function seedParticles(): void {
   const count = Math.min(props.maxParticles, Math.floor(area / props.density))
   particles = Array.from({ length: Math.max(count, 50) }, () => buildStar())
 
-  // Seed nebula particles for background atmosphere
+  // Seed nebula particles for background atmosphere (reduced count for performance)
   if (props.enableNebula) {
-    const nebulaCount = Math.min(12, Math.floor(area / 120000))
-    nebulas = Array.from({ length: Math.max(nebulaCount, 5) }, () => buildNebula())
+    const nebulaCount = Math.min(4, Math.floor(area / 200000))
+    nebulas = Array.from({ length: Math.max(nebulaCount, 2) }, () => buildNebula())
   }
 
   meteors = []
@@ -258,10 +259,9 @@ function renderFrame(time: number): void {
     }
   }
 
-  // Render stars with layered depth
+  // Render stars with layered depth (no shadowBlur for performance)
   ctx.globalCompositeOperation = 'lighter'
-  ctx.shadowBlur = 12
-  ctx.shadowColor = 'rgba(248, 250, 252, 0.25)'
+  ctx.shadowBlur = 0
 
   for (const particle of particles) {
     if (!reduceMotion) {
@@ -283,15 +283,6 @@ function renderFrame(time: number): void {
 
     const drawX = particle.x + parallaxX
     const drawY = particle.y + parallaxY
-
-    // Add glow for near-layer stars
-    if (particle.layer === 'near') {
-      ctx.shadowBlur = 16
-      ctx.shadowColor = `rgba(${particle.color.r}, ${particle.color.g}, ${particle.color.b}, 0.5)`
-    } else {
-      ctx.shadowBlur = particle.layer === 'mid' ? 8 : 4
-      ctx.shadowColor = 'rgba(248, 250, 252, 0.15)'
-    }
 
     ctx.fillStyle = `rgba(${particle.color.r}, ${particle.color.g}, ${particle.color.b}, ${alpha})`
     ctx.beginPath()
@@ -319,7 +310,6 @@ function renderFrame(time: number): void {
       meteorSpawnTimer = 0
     }
 
-    ctx.shadowBlur = 24
     for (let i = meteors.length - 1; i >= 0; i--) {
       const meteor = meteors[i]
       if (!meteor) continue
@@ -339,21 +329,10 @@ function renderFrame(time: number): void {
         continue
       }
 
-      ctx.shadowColor = `rgba(${meteor.color.r}, ${meteor.color.g}, ${meteor.color.b}, 0.8)`
-
-      // Draw meteor trail with gradient
-      const trailLength = 180 * fadeOut
-      const gradient = ctx.createLinearGradient(
-        meteor.x, meteor.y,
-        meteor.x - meteor.vx * trailLength / Math.abs(meteor.vx || 1),
-        meteor.y - meteor.vy * trailLength / Math.abs(meteor.vy || 1)
-      )
-      gradient.addColorStop(0, `rgba(${meteor.color.r}, ${meteor.color.g}, ${meteor.color.b}, ${alpha})`)
-      gradient.addColorStop(0.4, `rgba(${meteor.color.r}, ${meteor.color.g}, ${meteor.color.b}, ${alpha * 0.4})`)
-      gradient.addColorStop(1, 'transparent')
-
-      ctx.strokeStyle = gradient
-      ctx.lineWidth = meteor.radius * 1.5
+      // Draw meteor trail (simple line instead of gradient for performance)
+      const trailLength = 120 * fadeOut
+      ctx.strokeStyle = `rgba(${meteor.color.r}, ${meteor.color.g}, ${meteor.color.b}, ${alpha * 0.7})`
+      ctx.lineWidth = meteor.radius
       ctx.lineCap = 'round'
       ctx.beginPath()
       ctx.moveTo(meteor.x, meteor.y)
@@ -391,7 +370,18 @@ function handleMotionChange(event: MediaQueryListEvent): void {
     renderFrame(0)
     return
   }
-  rafId = requestAnimationFrame(animate)
+  if (isPageVisible) {
+    rafId = requestAnimationFrame(animate)
+  }
+}
+
+function handleVisibilityChange(): void {
+  isPageVisible = !document.hidden
+  if (isPageVisible && !reduceMotion && rafId === null) {
+    rafId = requestAnimationFrame(animate)
+  } else if (!isPageVisible) {
+    stopAnimation()
+  }
 }
 
 onMounted(() => {
@@ -407,18 +397,23 @@ onMounted(() => {
     motionQuery.addListener(handleMotionChange)
   }
 
+  // Track page visibility to pause animation when hidden
+  isPageVisible = !document.hidden
+  document.addEventListener('visibilitychange', handleVisibilityChange)
+
   resizeCanvas()
   window.addEventListener('resize', resizeCanvas, { passive: true })
   window.addEventListener('mousemove', updatePointer, { passive: true })
   window.addEventListener('touchmove', updateTouch, { passive: true })
 
-  if (!reduceMotion) {
+  if (!reduceMotion && isPageVisible) {
     rafId = requestAnimationFrame(animate)
   }
 })
 
 onUnmounted(() => {
   stopAnimation()
+  document.removeEventListener('visibilitychange', handleVisibilityChange)
   window.removeEventListener('resize', resizeCanvas)
   window.removeEventListener('mousemove', updatePointer)
   window.removeEventListener('touchmove', updateTouch)

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted } from 'vue'
+import { watch } from 'vue'
 import { useScrollStore } from '@/stores/scroll'
 import { useScrollProgress } from '@/composables/useScrollProgress'
 import CosmicParticles from '@/components/ui/CosmicParticles.vue'
@@ -11,22 +11,10 @@ import { getAssetUrl } from '@/utils/assets'
 const scrollStore = useScrollStore()
 const { progress } = useScrollProgress()
 
-let rafId: number | null = null
-
-function updateScrollState(): void {
-  scrollStore.setScrollProgress(progress.value ?? 0)
-  rafId = requestAnimationFrame(updateScrollState)
-}
-
-onMounted(() => {
-  updateScrollState()
-})
-
-onUnmounted(() => {
-  if (rafId !== null) {
-    cancelAnimationFrame(rafId)
-  }
-})
+// Update store only when progress changes (not every frame)
+watch(progress, (newProgress) => {
+  scrollStore.setScrollProgress(newProgress ?? 0)
+}, { immediate: true })
 </script>
 
 <template>
